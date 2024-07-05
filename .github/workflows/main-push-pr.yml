@@ -5,6 +5,12 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      format_code:
+        description: 'Run Prettier to format code? (yes/no)'
+        required: true
+        default: 'no'
 
 jobs:
   build:
@@ -27,3 +33,37 @@ jobs:
       run: |
         npm install
         npm run build
+        npx prettier --check .
+
+  format:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.format_code == 'yes'
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.head_ref }}
+      
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+
+    - name: Format Code
+      working-directory: ./ui
+      run: |
+        npm install
+        npx prettier --write .
+
+    # Commit changes from prettier
+    - uses: stefanzweifel/git-auto-commit-action@v5

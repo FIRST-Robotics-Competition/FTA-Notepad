@@ -5,12 +5,6 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  workflow_dispatch:
-    inputs:
-      format_code:
-        description: 'Run Prettier to format code? (yes/no)'
-        required: true
-        default: 'no'
 
 jobs:
   build:

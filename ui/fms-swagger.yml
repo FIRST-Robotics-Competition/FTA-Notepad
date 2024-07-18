@@ -2417,7 +2417,7 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/MatchStatusInfo'
-      responses: { }
+      responses: {}
   /hubs/FieldMonitorEvents/FieldMonitorDataChanged:
     post:
       tags:
@@ -2429,7 +2429,7 @@ paths:
             type: array
             items:
               $ref: '#/components/schemas/FieldMonitorData'
-      responses: { }
+      responses: {}
   /hubs/FieldMonitorEvents/ScheduleAheadBehindChanged:
     post:
       tags:
@@ -2439,7 +2439,7 @@ paths:
           in: query
           schema:
             type: string
-      responses: { }
+      responses: {}
   /hubs/FTAAppEvents/NoteChanged:
     post:
       tags:
@@ -2449,7 +2449,7 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/EventNoteChange'
-      responses: { }
+      responses: {}
   /hubs/FTAAppEvents/MatchStatusInfoChanged:
     post:
       tags:
@@ -2459,7 +2459,7 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/MatchStatusInfo'
-      responses: { }
+      responses: {}
 components:
   schemas:
     AllianceSelectionEventWizard:
@@ -3906,7 +3906,7 @@ components:
       name: Authorization
       in: header
 security:
-  - TokenAuth: [ ]
+  - TokenAuth: []
 tags:
   - name: FieldMonitorEvents
   - name: FTAAppEvents

@@ -1,0 +1,3912 @@
+openapi: 3.0.1
+info:
+  title: FMS.FieldServer.Web
+  version: v1
+paths:
+  /FieldMonitor/MatchNumberAndPlay:
+    get:
+      tags:
+        - FieldMonitor
+      responses:
+        '200':
+          description: "Returns an array of 3 numbers: the current match number, the current\r\n            play number of that match, and the level of the match."
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+            text/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+  /FieldMonitor/MatchGraphJson:
+    get:
+      tags:
+        - FieldMonitor
+      parameters:
+        - name: matchId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: alliance
+          in: query
+          schema:
+            $ref: '#/components/schemas/AllianceType'
+        - name: station
+          in: query
+          schema:
+            $ref: '#/components/schemas/StationType'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MatchGraphDetailViewModel'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MatchGraphDetailViewModel'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MatchGraphDetailViewModel'
+  '/api/v{version}/fieldmonitor/get/GetResultsByFMSMatchId/{matchIdParam}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: matchIdParam
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/FieldServerWebMatchViewItem'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldServerWebMatchViewItem'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/FieldServerWebMatchViewItem'
+  '/api/v{version}/fieldmonitor/get/GetResultsByTeamNumber/{teamNumberParam}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: teamNumberParam
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FieldServerWebMatchViewItem'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FieldServerWebMatchViewItem'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FieldServerWebMatchViewItem'
+  '/api/v{version}/fieldmonitor/get/GetResults/{levelParam}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: levelParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FieldServerWebMatchViewItem'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FieldServerWebMatchViewItem'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FieldServerWebMatchViewItem'
+  '/api/v{version}/fieldmonitor/get/GetLog/{matchIdParam}/{allianceParam}/{stationParam}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: matchIdParam
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: allianceParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/AllianceType'
+        - name: stationParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/StationType'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FieldServerWebMatchShowLogViewItem'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FieldServerWebMatchShowLogViewItem'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FieldServerWebMatchShowLogViewItem'
+  '/api/v{version}/fieldmonitor/get/GetPlayoffMatchups/{playoffSizeParam}/{sublevelParam}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: playoffSizeParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/PlayoffSizeTypes'
+        - name: sublevelParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/PlayoffLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PitPlayoffMatchup'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PitPlayoffMatchup'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PitPlayoffMatchup'
+  '/api/v{version}/fieldmonitor/get/GetTournamentLevelStatus/{levelParam}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: levelParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LevelStatus'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LevelStatus'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LevelStatus'
+  '/api/v{version}/fieldmonitor/get/GetPlayoffLevelStatus/{levelParam}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: levelParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/PlayoffLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LevelStatus'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LevelStatus'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LevelStatus'
+  '/api/v{version}/fieldmonitor/get/GetCurrentPlayoffLevel':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+  '/api/v{version}/fieldmonitor/get/GetNextPlayoffLevel/{playoffLevel}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: playoffLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/PlayoffLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+  '/api/v{version}/fieldmonitor/get/GetPreviousPlayoffLevel/{playoffLevel}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: playoffLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/PlayoffLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+  '/api/v{version}/fieldmonitor/get/GetPlayoffLevelForMatch/{matchNumber}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: matchNumber
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+  '/api/v{version}/fieldmonitor/get/TournamentLevelHasPlayableSchedule/{tourneyLevel}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: tourneyLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: boolean
+            application/json:
+              schema:
+                type: boolean
+            text/json:
+              schema:
+                type: boolean
+  '/api/v{version}/fieldmonitor/get/GetPlayoffMatchGroups':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A map of match group ID to match group.
+          content:
+            text/plain:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/MatchGroupView'
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/MatchGroupView'
+            text/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/MatchGroupView'
+  '/api/v{version}/fieldmonitor/get/GetMatchRange/{playoffLevel}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: playoffLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/PlayoffLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Int32Int32ValueTuple'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32Int32ValueTuple'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Int32Int32ValueTuple'
+  '/api/v{version}/fieldmonitor/get/GetMatchDescription/{tourneyLevel}/{matchNumber}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: tourneyLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: matchNumber
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+  '/api/v{version}/fieldmonitor/get/CountOfMatchesPlayed/{levelParam}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: levelParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: integer
+                format: int32
+            application/json:
+              schema:
+                type: integer
+                format: int32
+            text/json:
+              schema:
+                type: integer
+                format: int32
+  '/api/v{version}/fieldmonitor/get/CountOfRankingsRecords/{levelParam}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: levelParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: integer
+                format: int32
+            application/json:
+              schema:
+                type: integer
+                format: int32
+            text/json:
+              schema:
+                type: integer
+                format: int32
+  '/api/v{version}/fieldmonitor/get/GetCurrentMatchAndPlayNumber/{fieldTypeParam}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: fieldTypeParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/FieldTypes'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TournamentLevelInt32Int32ValueTuple'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TournamentLevelInt32Int32ValueTuple'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TournamentLevelInt32Int32ValueTuple'
+  '/api/v{version}/fieldmonitor/get/GetOrMakeFMSScheduleParameterId/{tourneyLevel}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: tourneyLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                format: uuid
+            application/json:
+              schema:
+                type: string
+                format: uuid
+            text/json:
+              schema:
+                type: string
+                format: uuid
+  '/api/v{version}/fieldmonitor/get/GetRankings/{eventIdParam}':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: eventIdParam
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RankModel'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RankModel'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RankModel'
+  '/api/v{version}/fieldmonitor/get/GetAllTeamNumbers':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+            text/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+  '/api/v{version}/fieldmonitor/get/GetAllAlliances':
+    get:
+      tags:
+        - FieldMonitorApi
+      parameters:
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AllianceSelectionEventWizard'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AllianceSelectionEventWizard'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AllianceSelectionEventWizard'
+  /FieldMonitor/Matches/Score:
+    get:
+      tags:
+        - FieldMonitorGameSpecific
+      parameters:
+        - name: matchId
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  '/api/v{version}/FTA/{season}/{eventCode}/appUsageData':
+    post:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/{eventCode}/eventNotes/{noteId}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EventNotesModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventNotesModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EventNotesModel'
+        '500':
+          description: Internal Server Error
+    post:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+        '500':
+          description: Internal Server Error
+    put:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+        '500':
+          description: Internal Server Error
+    delete:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/{eventCode}/matchNotes/{noteId}/{tournamentLevel}/{matchNumber}/{playNumber}/{teamNumber}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: tournamentLevel
+          in: query
+          schema:
+            type: string
+            default: ''
+        - name: matchNumber
+          in: query
+          schema:
+            minimum: 1
+            maxLength: 3
+            type: integer
+            format: int32
+        - name: playNumber
+          in: query
+          schema:
+            minimum: 1
+            maxLength: 2
+            type: integer
+            format: int32
+        - name: teamNumber
+          in: query
+          schema:
+            minimum: 1
+            maxLength: 4
+            type: integer
+            format: int32
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MatchNotesModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchNotesModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MatchNotesModel'
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/{eventCode}/matchNotes/{noteId}':
+    post:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+        '500':
+          description: Internal Server Error
+    put:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+        '500':
+          description: Internal Server Error
+    delete:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/{eventCode}/teamIssues/{noteId}/{teamNumber}/{issueType}/{resolutionStatus}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: teamNumber
+          in: query
+          schema:
+            minimum: 1
+            maxLength: 4
+            type: integer
+            format: int32
+        - name: issueType
+          in: query
+          schema:
+            type: string
+        - name: resolutionStatus
+          in: query
+          schema:
+            type: string
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TeamIssuesModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamIssuesModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TeamIssuesModel'
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/{eventCode}/teamIssues/{noteId}':
+    post:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+        '500':
+          description: Internal Server Error
+    put:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+        '500':
+          description: Internal Server Error
+    delete:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/{eventCode}/schedule/{tournamentLevel}/{teamNumber}/{start}/{end}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: tournamentLevel
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: teamNumber
+          in: query
+          schema:
+            minimum: 1
+            maxLength: 4
+            type: integer
+            format: int32
+            default: 0
+        - name: start
+          in: query
+          schema:
+            minimum: 0
+            type: integer
+            format: int32
+            default: 0
+        - name: end
+          in: query
+          schema:
+            minimum: 0
+            type: integer
+            format: int32
+            default: 999
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EventScheduleModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventScheduleModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EventScheduleModel'
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/{eventCode}/schedule/hybrid/{tournamentLevel}/{teamNumber}/{start}/{end}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: tournamentLevel
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: teamNumber
+          in: query
+          schema:
+            minimum: 1
+            maxLength: 4
+            type: integer
+            format: int32
+            default: 0
+        - name: start
+          in: query
+          schema:
+            minimum: 0
+            type: integer
+            format: int32
+            default: 0
+        - name: end
+          in: query
+          schema:
+            minimum: 0
+            type: integer
+            format: int32
+            default: 999
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EventScheduleHybridModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventScheduleHybridModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EventScheduleHybridModel'
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/{eventCode}/WPA/{teamNumber}/{connectionStatus}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: teamNumber
+          in: query
+          schema:
+            minimum: 1
+            maxLength: 4
+            type: integer
+            format: int32
+            default: 0
+        - name: connectionStatus
+          in: query
+          schema:
+            type: string
+            default: ''
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ConnectionStatusInfoModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionStatusInfoModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionStatusInfoModel'
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/{eventCode}/bypass/{teamNumber}/{tournamentLevel}/{matchNumber}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: teamNumber
+          in: query
+          schema:
+            minimum: 1
+            maxLength: 4
+            type: integer
+            format: int32
+            default: 0
+        - name: tournamentLevel
+          in: query
+          schema:
+            type: string
+            default: ''
+        - name: matchNumber
+          in: query
+          schema:
+            minimum: 1
+            maxLength: 4
+            type: integer
+            format: int32
+            default: 0
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BypassStatusInfoModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BypassStatusInfoModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BypassStatusInfoModel'
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/events/{eventCode}/{teamNumber}/{districtCode}/{excludeDistrict}/{active}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: query
+          schema:
+            minLength: 3
+            type: string
+            default: ''
+        - name: teamNumber
+          in: query
+          schema:
+            minimum: 1
+            maxLength: 4
+            type: integer
+            format: int32
+            default: 0
+        - name: districtCode
+          in: query
+          schema:
+            maxLength: 3
+            type: string
+            default: ''
+        - name: excludeDistrict
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: active
+          in: query
+          schema:
+            type: boolean
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SeasonEventListingsModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonEventListingsModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SeasonEventListingsModel'
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/teams/{eventCode}/{teamNumber}/{districtCode}/{page}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: query
+          schema:
+            minLength: 3
+            type: string
+            default: ''
+        - name: teamNumber
+          in: query
+          schema:
+            minimum: 1
+            maxLength: 4
+            type: integer
+            format: int32
+            default: 0
+        - name: districtCode
+          in: query
+          schema:
+            maxLength: 3
+            type: string
+            default: ''
+        - name: page
+          in: query
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 1
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SeasonTeamListingsModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonTeamListingsModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SeasonTeamListingsModel'
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/districts':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SeasonDistrictListingsModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonDistrictListingsModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SeasonDistrictListingsModel'
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: number
+            format: double
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiIndexModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiIndexModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiIndexModel'
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTAAppApi/CurrentEventStatus':
+    post:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CurrentEventStatus'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentEventStatus'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CurrentEventStatus'
+        '500':
+          description: Internal Server Error
+  '/api/v{version}/FTA/{season}/get/GetTournamentLevelStatus/{levelParam}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: levelParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LevelStatus'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LevelStatus'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LevelStatus'
+  '/api/v{version}/FTA/{season}/get/GetPlayoffLevelStatus/{levelParam}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: levelParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/PlayoffLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LevelStatus'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LevelStatus'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LevelStatus'
+  '/api/v{version}/FTA/{season}/get/GetCurrentPlayoffLevel':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+  '/api/v{version}/FTA/{season}/get/GetNextPlayoffLevel/{playoffLevel}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: playoffLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/PlayoffLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+  '/api/v{version}/FTA/{season}/get/GetPreviousPlayoffLevel/{playoffLevel}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: playoffLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/PlayoffLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+  '/api/v{version}/FTA/{season}/get/GetPlayoffLevelForMatch/{matchNumber}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: matchNumber
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlayoffLevel'
+  '/api/v{version}/FTA/{season}/get/TournamentLevelHasPlayableSchedule/{tourneyLevel}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: tourneyLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: boolean
+            application/json:
+              schema:
+                type: boolean
+            text/json:
+              schema:
+                type: boolean
+  '/api/v{version}/FTA/{season}/get/GetPlayoffMatchGroups':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A map of match group ID to match group.
+          content:
+            text/plain:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/MatchGroupView'
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/MatchGroupView'
+            text/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/MatchGroupView'
+  '/api/v{version}/FTA/{season}/get/GetMatchRange/{playoffLevel}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: playoffLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/PlayoffLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Int32Int32ValueTuple'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32Int32ValueTuple'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Int32Int32ValueTuple'
+  '/api/v{version}/FTA/{season}/get/GetMatchDescription/{tourneyLevel}/{matchNumber}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: tourneyLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: matchNumber
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+  '/api/v{version}/FTA/{season}/get/CountOfMatchesPlayed/{levelParam}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: levelParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: integer
+                format: int32
+            application/json:
+              schema:
+                type: integer
+                format: int32
+            text/json:
+              schema:
+                type: integer
+                format: int32
+  '/api/v{version}/FTA/{season}/get/CountOfRankingsRecords/{levelParam}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: levelParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: integer
+                format: int32
+            application/json:
+              schema:
+                type: integer
+                format: int32
+            text/json:
+              schema:
+                type: integer
+                format: int32
+  '/api/v{version}/FTA/{season}/get/GetCurrentMatchAndPlayNumber/{fieldTypeParam}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: fieldTypeParam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/FieldTypes'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TournamentLevelInt32Int32ValueTuple'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TournamentLevelInt32Int32ValueTuple'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TournamentLevelInt32Int32ValueTuple'
+  '/api/v{version}/FTA/{season}/get/GetOrMakeFMSScheduleParameterId/{tourneyLevel}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: tourneyLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                format: uuid
+            application/json:
+              schema:
+                type: string
+                format: uuid
+            text/json:
+              schema:
+                type: string
+                format: uuid
+  '/api/v{version}/FTA/{season}/get/GetRankings/{eventIdParam}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: eventIdParam
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RankModel'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RankModel'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RankModel'
+  '/api/v{version}/FTA/{season}/get/GetAllTeamNumbers':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+            text/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+  '/api/v{version}/FTA/{season}/get/GetAllAlliances':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AllianceSelectionEventWizard'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AllianceSelectionEventWizard'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AllianceSelectionEventWizard'
+  '/api/{controller}':
+    post:
+      tags:
+        - FTAAppSync
+      parameters:
+        - name: controller
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+    get:
+      tags:
+        - FTAAppSync
+      parameters:
+        - name: controller
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+  /hubs/FieldMonitorEvents/MatchStatusInfoChanged:
+    post:
+      tags:
+        - FieldMonitorEvents
+      parameters:
+        - name: matchStatusInfoChangedParam
+          in: query
+          schema:
+            $ref: '#/components/schemas/MatchStatusInfo'
+      responses: {}
+  /hubs/FieldMonitorEvents/FieldMonitorDataChanged:
+    post:
+      tags:
+        - FieldMonitorEvents
+      parameters:
+        - name: dataParam
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/FieldMonitorData'
+      responses: {}
+  /hubs/FieldMonitorEvents/ScheduleAheadBehindChanged:
+    post:
+      tags:
+        - FieldMonitorEvents
+      parameters:
+        - name: aheadBehindParam
+          in: query
+          schema:
+            type: string
+      responses: {}
+  /hubs/FTAAppEvents/NoteChanged:
+    post:
+      tags:
+        - FTAAppEvents
+      parameters:
+        - name: data
+          in: query
+          schema:
+            $ref: '#/components/schemas/EventNoteChange'
+      responses: {}
+  /hubs/FTAAppEvents/MatchStatusInfoChanged:
+    post:
+      tags:
+        - FTAAppEvents
+      parameters:
+        - name: matchStatusInfoChangedParam
+          in: query
+          schema:
+            $ref: '#/components/schemas/MatchStatusInfo'
+      responses: {}
+components:
+  schemas:
+    AllianceSelectionEventWizard:
+      type: object
+      properties:
+        fmsEventId:
+          type: string
+          format: uuid
+        number:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        substituteButtonEnabled:
+          type: boolean
+        captainTeamNumberRaw:
+          type: string
+          nullable: true
+        captainTeamNumber:
+          type: integer
+          format: int32
+          nullable: true
+        captainTeamNumberHold:
+          type: integer
+          format: int32
+          nullable: true
+        captainSubstituteChecked:
+          type: boolean
+        captainFlag:
+          type: boolean
+        captainTabIndex:
+          type: integer
+          format: int32
+        round1TeamNumberRaw:
+          type: string
+          nullable: true
+        round1TeamNumber:
+          type: integer
+          format: int32
+          nullable: true
+        round1TeamNumberHold:
+          type: integer
+          format: int32
+          nullable: true
+        round1SubstituteChecked:
+          type: boolean
+        round1Flag:
+          type: boolean
+        round1TabIndex:
+          type: integer
+          format: int32
+        round2TeamNumberRaw:
+          type: string
+          nullable: true
+        round2TeamNumber:
+          type: integer
+          format: int32
+          nullable: true
+        round2TeamNumberHold:
+          type: integer
+          format: int32
+          nullable: true
+        round2SubstituteChecked:
+          type: boolean
+        round2Flag:
+          type: boolean
+        round2TabIndex:
+          type: integer
+          format: int32
+        round3TeamNumberRaw:
+          type: string
+          nullable: true
+        round3TeamNumberHold:
+          type: integer
+          format: int32
+          nullable: true
+        round3SubstituteChecked:
+          type: boolean
+        round3TeamNumber:
+          type: integer
+          format: int32
+          nullable: true
+        round3Enabled:
+          type: boolean
+        round3Flag:
+          type: boolean
+        showUndoSubstitution:
+          type: boolean
+      additionalProperties: false
+    AllianceType:
+      enum:
+        - 0
+        - 1
+        - 2
+      type: integer
+      description: The color assigned to a particular alliance.
+      format: int32
+      x-enum-varnames:
+        - None
+        - Red
+        - Blue
+    ApiIndexModel:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        apiVersion:
+          type: string
+          nullable: true
+        serviceMainifestName:
+          type: string
+          nullable: true
+        serviceMainifestVersion:
+          type: string
+          nullable: true
+        codePackageName:
+          type: string
+          nullable: true
+        codePackageVersion:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        currentSeason:
+          type: integer
+          format: int32
+        maxSeason:
+          type: integer
+          format: int32
+      additionalProperties: false
+      description: 'FTA Notepad: API Index'
+    BWUtilizationType:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+      x-enum-varnames:
+        - Low
+        - Medium
+        - High
+        - VeryHigh
+    Bracket:
+      enum:
+        - 0
+        - 1
+        - 2
+      type: integer
+      description: 'Identifies which bracket a match group is part of, for head-to-head match groups.'
+      format: int32
+      x-enum-varnames:
+        - Single
+        - DoubleUpper
+        - DoubleLower
+    BypassStatusInfoModel:
+      type: object
+      properties:
+        teamBypasses:
+          type: array
+          items:
+            $ref: '#/components/schemas/BypassStatusInfoTeamModel'
+          nullable: true
+      additionalProperties: false
+    BypassStatusInfoTeamModel:
+      type: object
+      properties:
+        teamNumber:
+          type: integer
+          format: int32
+        matchNumber:
+          type: integer
+          format: int32
+        tournamentLevel:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ConnectionStatusInfoModel:
+      type: object
+      properties:
+        teamStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionStatusInfoTeamModel'
+          nullable: true
+      additionalProperties: false
+    ConnectionStatusInfoTeamModel:
+      type: object
+      properties:
+        teamNumber:
+          type: integer
+          format: int32
+        wpaKeyExists:
+          type: boolean
+        wpaKeyStatus:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CurrentEventStatus:
+      type: object
+      properties:
+        eventActive:
+          type: boolean
+        eventCode:
+          type: string
+          nullable: true
+        fmsEventId:
+          type: string
+          format: uuid
+        tournamentLevel:
+          $ref: '#/components/schemas/TournamentLevel'
+      additionalProperties: false
+    DSStationStatus:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+      x-enum-varnames:
+        - Good
+        - MoveStation
+        - Waiting
+        - Unknown
+    EventNoteChange:
+      type: object
+      properties:
+        noteType:
+          allOf:
+            - $ref: '#/components/schemas/EventNoteTypes'
+            - description: 'MessagePack Key: p1'
+        fmsNoteId:
+          type: string
+          description: 'MessagePack Key: p2'
+          format: uuid
+        recordVersion:
+          type: integer
+          description: 'MessagePack Key: p3'
+          format: int64
+          nullable: true
+        type:
+          allOf:
+            - $ref: '#/components/schemas/EventNoteChangeTypes'
+            - description: 'MessagePack Key: p4'
+        fmsDeviceIdentification:
+          type: string
+          description: 'MessagePack Key: p5'
+          nullable: true
+        currentTimeStamp:
+          type: string
+          description: 'MessagePack Key: p6'
+          format: date-time
+        previousTimeStamp:
+          type: string
+          description: 'MessagePack Key: p7'
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    EventNoteChangeTypes:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+      x-enum-varnames:
+        - Create
+        - Update
+        - Delete
+    EventNoteModel:
+      type: object
+      properties:
+        note:
+          type: string
+          nullable: true
+        noteId:
+          type: string
+          format: uuid
+        timeAdded:
+          type: string
+          format: date-time
+          nullable: true
+        timeUpdated:
+          type: string
+          format: date-time
+          nullable: true
+        isDeleted:
+          type: boolean
+        whoAdded:
+          type: string
+          nullable: true
+        whoUpdated:
+          type: string
+          nullable: true
+        recordVersion:
+          type: integer
+          format: int64
+      additionalProperties: false
+      description: 'FTA Notepad: FTA EventNote'
+    EventNoteTypes:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 10
+        - 11
+        - 15
+      type: integer
+      format: int32
+      x-enum-varnames:
+        - FTAEvent
+        - FTAMatch
+        - FTATeamIssue
+        - FTAAppUsageData
+        - FTATeam
+        - FMSAllianceTimeout
+        - FMSMatchMaker
+        - Staff
+    EventNotesModel:
+      type: object
+      properties:
+        eventNotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventNoteModel'
+          nullable: true
+        noteCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    EventScheduleHybridModel:
+      type: object
+      properties:
+        schedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleHybridModel'
+          nullable: true
+      additionalProperties: false
+    EventScheduleModel:
+      type: object
+      properties:
+        schedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduledMatchModel'
+          nullable: true
+      additionalProperties: false
+    FieldMonitorData:
+      type: object
+      properties:
+        alliance:
+          allOf:
+            - $ref: '#/components/schemas/AllianceType'
+            - description: 'MessagePack Key: p1'
+        station:
+          allOf:
+            - $ref: '#/components/schemas/StationType'
+            - description: 'MessagePack Key: p2'
+        teamNumber:
+          type: integer
+          description: 'MessagePack Key: p3'
+          format: int32
+        connection:
+          type: boolean
+          description: 'MessagePack Key: p4'
+        linkActive:
+          type: boolean
+          description: 'MessagePack Key: p5'
+        dsLinkActive:
+          type: boolean
+          description: 'MessagePack Key: p6'
+        radioLink:
+          type: boolean
+          description: 'MessagePack Key: p7'
+        rioLink:
+          type: boolean
+          description: 'MessagePack Key: p8'
+        isEnabled:
+          type: boolean
+          description: 'MessagePack Key: p9'
+        isAuto:
+          type: boolean
+          description: 'MessagePack Key: pa'
+        isBypassed:
+          type: boolean
+          description: 'MessagePack Key: pb'
+        isEStopPressed:
+          type: boolean
+          description: 'MessagePack Key: pc'
+        isEStopped:
+          type: boolean
+          description: 'MessagePack Key: pd'
+        battery:
+          type: number
+          description: 'MessagePack Key: pe'
+          format: double
+        monitorStatus:
+          allOf:
+            - $ref: '#/components/schemas/MonitorStatusType'
+            - description: 'MessagePack Key: pf'
+        averageTripTime:
+          type: integer
+          description: 'MessagePack Key: pg'
+          format: int32
+        lostPackets:
+          type: integer
+          description: 'MessagePack Key: ph'
+          format: int32
+        signal:
+          type: integer
+          description: 'MessagePack Key: pi'
+          format: int32
+          nullable: true
+        noise:
+          type: integer
+          description: 'MessagePack Key: pj'
+          format: int32
+          nullable: true
+        snr:
+          type: integer
+          format: int32
+        inactivity:
+          type: integer
+          description: 'MessagePack Key: pl'
+          format: int32
+        macAddress:
+          type: string
+          nullable: true
+        txRate:
+          type: number
+          description: 'MessagePack Key: pn'
+          format: double
+          nullable: true
+        txMCS:
+          type: integer
+          description: 'MessagePack Key: po'
+          format: int32
+          nullable: true
+        txMCSBandWidth:
+          type: integer
+          description: 'MessagePack Key: pp'
+          format: int32
+          nullable: true
+        txVHT:
+          type: boolean
+          description: 'MessagePack Key: pq'
+          nullable: true
+        txVHTNSS:
+          type: integer
+          description: 'MessagePack Key: pr'
+          format: int32
+          nullable: true
+        txPackets:
+          type: integer
+          description: 'MessagePack Key: ps'
+          format: int32
+        rxRate:
+          type: number
+          description: 'MessagePack Key: pt'
+          format: double
+          nullable: true
+        rxMCS:
+          type: integer
+          description: 'MessagePack Key: pu'
+          format: int32
+          nullable: true
+        rxMCSBandWidth:
+          type: integer
+          description: 'MessagePack Key: pv'
+          format: int32
+          nullable: true
+        rxVHT:
+          type: boolean
+          description: 'MessagePack Key: pw'
+          nullable: true
+        rxVHTNSS:
+          type: integer
+          description: 'MessagePack Key: px'
+          format: int32
+          nullable: true
+        rxPackets:
+          type: integer
+          description: 'MessagePack Key: py'
+          format: int32
+        dataRateTotal:
+          type: number
+          description: 'MessagePack Key: pz'
+          format: double
+        dataRateToRobot:
+          type: number
+          description: 'MessagePack Key: paa'
+          format: double
+        dataRateFromRobot:
+          type: number
+          description: 'MessagePack Key: pbb'
+          format: double
+        bwUtilization:
+          $ref: '#/components/schemas/BWUtilizationType'
+        wpaKeyStatus:
+          $ref: '#/components/schemas/WPAKeyStatusType'
+        driverStationIsOfficial:
+          type: boolean
+          description: 'MessagePack Key: pee'
+        stationStatus:
+          allOf:
+            - $ref: '#/components/schemas/DSStationStatus'
+            - description: 'MessagePack Key: pff'
+        brownout:
+          type: boolean
+          description: 'MessagePack Key: pgg'
+        eStopSource:
+          type: string
+          description: 'MessagePack Key: phh'
+          nullable: true
+        isAStopPressed:
+          type: boolean
+          description: 'MessagePack Key: pii'
+        isAStopped:
+          type: boolean
+          description: 'MessagePack Key: pjj'
+        moveToStation:
+          type: string
+          description: 'MessagePack Key: pjk'
+          nullable: true
+        sNR:
+          description: 'MessagePack Key: pk'
+        mACAddress:
+          description: 'MessagePack Key: pm'
+        bWUtilization:
+          description: 'MessagePack Key: pcc'
+        wPAKeyStatus:
+          description: 'MessagePack Key: pdd'
+      additionalProperties: false
+    FieldServerWebMatchShowLogViewItem:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        matchTimeBase:
+          type: number
+          format: double
+        matchTime:
+          type: integer
+          format: int32
+        auto:
+          type: boolean
+        dsLinkActive:
+          type: boolean
+        enabled:
+          type: boolean
+        aStopPressed:
+          type: boolean
+        eStopPressed:
+          type: boolean
+        linkActive:
+          type: boolean
+        radioLink:
+          type: boolean
+        rioLink:
+          type: boolean
+        averageTripTime:
+          type: integer
+          format: int32
+        lostPackets:
+          type: integer
+          format: int32
+        sentPackets:
+          type: integer
+          format: int32
+        battery:
+          type: number
+          format: double
+        brownout:
+          type: boolean
+        signal:
+          type: integer
+          format: int32
+          nullable: true
+        noise:
+          type: integer
+          format: int32
+          nullable: true
+        snr:
+          type: integer
+          format: int32
+        txRate:
+          type: number
+          format: double
+          nullable: true
+        txMCS:
+          type: integer
+          format: int32
+          nullable: true
+        rxRate:
+          type: number
+          format: double
+          nullable: true
+        rxMCS:
+          type: integer
+          format: int32
+          nullable: true
+        dataRateTotal:
+          type: number
+          format: double
+      additionalProperties: false
+    FieldServerWebMatchViewItem:
+      type: object
+      properties:
+        fmsMatchId:
+          type: string
+          format: uuid
+        tournamentLevel:
+          $ref: '#/components/schemas/TournamentLevel'
+        fmsEventId:
+          type: string
+          format: uuid
+        startTime:
+          type: string
+          format: date-time
+        actualStartTime:
+          type: string
+          format: date-time
+        description:
+          type: string
+          nullable: true
+        dayNumber:
+          type: integer
+          format: int32
+        matchNumber:
+          type: integer
+          format: int32
+        playNumber:
+          type: integer
+          format: int32
+        teamNumberBlue1:
+          type: integer
+          format: int32
+          nullable: true
+        teamNumberBlue2:
+          type: integer
+          format: int32
+          nullable: true
+        teamNumberBlue3:
+          type: integer
+          format: int32
+          nullable: true
+        teamNumberRed1:
+          type: integer
+          format: int32
+          nullable: true
+        teamNumberRed2:
+          type: integer
+          format: int32
+          nullable: true
+        teamNumberRed3:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    FieldTypes:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      description: "for multi field events\r\nPrimary - Main FMS with all functionality enabled\r\nSecondary - Match Play, Match Test, Match Review, Field Test, System Configuration\r\nPractice - Match Test, Field Test, System Configuration\r\nWe start the numbering at 1 since the field \"number\" is referenced around the solution"
+      format: int32
+      x-enum-varnames:
+        - Primary
+        - Secondary
+        - Practice
+    Int32Int32ValueTuple:
+      type: object
+      additionalProperties: false
+    LevelStatus:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+      type: integer
+      description: The current status of a tournament level.
+      format: int32
+      x-enum-varnames:
+        - NoCurrentlySelectedEvent
+        - NotScheduled
+        - NotStarted
+        - InProgress
+        - Completed
+    MatchGraphDetailViewModel:
+      type: object
+      properties:
+        auto:
+          type: boolean
+        matchTime:
+          type: number
+          format: double
+        averageRoundTrip:
+          type: number
+          format: double
+        battery:
+          type: number
+          format: double
+        dataRateTotal:
+          type: number
+          format: double
+        signal:
+          type: integer
+          format: int32
+          nullable: true
+        noise:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    MatchGroupType:
+      enum:
+        - 0
+        - 1
+      type: integer
+      format: int32
+      x-enum-varnames:
+        - HeadToHeadMatchup
+        - RankedPool
+    MatchGroupView:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/MatchGroupType'
+        playoffLevel:
+          $ref: '#/components/schemas/PlayoffLevel'
+        matchNumbers:
+          type: array
+          items:
+            type: integer
+            format: int32
+          nullable: true
+        isComplete:
+          type: boolean
+        winnersNextRoundIsByeRound:
+          type: boolean
+        redAlliance:
+          type: integer
+          format: int32
+          nullable: true
+        blueAlliance:
+          type: integer
+          format: int32
+          nullable: true
+        matchesPlayed:
+          type: integer
+          format: int32
+        redWins:
+          type: integer
+          format: int32
+        blueWins:
+          type: integer
+          format: int32
+        bracket:
+          $ref: '#/components/schemas/Bracket'
+        currentRankings:
+          type: array
+          items:
+            $ref: '#/components/schemas/RankedAlliance'
+          nullable: true
+      additionalProperties: false
+    MatchNoteModel:
+      type: object
+      properties:
+        note:
+          type: string
+          nullable: true
+        noteId:
+          type: string
+          format: uuid
+        tournamentLevel:
+          type: string
+          nullable: true
+        matchNumber:
+          type: integer
+          format: int32
+        playNumber:
+          type: integer
+          format: int32
+        teamNumber:
+          type: integer
+          format: int32
+          nullable: true
+        timeAdded:
+          type: string
+          format: date-time
+          nullable: true
+        timeUpdated:
+          type: string
+          format: date-time
+          nullable: true
+        isDeleted:
+          type: boolean
+        whoAdded:
+          type: string
+          nullable: true
+        whoUpdated:
+          type: string
+          nullable: true
+        recordVersion:
+          type: integer
+          format: int64
+      additionalProperties: false
+      description: 'FTA Notepad: FTA MatchNote'
+    MatchNotesModel:
+      type: object
+      properties:
+        matchNotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchNoteModel'
+          nullable: true
+        noteCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    MatchStateType:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 17
+        - 18
+        - 19
+      type: integer
+      format: int32
+      x-enum-varnames:
+        - NoCurrentlyActiveEvent
+        - NoCurrentlyActiveTournamentLevel
+        - WaitingForPrestart
+        - WaitingForPrestartTO
+        - Prestarting
+        - PrestartingTO
+        - WaitingForSetAudience
+        - WaitingForSetAudienceTO
+        - WaitingForMatchReady
+        - WaitingForMatchStart
+        - GameSpecificData
+        - MatchAuto
+        - MatchTransition
+        - MatchTeleop
+        - WaitingForCommit
+        - WaitingForPostResults
+        - TournamentLevelComplete
+        - MatchCancelled
+        - WaitingForMatchPreview
+        - WaitingForMatchPreviewTO
+    MatchStatusInfo:
+      type: object
+      properties:
+        matchState:
+          allOf:
+            - $ref: '#/components/schemas/MatchStateType'
+            - description: 'MessagePack Key: p1'
+        matchNumber:
+          type: integer
+          description: 'MessagePack Key: p2'
+          format: int32
+        playNumber:
+          type: integer
+          description: 'MessagePack Key: p3'
+          format: int32
+        level:
+          allOf:
+            - $ref: '#/components/schemas/TournamentLevel'
+            - description: 'MessagePack Key: p4'
+      additionalProperties: false
+    MonitorStatusType:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      type: integer
+      format: int32
+      x-enum-varnames:
+        - Unknown
+        - EStopped
+        - AStopped
+        - DisabledAuto
+        - DisabledTeleop
+        - EnabledAuto
+        - EnabledTeleop
+    NoteCreatedUpdatedModel:
+      type: object
+      properties:
+        noteId:
+          type: string
+          format: uuid
+        recordVersion:
+          type: integer
+          format: int64
+      additionalProperties: false
+      description: 'FTA Notepad: Response upon successful note creation'
+    PitPlayoffMatchup:
+      type: object
+      properties:
+        redAllianceNumber:
+          type: integer
+          format: int32
+        blueAllianceNumber:
+          type: integer
+          format: int32
+        redAllianceTeams:
+          type: string
+          nullable: true
+        blueAllianceTeams:
+          type: string
+          nullable: true
+        redAllianceWins:
+          type: integer
+          format: int32
+        blueAllianceWins:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PlayoffLevel:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      type: integer
+      description: "PlayoffLevel represents a phase of the FMS.Common.Base.Enums.TournamentLevel.Playoff level of the tournament.  \r\n\r\nInvariants at a level:\r\n* at least one match is played\r\n* Pairings: for single and double elimination, an alliance is paired with exactly one other \r\n  alliance in a level.  For a round robin tournament, the round robin section would\r\n  be treated as one level with alliances paired with >1 other alliance.\r\n* An alliance is not required to appear in a level."
+      format: int32
+      x-enum-varnames:
+        - Final
+        - Level2
+        - Level3
+        - Level4
+        - Level5
+        - Level6
+        - Level7
+    PlayoffSizeTypes:
+      enum:
+        - 2
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 16
+      type: integer
+      description: The permitted alliance counts of playoffs
+      format: int32
+      x-enum-varnames:
+        - TwoAlliance
+        - FourAlliance
+        - FiveAlliance
+        - SixAlliance
+        - SevenAlliance
+        - EightAlliance
+        - SixteenAlliance
+    RankModel:
+      type: object
+      properties:
+        rank:
+          type: integer
+          format: int32
+        team:
+          type: integer
+          format: int32
+        wins:
+          type: integer
+          format: int32
+        losses:
+          type: integer
+          format: int32
+        ties:
+          type: integer
+          format: int32
+        rs:
+          type: number
+          format: double
+        avgScore:
+          type: number
+          format: double
+        played:
+          type: integer
+          format: int32
+        dq:
+          type: number
+          format: double
+        sort1:
+          type: number
+          format: double
+        sort2:
+          type: number
+          format: double
+        sort3:
+          type: number
+          format: double
+        sort4:
+          type: number
+          format: double
+        sort5:
+          type: number
+          format: double
+        sort6:
+          type: number
+          format: double
+      additionalProperties: false
+    RankedAlliance:
+      type: object
+      properties:
+        rank:
+          type: integer
+          format: int32
+          readOnly: true
+        isTied:
+          type: boolean
+          readOnly: true
+        allianceNumber:
+          type: integer
+          format: int32
+          readOnly: true
+        matchesPlayed:
+          type: integer
+          format: int32
+          readOnly: true
+        wins:
+          type: integer
+          format: int32
+          readOnly: true
+        losses:
+          type: integer
+          format: int32
+          readOnly: true
+        ties:
+          type: integer
+          format: int32
+          readOnly: true
+        averageRankingPoints:
+          type: number
+          format: double
+          readOnly: true
+        averageTiebreakers:
+          type: array
+          items:
+            type: number
+            format: double
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    ScheduleHybridModel:
+      type: object
+      properties:
+        description:
+          type: string
+          nullable: true
+        tournamentLevel:
+          type: string
+          nullable: true
+        matchNumber:
+          type: integer
+          format: int32
+        startTime:
+          type: string
+          format: date-time
+          nullable: true
+        actualStartTime:
+          type: string
+          format: date-time
+          nullable: true
+        postResultTime:
+          type: string
+          format: date-time
+          nullable: true
+        scoreRedFinal:
+          type: integer
+          format: int32
+          nullable: true
+        scoreRedFoul:
+          type: integer
+          format: int32
+          nullable: true
+        scoreRedAuto:
+          type: integer
+          format: int32
+          nullable: true
+        scoreBlueFinal:
+          type: integer
+          format: int32
+          nullable: true
+        scoreBlueFoul:
+          type: integer
+          format: int32
+          nullable: true
+        scoreBlueAuto:
+          type: integer
+          format: int32
+          nullable: true
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleHybridModelTeam'
+          nullable: true
+      additionalProperties: false
+    ScheduleHybridModelTeam:
+      type: object
+      properties:
+        teamNumber:
+          type: integer
+          format: int32
+          nullable: true
+        station:
+          type: string
+          nullable: true
+        surrogate:
+          type: boolean
+        dq:
+          type: boolean
+          nullable: true
+      additionalProperties: false
+    ScheduledMatchModel:
+      type: object
+      properties:
+        field:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        level:
+          type: string
+          nullable: true
+        startTime:
+          type: string
+          format: date-time
+          nullable: true
+        matchNumber:
+          type: integer
+          format: int32
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduledMatchTeamModel'
+          nullable: true
+      additionalProperties: false
+    ScheduledMatchTeamModel:
+      type: object
+      properties:
+        teamNumber:
+          type: integer
+          format: int32
+          nullable: true
+        station:
+          type: string
+          nullable: true
+        surrogate:
+          type: boolean
+      additionalProperties: false
+    SeasonDistrictListingsModel:
+      type: object
+      properties:
+        districts:
+          type: array
+          items:
+            $ref: '#/components/schemas/SeasonDistrictModel'
+          nullable: true
+        districtCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    SeasonDistrictModel:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SeasonEventListingsModel:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/SeasonEventModel'
+          nullable: true
+        eventCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    SeasonEventModel:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        divisionCode:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        districtCode:
+          type: string
+          nullable: true
+        venue:
+          type: string
+          nullable: true
+        address:
+          type: string
+          nullable: true
+        city:
+          type: string
+          nullable: true
+        stateprov:
+          type: string
+          nullable: true
+        country:
+          type: string
+          nullable: true
+        website:
+          type: string
+          nullable: true
+        webcasts:
+          type: array
+          items:
+            type: string
+          nullable: true
+        timezone:
+          type: string
+          nullable: true
+        dateStart:
+          type: string
+          format: date-time
+        dateEnd:
+          type: string
+          format: date-time
+      additionalProperties: false
+    SeasonTeamListingsModel:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/SeasonTeamModel'
+          nullable: true
+        teamCountTotal:
+          type: integer
+          format: int32
+        teamCountPage:
+          type: integer
+          format: int32
+        pageCurrent:
+          type: integer
+          format: int32
+        pageTotal:
+          type: integer
+          format: int32
+      additionalProperties: false
+    SeasonTeamModel:
+      type: object
+      properties:
+        teamNumber:
+          type: integer
+          format: int32
+        nameFull:
+          type: string
+          nullable: true
+        nameShort:
+          type: string
+          nullable: true
+        schoolName:
+          type: string
+          nullable: true
+        city:
+          type: string
+          nullable: true
+        stateProv:
+          type: string
+          nullable: true
+        country:
+          type: string
+          nullable: true
+        website:
+          type: string
+          nullable: true
+        rookieYear:
+          type: integer
+          format: int32
+          nullable: true
+        robotName:
+          type: string
+          nullable: true
+        districtCode:
+          type: string
+          nullable: true
+        homeCMP:
+          type: string
+          nullable: true
+      additionalProperties: false
+    StationType:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      type: integer
+      description: The names of the driver station positions
+      format: int32
+      x-enum-varnames:
+        - None
+        - Station1
+        - Station2
+        - Station3
+    TeamIssueModel:
+      type: object
+      properties:
+        note:
+          type: string
+          nullable: true
+        noteId:
+          type: string
+          format: uuid
+        tournamentLevel:
+          type: string
+          nullable: true
+        matchNumber:
+          type: integer
+          format: int32
+        playNumber:
+          type: integer
+          format: int32
+        teamNumber:
+          type: integer
+          format: int32
+        issueType:
+          type: string
+          nullable: true
+        resolutionStatus:
+          type: string
+          nullable: true
+        timeAdded:
+          type: string
+          format: date-time
+          nullable: true
+        timeUpdated:
+          type: string
+          format: date-time
+          nullable: true
+        isDeleted:
+          type: boolean
+        whoAdded:
+          type: string
+          nullable: true
+        whoUpdated:
+          type: string
+          nullable: true
+        recordVersion:
+          type: integer
+          format: int64
+      additionalProperties: false
+      description: 'FTA Notepad: FTA TeamIssues'
+    TeamIssuesModel:
+      type: object
+      properties:
+        teamIssues:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamIssueModel'
+          nullable: true
+        noteCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    TournamentLevel:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      type: integer
+      description: 'The level of the tournament (practice, quals, etc)'
+      format: int32
+      x-enum-varnames:
+        - Match Test
+        - Practice
+        - Qualification
+        - Playoff
+    TournamentLevelInt32Int32ValueTuple:
+      type: object
+      additionalProperties: false
+    WPAKeyStatusType:
+      enum:
+        - 0
+        - 1
+        - 2
+      type: integer
+      format: int32
+      x-enum-varnames:
+        - NotTested
+        - UsedInConnectionTest
+        - UsedInMatch
+  securitySchemes:
+    TokenAuth:
+      type: apiKey
+      description: Input your FTA App Token to use this API
+      name: Authorization
+      in: header
+security:
+  - TokenAuth: []
+tags:
+  - name: FieldMonitorEvents
+  - name: FTAAppEvents

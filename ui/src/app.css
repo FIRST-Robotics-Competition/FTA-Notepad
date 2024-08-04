@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 html {
-  @apply antialiased;
+	@apply antialiased;
 }
 
 html.dark {
-  @apply bg-neutral-800 text-white;
+	@apply bg-neutral-800 text-white;
+}
+
+.aspect-third {
+    aspect-ratio: 2 / 3;
 }

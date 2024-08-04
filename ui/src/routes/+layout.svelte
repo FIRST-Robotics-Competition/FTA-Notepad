@@ -2,7 +2,7 @@
 	import { onMount, type Snippet } from 'svelte';
 	import '../app.css';
     import { XMark, Bars3, Clipboard, Cog6Tooth, Tv, DocumentText, ChatBubbleBottomCenterText, ArchiveBox, Icon, InformationCircle, AcademicCap } from 'svelte-hero-icons';
-	import SettingsModal from '$lib/components/dialogs/SettingsModal.svelte';
+	import SettingsModal from '../lib/components/dialogs/SettingsModal.svelte';
     import { browser } from '$app/environment';
 	import { settingsStore } from '$lib/settings-store';
 
@@ -178,7 +178,7 @@
                                     Field Monitor
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a
                                     href="#"
                                     class="group flex gap-x-3 rounded-md p-2 font-semibold leading-6 hover:bg-primary-700 data-[active=true]:bg-primary-700"
@@ -222,7 +222,7 @@
                                     <Icon src={Clipboard} class="h-6 w-6 shrink-0" />
                                     Checklist
                                 </a>
-                            </li>
+                            </li> -->
 						</ul>
 					</li>
                     <li class="border-t border-white">
@@ -237,7 +237,7 @@
                                     Settings
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a
                                     href="#"
                                     class="group flex gap-x-3 rounded-md p-2 font-semibold leading-6 hover:bg-primary-700 data-[active=true]:bg-primary-700"
@@ -245,7 +245,7 @@
                                     <Icon src={InformationCircle} class="h-6 w-6 shrink-0" />
                                     Help
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
 					<li class="-mx-6 mt-auto">

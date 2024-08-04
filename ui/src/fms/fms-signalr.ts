@@ -102,6 +102,43 @@ const FieldMonitorDataMapping = {
 	pjk: 'moveToStation'
 };
 
+export enum AllianceType {
+    None = 0,
+    Red = 1,
+    Blue = 2
+}
+
+export enum StationType {
+    None = 0,
+    Station1 = 1,
+    Station2 = 2,
+    Station3 = 3
+}
+
+export enum BWUtilizationType {
+    Low = 0,
+    Medium = 1,
+    High = 2,
+    VeryHigh = 3
+}
+
+export enum MonitorStatusType {
+    Unknown = 0,
+    EStopped = 1,
+    AStopped = 2,
+    DisabledAuto = 3,
+    DisabledTeleop = 4,
+    EnabledAuto = 5,
+    EnabledTeleop = 6
+}
+
+export enum DSStationStatus {
+    Good = 0,
+    MoveStation = 1,
+    Waiting = 2,
+    Unknown = 3
+}
+
 const ftaAppHubPostfix = 'ftaAppHub';
 
 export function connectFTAApp(fmsUrl: `http://${string}`): signalR.HubConnection & FTAAppHub {

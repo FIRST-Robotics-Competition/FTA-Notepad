@@ -140,7 +140,7 @@
     let detailView = () => {};
 </script>
 
-<div class="grid grid-rows-6 md:gap-1">
+<div class="grid grid-cols-fieldmonitor lg:grid-cols-fieldmonitor-large gap-0.5 md:gap-1 mx-auto justify-center">
     <MonitorRow monitorFrame={teams[0]} station="blue1" detailView={detailView} />
     <MonitorRow monitorFrame={teams[1]} station="blue2" detailView={detailView} />
     <MonitorRow monitorFrame={teams[2]} station="blue3" detailView={detailView} />

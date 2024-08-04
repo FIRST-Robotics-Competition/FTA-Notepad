@@ -268,7 +268,7 @@
 	</div>
 
 	<div
-		class="sticky top-0 flex items-center gap-x-6 bg-primary-600 px-4 py-4 shadow-sm sm:px-6 lg:hidden"
+		class="sticky top-0 flex items-center gap-x-6 bg-primary-600 px-4 py-1 shadow-sm sm:px-6 lg:py-4 lg:hidden"
 	>
 		<button type="button" class="-m-2.5 p-2.5 lg:hidden" onclick={() => {sidebarOpen = !sidebarOpen}}>
 			<span class="sr-only">Open sidebar</span>
@@ -285,7 +285,7 @@
 		</a>
 	</div>
 
-	<main class="py-10 lg:pl-72">
+	<main class="py-2 lg:py-10 lg:pl-72">
 		<div class="px-4 sm:px-6 lg:px-8">
 			{@render children()}
 		</div>

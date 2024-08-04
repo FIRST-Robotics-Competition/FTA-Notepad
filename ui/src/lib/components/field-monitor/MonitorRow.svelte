@@ -53,75 +53,69 @@
     }
 </script>
 
-<div class="grid grid-flow-col md:gap-1 justify-center cursor-pointer max-w-max" id="{stationKey()}-row"
-	>
-        <a
-            href={"/notes/" + monitorFrame.teamNumber}
-            class="h-full px-2 lg:aspect-square flex items-center justify-center p-.5 md:p-1 lg:p-2 lg:text-4xl font-mono ring-inset ring-1 ring-gray-800 {monitorFrame.alliance === AllianceType.Blue ? 'bg-blue-500' : 'bg-red-500'}"
-        >
-            <p>{monitorFrame.teamNumber}</p>
-    </a>
-	<button
-		class="h-full aspect-third lg:aspect-square flex items-center justify-center font-mono p-.5 text-4xl md:p-1 lg:p-2 lg:text-8xl {DS_COLORS[dsStatus()]} text-black ring-inset ring-1 ring-gray-800"
-		onclick={() => detailView}
-	>
-		{#if dsStatus() === 2}
-			X
-		{:else if dsStatus() === 3}
-			M
-		{:else if dsStatus() === 4}
-			W
-		{:else if dsStatus() === 5}
-			B
-		{:else if dsStatus() === 6}
-			E
-		{:else if dsStatus() === 7}
-			A
-		{/if}
-    </button>
-	<button
-		class="h-full aspect-third lg:aspect-square flex {STATUS_COLORS[monitorFrame.radioLink ? 1 : 0]} ring-inset ring-1 ring-gray-800"
-		onclick={() => detailView}
-	></button>
-	<button
-		class="h-full aspect-third lg:aspect-square flex items-center justify-center  font-mono p-.5 md:p-1 text-4xl lg:p-2 lg:text-8xl text-black {STATUS_COLORS[monitorFrame.radioLink ? 1 : 0]} ring-inset ring-1 ring-gray-800"
-		onclick={() => detailView}
-	>
-        {#if monitorFrame.rioLink && !monitorFrame.linkActive}
-            X
-        {/if}
-    </button>
-	<button
-		class="h-full p-0 relative aspect-square"
-		onclick={() => detailView}
-		style={batteryGraphColor()}
-	>
-		<div class="text-center top-0 px-0.5 aspect-square">
-			<!-- <Graph data={parsedData} min={0} max={8} time={20} /> -->
-		</div>
-		<div
-			class="absolute w-full bottom-0 p-2 monitor-battery"
-		>
-			{monitorFrame.battery?.toFixed(1)}v
-		</div>
-	</button>
-    <button onclick={() => detailView} class="h-full hidden lg:flex aspect-square items-center justify-center p-.5 md:p-1 lg:p-2">{monitorFrame.averageTripTime} ms</button>
-    <button onclick={() => detailView} class="h-full hidden lg:flex aspect-square items-center justify-center p-.5 md:p-1 lg:p-2">
-        {monitorFrame.dataRateTotal?.toFixed(2)} mbps
-    </button>
-    <button class="h-full hidden lg:flex p-0 relative aspect-square" onclick={() => detailView}>
-        <div class="text-center top-0 px-0.5 aspect-square">
-            <!-- <Graph data={signalData} min={-140} max={100} time={20} /> -->
-        </div>
-        <div class="absolute w-full bottom-0 p-2 monitor-signal">
-            {monitorFrame.signal ? monitorFrame.signal : 0} dBm
-        </div>
-    </button>
-    <div class="h-full lg:hidden">
-		<button onclick={() => detailView} class="aspect-square flex flex-col items-center justify-center p-.5 md:p-1 lg:p-2">
-			<div>{monitorFrame.averageTripTime} ms</div>
-			<div>{monitorFrame.dataRateTotal?.toFixed(2)} mbps</div>
-			<div>{monitorFrame.signal ? monitorFrame.signal : 0} dBm</div>
-		</button>
+<a
+    href={"/notes/" + monitorFrame.teamNumber}
+    class="fieldmonitor-square-height px-1 md:aspect-square flex items-center justify-center text-lg sm:text-2xl lg:text-4xl font-mono {monitorFrame.alliance === AllianceType.Blue ? 'bg-blue-500' : 'bg-red-500'}"
+>
+    <p>{monitorFrame.teamNumber}</p>
+</a>
+<button
+    class="fieldmonitor-square-height md:aspect-square flex items-center justify-center font-mono text-4xl lg:text-8xl {DS_COLORS[dsStatus()]} text-black"
+    onclick={() => detailView}
+>
+    {#if dsStatus() === 2}
+        X
+    {:else if dsStatus() === 3}
+        M
+    {:else if dsStatus() === 4}
+        W
+    {:else if dsStatus() === 5}
+        B
+    {:else if dsStatus() === 6}
+        E
+    {:else if dsStatus() === 7}
+        A
+    {/if}
+</button>
+<button
+    class="fieldmonitor-square-height md:aspect-square flex {STATUS_COLORS[monitorFrame.radioLink ? 1 : 0]}"
+    onclick={() => detailView}
+></button>
+<button
+    class="fieldmonitor-square-height md:aspect-square flex items-center justify-center font-mono text-4xl lg:text-8xl text-black {STATUS_COLORS[monitorFrame.radioLink ? 1 : 0]}"
+    onclick={() => detailView}
+>
+    {#if monitorFrame.rioLink && !monitorFrame.linkActive}
+        X
+    {/if}
+</button>
+<button
+    class="fieldmonitor-square-height p-0 relative aspect-square max-w-8 lg:max-w-32"
+    onclick={() => detailView}
+    style={batteryGraphColor()}
+>
+    <div class="text-center top-0 px-0.5 aspect-square">
+        <!-- <Graph data={parsedData} min={0} max={8} time={20} /> -->
     </div>
-</div>
+    <div
+        class="absolute w-full bottom-0 p-2 monitor-battery"
+    >
+        {monitorFrame.battery?.toFixed(1)}v
+    </div>
+</button>
+<button onclick={() => detailView} class="fieldmonitor-square-height hidden lg:flex items-end">{monitorFrame.averageTripTime} ms</button>
+<button onclick={() => detailView} class="fieldmonitor-square-height hidden lg:flex items-end">
+    {monitorFrame.dataRateTotal?.toFixed(2)} mbps
+</button>
+<button class="fieldmonitor-square-height hidden lg:flex p-0 relative aspect-square" onclick={() => detailView}>
+    <div class="text-center top-0 px-0.5 aspect-square">
+        <!-- <Graph data={signalData} min={-140} max={100} time={20} /> -->
+    </div>
+    <div class="absolute w-full bottom-0 p-2 monitor-signal">
+        {monitorFrame.signal ? monitorFrame.signal : 0} dBm
+    </div>
+</button>
+<button onclick={() => detailView} class="fieldmonitor-square-height lg:hidden flex flex-col items-end justify-center">
+    <div>{monitorFrame.averageTripTime} ms</div>
+    <div>{monitorFrame.dataRateTotal?.toFixed(2)}</div>
+</button>

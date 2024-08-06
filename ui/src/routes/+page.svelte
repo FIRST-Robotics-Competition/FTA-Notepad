@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { AllianceType, DSStationStatus, MonitorStatusType, StationType, type FieldMonitorData } from "../fms/fms-signalr";
+	import { AllianceType, StationType, MonitorStatusType, DSStationStatus } from "../fms/fms-api";
+	import type { FieldMonitorData } from "../fms/fms-signalr";
     import MonitorRow from "../lib/components/field-monitor/MonitorRow.svelte";
 
     let teams: FieldMonitorData[] = [
@@ -141,6 +142,11 @@
 </script>
 
 <div class="grid grid-cols-fieldmonitor lg:grid-cols-fieldmonitor-large gap-0.5 md:gap-1 mx-auto justify-center">
+    <div class="col-span-6 lg:col-span-8 flex text-lg md:text-2xl font-semibold">
+        <div class="bg-neutral-700 px-2">M: 999</div>
+        <div class="flex-1 bg-green-600 px-2 text-center">Ready to Pre-Start</div>
+        <div class="bg-neutral-700 px-2">On Time</div>
+    </div>
     <MonitorRow monitorFrame={teams[0]} station="blue1" detailView={detailView} />
     <MonitorRow monitorFrame={teams[1]} station="blue2" detailView={detailView} />
     <MonitorRow monitorFrame={teams[2]} station="blue3" detailView={detailView} />

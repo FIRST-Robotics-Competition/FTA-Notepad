@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { AllianceType, DSStationStatus, type FieldMonitorData } from '../../../fms/fms-signalr';
+	import { AllianceType, DSStationStatus } from '../../../fms/fms-api';
+	import type { FieldMonitorData } from '../../../fms/fms-signalr';
 	import Graph from './Graph.svelte';
 
 	interface MonitorRowProps {
@@ -55,7 +56,7 @@
 
 <a
     href={"/notes/" + monitorFrame.teamNumber}
-    class="fieldmonitor-square-height px-1 md:aspect-square flex items-center justify-center text-lg sm:text-2xl lg:text-4xl font-mono {monitorFrame.alliance === AllianceType.Blue ? 'bg-blue-500' : 'bg-red-500'}"
+    class="fieldmonitor-square-height md:aspect-square flex items-center justify-center text-lg sm:text-2xl lg:text-4xl font-mono {monitorFrame.alliance === AllianceType.Blue ? 'bg-blue-500' : 'bg-red-500'}"
 >
     <p>{monitorFrame.teamNumber}</p>
 </a>

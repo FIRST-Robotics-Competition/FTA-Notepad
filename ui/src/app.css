@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+	@apply antialiased;
+}
+
+html.dark {
+	@apply bg-neutral-800 text-white;
+}
+
+@media screen and (max-width: 1024px) {
+    .grid-cols-fieldmonitor {
+        grid-template-columns: minmax(auto, 1fr) 1fr 1fr 1fr auto minmax(auto, 1fr);
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .grid-cols-fieldmonitor {
+        grid-template-columns: minmax(auto, 1fr) 1fr 1fr 1fr auto minmax(auto, 1fr);
+        width: fit-content;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .grid-cols-fieldmonitor {
+        grid-template-columns: minmax(auto, 1fr) 1fr 1fr 1fr auto minmax(auto, 1fr) minmax(auto, 1fr) auto;
+        width: fit-content;
+    }
+}
+
+.fieldmonitor-square-height {
+    height: calc((100vh - 8rem) / 6);
+}

@@ -19,9 +19,9 @@ export function connectFieldMonitor(
 			});
 			return connection;
 		},
-		onFieldMonitorDataChanged: function (listener: (fieldMonitorData: FieldMonitorData) => void) {
-			connection.on('FieldMonitorDataChanged', (data) => {
-				listener(transformMapping(FieldMonitorDataMapping, data));
+		onFieldMonitorDataChanged: function (listener: (fieldMonitorData: FieldMonitorData[]) => void) {
+			connection.on('FieldMonitorDataChanged', (data: any[]) => {
+				listener(data.map(d => transformMapping(FieldMonitorDataMapping, d)));
 			});
 			return connection;
 		}
@@ -39,7 +39,7 @@ function transformMapping<T>(mapping: { [key: string]: string }, data: any): T {
 
 export interface FieldMonitorHub {
 	onMatchStatusInfoChanged(listener: (matchStatusInfo: MatchStatusInfo) => void): void;
-	onFieldMonitorDataChanged(listener: (fieldMonitorData: FieldMonitorData) => void): void;
+	onFieldMonitorDataChanged(listener: (fieldMonitorData: FieldMonitorData[]) => void): void;
 }
 
 export type MatchStatusInfo = components['schemas']['MatchStatusInfo'];

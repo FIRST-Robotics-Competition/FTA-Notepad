@@ -58,14 +58,15 @@
 	}
 </script>
 
-<div
+<a
+	href={'/notes/' + monitorFrame.teamNumber}
 	class="fieldmonitor-square-height md:aspect-square flex items-center justify-center text-lg sm:text-2xl lg:text-4xl font-mono {monitorFrame.alliance ===
 	AllianceType.Blue
 		? 'bg-blue-500'
 		: 'bg-red-500'}"
 >
 	<p>{monitorFrame.teamNumber}</p>
-</div>
+</a>
 <button
 	class="fieldmonitor-square-height md:aspect-square flex items-center justify-center font-mono text-4xl lg:text-8xl {DS_COLORS[
 		dsStatus()

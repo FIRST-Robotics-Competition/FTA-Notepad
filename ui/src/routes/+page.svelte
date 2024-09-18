@@ -51,7 +51,6 @@
 		matchNumber = data.matchNumber ?? 999;
 		matchStatus = data.matchState ?? MatchStateType.NoCurrentlyActiveEvent;
 	});
-	signalrConnection.start();
 
 	function matchStatusToString(status: MatchStateType): string {
 		switch (status) {
@@ -95,18 +94,24 @@
 	}
 </script>
 
-<div
-	class="grid grid-cols-fieldmonitor lg:grid-cols-fieldmonitor-large gap-0.5 md:gap-1 mx-auto justify-center"
->
-	<div class="col-span-6 lg:col-span-8 flex text-lg md:text-2xl font-semibold">
-		<div class="bg-neutral-700 px-2">M: {matchNumber}</div>
-		<div class="flex-1 bg-green-600 px-2 text-center">{matchStatusToString(matchStatus)}</div>
-		<div class="bg-neutral-700 px-2">On Time</div>
+{#await signalrConnection.start()}
+	<div class="text-center">Connecting to FMS...</div>
+{:then}
+	<div
+		class="grid grid-cols-fieldmonitor lg:grid-cols-fieldmonitor-large gap-0.5 md:gap-1 mx-auto justify-center"
+	>
+		<div class="col-span-6 lg:col-span-8 flex text-lg md:text-2xl font-semibold">
+			<div class="bg-neutral-700 px-2">M: {matchNumber}</div>
+			<div class="flex-1 bg-green-600 px-2 text-center">{matchStatusToString(matchStatus)}</div>
+			<div class="bg-neutral-700 px-2">On Time</div>
+		</div>
+		<MonitorRow monitorFrame={blue1} {detailView} />
+		<MonitorRow monitorFrame={blue2} {detailView} />
+		<MonitorRow monitorFrame={blue3} {detailView} />
+		<MonitorRow monitorFrame={red1} {detailView} />
+		<MonitorRow monitorFrame={red2} {detailView} />
+		<MonitorRow monitorFrame={red3} {detailView} />
 	</div>
-	<MonitorRow monitorFrame={blue1} {detailView} />
-	<MonitorRow monitorFrame={blue2} {detailView} />
-	<MonitorRow monitorFrame={blue3} {detailView} />
-	<MonitorRow monitorFrame={red1} {detailView} />
-	<MonitorRow monitorFrame={red2} {detailView} />
-	<MonitorRow monitorFrame={red3} {detailView} />
-</div>
+{:catch error}
+	<div class="text-center text-red-500">Error connecting to FMS: {error.message}</div>
+{/await}

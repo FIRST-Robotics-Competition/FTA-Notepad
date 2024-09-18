@@ -21,7 +21,7 @@ export function connectFieldMonitor(
 		},
 		onFieldMonitorDataChanged: function (listener: (fieldMonitorData: FieldMonitorData[]) => void) {
 			connection.on('FieldMonitorDataChanged', (data: any[]) => {
-				listener(data.map(d => transformMapping(FieldMonitorDataMapping, d)));
+				listener(data.map((d) => transformMapping(FieldMonitorDataMapping, d)));
 			});
 			return connection;
 		}

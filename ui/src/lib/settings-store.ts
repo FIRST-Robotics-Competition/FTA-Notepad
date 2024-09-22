@@ -5,6 +5,8 @@ export interface Settings {
 	version: string;
 	developerMode: boolean;
 	darkMode: boolean;
+	username: string;
+	key: string;
 }
 
 let initialSettings = browser ? window.localStorage.getItem('settings') : null;
@@ -12,7 +14,9 @@ let initialSettings = browser ? window.localStorage.getItem('settings') : null;
 const defaultSettings: Settings = {
 	version: '0',
 	developerMode: false,
-	darkMode: true
+	darkMode: true,
+	username: '',
+	key: ''
 };
 
 if (!initialSettings) {

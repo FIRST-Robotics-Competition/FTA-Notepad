@@ -162,7 +162,10 @@
 										<a
 											href="#"
 											class="group flex gap-x-3 rounded-md p-2 font-semibold leading-8 hover:bg-primary-700 data-[active=true]:bg-primary-700"
-											onclick={() => (settingsOpen = true)}
+											onclick={() => {
+												settingsOpen = true;
+												sidebarOpen = false;
+											}}
 										>
 											<Icon src={Cog6Tooth} class="h-8 w-8 shrink-0" />
 											Settings

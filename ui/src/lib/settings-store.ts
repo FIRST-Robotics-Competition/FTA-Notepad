@@ -18,7 +18,7 @@ const defaultSettings: Settings = {
 	darkMode: true,
 	username: '',
 	key: '',
-	fmsUrl: 'http://10.0.100.5',
+	fmsUrl: 'http://10.0.100.5'
 };
 
 if (!initialSettings) {

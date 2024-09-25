@@ -5,7 +5,7 @@ import type { components } from './fms-api';
 const fieldMonitorHubPostfix = 'fieldMonitorHub';
 
 export function connectFieldMonitor(
-	fmsUrl: `http://${string}`
+	fmsUrl: string
 ): signalR.HubConnection & FieldMonitorHub {
 	const connection = new signalR.HubConnectionBuilder()
 		.withUrl(`${fmsUrl}/${fieldMonitorHubPostfix}`)

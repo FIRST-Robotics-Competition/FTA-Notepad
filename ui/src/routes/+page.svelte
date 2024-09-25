@@ -10,6 +10,7 @@
 		Red2Default,
 		Red3Default
 	} from './defaults';
+	import { settingsStore } from '$lib/settings-store';
 
 	let blue1: FieldMonitorData = Blue1Default;
 	let blue2: FieldMonitorData = Blue2Default;
@@ -23,7 +24,7 @@
 
 	let detailView = () => {};
 
-	const signalrConnection = connectFieldMonitor('http://localhost:5000');
+	const signalrConnection = connectFieldMonitor($settingsStore.fmsUrl);
 	signalrConnection.onFieldMonitorDataChanged((data) => {
 		for (const team of data) {
 			if (!team) continue;

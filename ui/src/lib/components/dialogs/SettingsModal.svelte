@@ -96,6 +96,10 @@
 				API Key
 			</TextInput>
 
+			<TextInput bind:text={settings.fmsUrl} placeholder="http://localhost" onblur={updateSettings}>
+				FMS URL
+			</TextInput>
+
 			<div class="grid gap-2 md:col-span-2 mt-2">
 				{#if installPrompt}
 					<Button

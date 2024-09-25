@@ -7,6 +7,7 @@ export interface Settings {
 	darkMode: boolean;
 	username: string;
 	key: string;
+	fmsUrl: string;
 }
 
 let initialSettings = browser ? window.localStorage.getItem('settings') : null;
@@ -16,7 +17,8 @@ const defaultSettings: Settings = {
 	developerMode: false,
 	darkMode: true,
 	username: '',
-	key: ''
+	key: '',
+	fmsUrl: 'http://10.0.100.5'
 };
 
 if (!initialSettings) {

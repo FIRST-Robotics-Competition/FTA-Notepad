@@ -33,12 +33,6 @@ const fixPathsMiddleware: Middleware = {
 fmsClient.use(fixPathsMiddleware);
 
 export type TeamIssue = components['schemas']['TeamIssueModel'];
-export interface FetchTeamIssueOptions {
-	noteId?: string;
-	teamNumber?: number;
-	issueType?: string;
-	resolutionStatus?: string;
-}
 export async function getTeamNotes(
 	fetch: any,
 	options: {

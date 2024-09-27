@@ -43,8 +43,6 @@
 		disabled && 'cursor-not-allowed opacity-50',
 		restProps.class
 	);
-
-	function test() {}
 </script>
 
 {#if href}

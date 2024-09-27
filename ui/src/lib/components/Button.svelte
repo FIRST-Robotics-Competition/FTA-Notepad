@@ -43,6 +43,8 @@
 		disabled && 'cursor-not-allowed opacity-50',
 		restProps.class
 	);
+
+	function test() {}
 </script>
 
 {#if href}
@@ -50,7 +52,7 @@
 		{@render children()}
 	</a>
 {:else}
-	<button {type} {...restProps} class={buttonClass}>
+	<button {type} {...restProps} class={buttonClass} on:click>
 		{@render children()}
 	</button>
 {/if}

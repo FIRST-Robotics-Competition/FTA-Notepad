@@ -12,7 +12,6 @@ const season = 2025;
 
 const authMiddleware: Middleware = {
 	async onRequest({ request }) {
-		console.log(request.url);
 		let settings = get(settingsStore);
 		let auth = btoa(`${settings.username}:${settings.key}`);
 		request.headers.set('Authorization', `Basic ${auth}`);
@@ -25,7 +24,6 @@ fmsClient.use(authMiddleware);
 // part of the path. Those path parameters cannot be replaced correctly, so we will need to strip them out.
 const fixPathsMiddleware: Middleware = {
 	async onRequest({ request }) {
-		console.log('original: ' + request.url);
 		// Strip any path parameters that haven't been provided
 		// E.g. /teamIssues/{noteId} becomes /teamIssues
 		let fixedUrl = request.url.replace(/\/%7B\w*%7D/g, '');
@@ -70,4 +68,17 @@ export async function getTeamNotes(
 		error: error,
 		response
 	};
+}
+
+export async function getCurrentEventCode(): Promise<string | null | undefined> {
+	const { data } = await fmsClient.POST('/api/v{version}/FTAAppApi/CurrentEventStatus', {
+		params: {
+			path: {
+				version: apiVersion
+			}
+		},
+		fetch
+	});
+
+	return data?.eventCode;
 }

@@ -3,9 +3,12 @@ import type { paths, components } from '../../fms/fms-api';
 import { settingsStore } from '$lib/settings-store';
 import { get } from 'svelte/store';
 
-// TODO configure with real FMS URL (and local dev option)
 export const fmsClient = createClient<paths>({ baseUrl: get(settingsStore).fmsUrl });
 const apiVersion = '1.0';
+
+// TODO sync with FMS - not sure which API to use for that at the moment since `/FTA` seems to only
+// return 0 for currentSeason
+const season = 2025;
 
 const authMiddleware: Middleware = {
 	async onRequest({ request }) {
@@ -53,8 +56,8 @@ export async function getTeamNotes(
 			params: {
 				query: options,
 				path: {
-					season: 2025,
-					eventCode: 'WASNO',
+					season: season,
+					eventCode: get(settingsStore).eventCode,
 					version: apiVersion
 				}
 			},

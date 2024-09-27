@@ -54,7 +54,6 @@
 	}
 
 	function syncCurrentEventCode() {
-		console.log('syncing event code');
 		getCurrentEventCode().then((fmsEventCode) => {
 			if (fmsEventCode) {
 				settings.eventCode = fmsEventCode;

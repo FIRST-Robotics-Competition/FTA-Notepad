@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: FMS.FieldServer.Web
-  version: v1
+  version: '1.0'
 paths:
   /FieldMonitor/MatchNumberAndPlay:
     get:
@@ -66,7 +66,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/MatchGraphDetailViewModel'
-  '/api/v{version}/fieldmonitor/get/GetResultsByFMSMatchId/{matchIdParam}':
+  '/api/v1.0/fieldmonitor/get/GetResultsByFMSMatchId/{matchIdParam}':
     get:
       tags:
         - FieldMonitorApi
@@ -77,11 +77,6 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -95,7 +90,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/FieldServerWebMatchViewItem'
-  '/api/v{version}/fieldmonitor/get/GetResultsByTeamNumber/{teamNumberParam}':
+  '/api/v1.0/fieldmonitor/get/GetResultsByTeamNumber/{teamNumberParam}':
     get:
       tags:
         - FieldMonitorApi
@@ -106,11 +101,6 @@ paths:
           schema:
             type: integer
             format: int32
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -130,7 +120,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/FieldServerWebMatchViewItem'
-  '/api/v{version}/fieldmonitor/get/GetResults/{levelParam}':
+  '/api/v1.0/fieldmonitor/get/GetResults/{levelParam}':
     get:
       tags:
         - FieldMonitorApi
@@ -140,11 +130,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -164,7 +149,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/FieldServerWebMatchViewItem'
-  '/api/v{version}/fieldmonitor/get/GetLog/{matchIdParam}/{allianceParam}/{stationParam}':
+  '/api/v1.0/fieldmonitor/get/GetLog/{matchIdParam}/{allianceParam}/{stationParam}':
     get:
       tags:
         - FieldMonitorApi
@@ -185,11 +170,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/StationType'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -209,7 +189,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/FieldServerWebMatchShowLogViewItem'
-  '/api/v{version}/fieldmonitor/get/GetPlayoffMatchups/{playoffSizeParam}/{sublevelParam}':
+  '/api/v1.0/fieldmonitor/get/GetPlayoffMatchups/{playoffSizeParam}/{sublevelParam}':
     get:
       tags:
         - FieldMonitorApi
@@ -224,11 +204,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -248,7 +223,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PitPlayoffMatchup'
-  '/api/v{version}/fieldmonitor/get/GetTournamentLevelStatus/{levelParam}':
+  '/api/v1.0/fieldmonitor/get/GetTournamentLevelStatus/{levelParam}':
     get:
       tags:
         - FieldMonitorApi
@@ -258,11 +233,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -276,7 +246,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/LevelStatus'
-  '/api/v{version}/fieldmonitor/get/GetPlayoffLevelStatus/{levelParam}':
+  '/api/v1.0/fieldmonitor/get/GetPlayoffLevelStatus/{levelParam}':
     get:
       tags:
         - FieldMonitorApi
@@ -286,11 +256,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -304,16 +269,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/LevelStatus'
-  '/api/v{version}/fieldmonitor/get/GetCurrentPlayoffLevel':
+  /api/v1.0/fieldmonitor/get/GetCurrentPlayoffLevel:
     get:
       tags:
         - FieldMonitorApi
-      parameters:
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -327,7 +286,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/PlayoffLevel'
-  '/api/v{version}/fieldmonitor/get/GetNextPlayoffLevel/{playoffLevel}':
+  '/api/v1.0/fieldmonitor/get/GetNextPlayoffLevel/{playoffLevel}':
     get:
       tags:
         - FieldMonitorApi
@@ -337,11 +296,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -355,7 +309,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/PlayoffLevel'
-  '/api/v{version}/fieldmonitor/get/GetPreviousPlayoffLevel/{playoffLevel}':
+  '/api/v1.0/fieldmonitor/get/GetPreviousPlayoffLevel/{playoffLevel}':
     get:
       tags:
         - FieldMonitorApi
@@ -365,11 +319,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -383,7 +332,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/PlayoffLevel'
-  '/api/v{version}/fieldmonitor/get/GetPlayoffLevelForMatch/{matchNumber}':
+  '/api/v1.0/fieldmonitor/get/GetPlayoffLevelForMatch/{matchNumber}':
     get:
       tags:
         - FieldMonitorApi
@@ -394,11 +343,6 @@ paths:
           schema:
             type: integer
             format: int32
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -412,7 +356,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/PlayoffLevel'
-  '/api/v{version}/fieldmonitor/get/TournamentLevelHasPlayableSchedule/{tourneyLevel}':
+  '/api/v1.0/fieldmonitor/get/TournamentLevelHasPlayableSchedule/{tourneyLevel}':
     get:
       tags:
         - FieldMonitorApi
@@ -422,11 +366,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -440,16 +379,10 @@ paths:
             text/json:
               schema:
                 type: boolean
-  '/api/v{version}/fieldmonitor/get/GetPlayoffMatchGroups':
+  /api/v1.0/fieldmonitor/get/GetPlayoffMatchGroups:
     get:
       tags:
         - FieldMonitorApi
-      parameters:
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: A map of match group ID to match group.
@@ -469,7 +402,7 @@ paths:
                 type: object
                 additionalProperties:
                   $ref: '#/components/schemas/MatchGroupView'
-  '/api/v{version}/fieldmonitor/get/GetMatchRange/{playoffLevel}':
+  '/api/v1.0/fieldmonitor/get/GetMatchRange/{playoffLevel}':
     get:
       tags:
         - FieldMonitorApi
@@ -479,11 +412,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -497,7 +425,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/Int32Int32ValueTuple'
-  '/api/v{version}/fieldmonitor/get/GetMatchDescription/{tourneyLevel}/{matchNumber}':
+  '/api/v1.0/fieldmonitor/get/GetMatchDescription/{tourneyLevel}/{matchNumber}':
     get:
       tags:
         - FieldMonitorApi
@@ -513,11 +441,6 @@ paths:
           schema:
             type: integer
             format: int32
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -531,7 +454,7 @@ paths:
             text/json:
               schema:
                 type: string
-  '/api/v{version}/fieldmonitor/get/CountOfMatchesPlayed/{levelParam}':
+  '/api/v1.0/fieldmonitor/get/CountOfMatchesPlayed/{levelParam}':
     get:
       tags:
         - FieldMonitorApi
@@ -541,11 +464,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -562,7 +480,7 @@ paths:
               schema:
                 type: integer
                 format: int32
-  '/api/v{version}/fieldmonitor/get/CountOfRankingsRecords/{levelParam}':
+  '/api/v1.0/fieldmonitor/get/CountOfRankingsRecords/{levelParam}':
     get:
       tags:
         - FieldMonitorApi
@@ -572,11 +490,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -593,7 +506,7 @@ paths:
               schema:
                 type: integer
                 format: int32
-  '/api/v{version}/fieldmonitor/get/GetCurrentMatchAndPlayNumber/{fieldTypeParam}':
+  '/api/v1.0/fieldmonitor/get/GetCurrentMatchAndPlayNumber/{fieldTypeParam}':
     get:
       tags:
         - FieldMonitorApi
@@ -603,11 +516,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/FieldTypes'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -621,7 +529,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/TournamentLevelInt32Int32ValueTuple'
-  '/api/v{version}/fieldmonitor/get/GetOrMakeFMSScheduleParameterId/{tourneyLevel}':
+  '/api/v1.0/fieldmonitor/get/GetOrMakeFMSScheduleParameterId/{tourneyLevel}':
     get:
       tags:
         - FieldMonitorApi
@@ -631,11 +539,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -652,7 +555,7 @@ paths:
               schema:
                 type: string
                 format: uuid
-  '/api/v{version}/fieldmonitor/get/GetRankings/{eventIdParam}':
+  '/api/v1.0/fieldmonitor/get/GetRankings/{eventIdParam}':
     get:
       tags:
         - FieldMonitorApi
@@ -663,11 +566,6 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -687,16 +585,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/RankModel'
-  '/api/v{version}/fieldmonitor/get/GetAllTeamNumbers':
+  /api/v1.0/fieldmonitor/get/GetAllTeamNumbers:
     get:
       tags:
         - FieldMonitorApi
-      parameters:
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -719,16 +611,10 @@ paths:
                 items:
                   type: integer
                   format: int32
-  '/api/v{version}/fieldmonitor/get/GetAllAlliances':
+  /api/v1.0/fieldmonitor/get/GetAllAlliances:
     get:
       tags:
         - FieldMonitorApi
-      parameters:
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -761,7 +647,7 @@ paths:
       responses:
         '200':
           description: OK
-  '/api/v{version}/FTA/{season}/{eventCode}/appUsageData':
+  '/api/v1.0/FTA/{season}/{eventCode}/appUsageData':
     post:
       tags:
         - FTAAppApi
@@ -781,17 +667,12 @@ paths:
           schema:
             minLength: 3
             type: string
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/{eventCode}/eventNotes/{noteId}':
+  '/api/v1.0/FTA/{season}/{eventCode}/eventNotes/{noteId}':
     get:
       tags:
         - FTAAppApi
@@ -816,11 +697,6 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -860,11 +736,6 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -905,11 +776,6 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -950,17 +816,91 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '204':
           description: No Content
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/{eventCode}/matchNotes/{noteId}/{tournamentLevel}/{matchNumber}/{playNumber}/{teamNumber}':
+  '/api/v1.0/FTA/{season}/{eventCode}/eventNotes':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EventNotesModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventNotesModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EventNotesModel'
+        '500':
+          description: Internal Server Error
+    post:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+        '500':
+          description: Internal Server Error
+  '/api/v1.0/FTA/{season}/{eventCode}/matchNotes/{noteId}/{tournamentLevel}/{matchNumber}/{playNumber}/{teamNumber}':
     get:
       tags:
         - FTAAppApi
@@ -988,8 +928,7 @@ paths:
         - name: tournamentLevel
           in: query
           schema:
-            type: string
-            default: ''
+            $ref: '#/components/schemas/TournamentLevel'
         - name: matchNumber
           in: query
           schema:
@@ -1011,11 +950,6 @@ paths:
             maxLength: 4
             type: integer
             format: int32
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -1031,7 +965,66 @@ paths:
                 $ref: '#/components/schemas/MatchNotesModel'
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/{eventCode}/matchNotes/{noteId}':
+  '/api/v1.0/FTA/{season}/{eventCode}/matchNotes':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: tournamentLevel
+          in: query
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: matchNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: playNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: teamNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MatchNotesModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchNotesModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MatchNotesModel'
+        '500':
+          description: Internal Server Error
+  '/api/v1.0/FTA/{season}/{eventCode}/matchNotes/{noteId}':
     post:
       tags:
         - FTAAppApi
@@ -1056,11 +1049,6 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -1101,11 +1089,6 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -1146,17 +1129,12 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '204':
           description: No Content
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/{eventCode}/teamIssues/{noteId}/{teamNumber}/{issueType}/{resolutionStatus}':
+  '/api/v1.0/FTA/{season}/{eventCode}/teamIssues/{noteId}/{teamNumber}/{issueType}/{resolutionStatus}':
     get:
       tags:
         - FTAAppApi
@@ -1191,16 +1169,11 @@ paths:
         - name: issueType
           in: query
           schema:
-            type: string
+            $ref: '#/components/schemas/EventNoteIssueTypes'
         - name: resolutionStatus
           in: query
           schema:
-            type: string
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
+            $ref: '#/components/schemas/EventNoteResolutionTypes'
       responses:
         '200':
           description: OK
@@ -1216,7 +1189,59 @@ paths:
                 $ref: '#/components/schemas/TeamIssuesModel'
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/{eventCode}/teamIssues/{noteId}':
+  '/api/v1.0/FTA/{season}/{eventCode}/teamIssues':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: noteId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: teamNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: issueType
+          in: query
+          schema:
+            $ref: '#/components/schemas/EventNoteIssueTypes'
+        - name: resolutionStatus
+          in: query
+          schema:
+            $ref: '#/components/schemas/EventNoteResolutionTypes'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TeamIssuesModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamIssuesModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TeamIssuesModel'
+        '500':
+          description: Internal Server Error
     post:
       tags:
         - FTAAppApi
@@ -1241,11 +1266,46 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+        '500':
+          description: Internal Server Error
+  '/api/v1.0/FTA/{season}/{eventCode}/teamIssues/{noteId}':
+    post:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
           in: path
           required: true
           schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
             type: string
+        - name: noteId
+          in: query
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: OK
@@ -1286,11 +1346,6 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -1331,17 +1386,12 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '204':
           description: No Content
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/{eventCode}/schedule/{tournamentLevel}/{teamNumber}/{start}/{end}':
+  '/api/v1.0/FTA/{season}/{eventCode}/schedule/{tournamentLevel}/{teamNumber}/{start}/{end}':
     get:
       tags:
         - FTAAppApi
@@ -1365,7 +1415,7 @@ paths:
           in: path
           required: true
           schema:
-            type: string
+            $ref: '#/components/schemas/TournamentLevel'
         - name: teamNumber
           in: query
           schema:
@@ -1388,11 +1438,6 @@ paths:
             type: integer
             format: int32
             default: 999
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -1408,7 +1453,7 @@ paths:
                 $ref: '#/components/schemas/EventScheduleModel'
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/{eventCode}/schedule/hybrid/{tournamentLevel}/{teamNumber}/{start}/{end}':
+  '/api/v1.0/FTA/{season}/{eventCode}/schedule/{tournamentLevel}':
     get:
       tags:
         - FTAAppApi
@@ -1432,7 +1477,65 @@ paths:
           in: path
           required: true
           schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: teamNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: start
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: end
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 999
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EventScheduleModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventScheduleModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EventScheduleModel'
+        '500':
+          description: Internal Server Error
+  '/api/v1.0/FTA/{season}/{eventCode}/schedule/hybrid/{tournamentLevel}/{teamNumber}/{start}/{end}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
             type: string
+        - name: tournamentLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
         - name: teamNumber
           in: query
           schema:
@@ -1455,11 +1558,6 @@ paths:
             type: integer
             format: int32
             default: 999
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -1475,7 +1573,65 @@ paths:
                 $ref: '#/components/schemas/EventScheduleHybridModel'
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/{eventCode}/WPA/{teamNumber}/{connectionStatus}':
+  '/api/v1.0/FTA/{season}/{eventCode}/schedule/hybrid/{tournamentLevel}':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: tournamentLevel
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: teamNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: start
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: end
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 999
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EventScheduleHybridModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventScheduleHybridModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EventScheduleHybridModel'
+        '500':
+          description: Internal Server Error
+  '/api/v1.0/FTA/{season}/{eventCode}/WPA/{teamNumber}/{connectionStatus}':
     get:
       tags:
         - FTAAppApi
@@ -1506,13 +1662,7 @@ paths:
         - name: connectionStatus
           in: query
           schema:
-            type: string
-            default: ''
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
+            $ref: '#/components/schemas/WPAKeyStatusType'
       responses:
         '200':
           description: OK
@@ -1528,7 +1678,52 @@ paths:
                 $ref: '#/components/schemas/ConnectionStatusInfoModel'
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/{eventCode}/bypass/{teamNumber}/{tournamentLevel}/{matchNumber}':
+  '/api/v1.0/FTA/{season}/{eventCode}/WPA':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: teamNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: connectionStatus
+          in: query
+          schema:
+            $ref: '#/components/schemas/WPAKeyStatusType'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ConnectionStatusInfoModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionStatusInfoModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionStatusInfoModel'
+        '500':
+          description: Internal Server Error
+  '/api/v1.0/FTA/{season}/{eventCode}/bypass/{teamNumber}/{tournamentLevel}/{matchNumber}':
     get:
       tags:
         - FTAAppApi
@@ -1559,8 +1754,7 @@ paths:
         - name: tournamentLevel
           in: query
           schema:
-            type: string
-            default: ''
+            $ref: '#/components/schemas/TournamentLevel'
         - name: matchNumber
           in: query
           schema:
@@ -1569,11 +1763,6 @@ paths:
             type: integer
             format: int32
             default: 0
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -1589,7 +1778,58 @@ paths:
                 $ref: '#/components/schemas/BypassStatusInfoModel'
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/events/{eventCode}/{teamNumber}/{districtCode}/{excludeDistrict}/{active}':
+  '/api/v1.0/FTA/{season}/{eventCode}/bypass':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: teamNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: tournamentLevel
+          in: query
+          schema:
+            $ref: '#/components/schemas/TournamentLevel'
+        - name: matchNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BypassStatusInfoModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BypassStatusInfoModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BypassStatusInfoModel'
+        '500':
+          description: Internal Server Error
+  '/api/v1.0/FTA/{season}/events/{eventCode}/{teamNumber}/{districtCode}/{excludeDistrict}/{active}':
     get:
       tags:
         - FTAAppApi
@@ -1632,11 +1872,6 @@ paths:
           in: query
           schema:
             type: boolean
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -1652,7 +1887,61 @@ paths:
                 $ref: '#/components/schemas/SeasonEventListingsModel'
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/teams/{eventCode}/{teamNumber}/{districtCode}/{page}':
+  '/api/v1.0/FTA/{season}/events':
+    get:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: query
+          schema:
+            type: string
+            default: ''
+        - name: teamNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: districtCode
+          in: query
+          schema:
+            type: string
+            default: ''
+        - name: excludeDistrict
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: active
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SeasonEventListingsModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonEventListingsModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SeasonEventListingsModel'
+        '500':
+          description: Internal Server Error
+  '/api/v1.0/FTA/{season}/teams/{eventCode}/{teamNumber}/{districtCode}/{page}':
     get:
       tags:
         - FTAAppApi
@@ -1693,11 +1982,6 @@ paths:
             type: integer
             format: int32
             default: 1
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: OK
@@ -1713,7 +1997,7 @@ paths:
                 $ref: '#/components/schemas/SeasonTeamListingsModel'
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/districts':
+  '/api/v1.0/FTA/{season}/teams':
     get:
       tags:
         - FTAAppApi
@@ -1727,62 +2011,95 @@ paths:
             minLength: 4
             type: integer
             format: int32
-        - name: version
-          in: path
-          required: true
+        - name: eventCode
+          in: query
           schema:
             type: string
+            default: ''
+        - name: teamNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: districtCode
+          in: query
+          schema:
+            type: string
+            default: ''
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 1
       responses:
         '200':
           description: OK
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/SeasonDistrictListingsModel'
+                $ref: '#/components/schemas/SeasonTeamListingsModel'
             application/json:
               schema:
-                $ref: '#/components/schemas/SeasonDistrictListingsModel'
+                $ref: '#/components/schemas/SeasonTeamListingsModel'
             text/json:
               schema:
-                $ref: '#/components/schemas/SeasonDistrictListingsModel'
+                $ref: '#/components/schemas/SeasonTeamListingsModel'
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA':
+  '/api/v1.0/FTA/{season}/districts':
     get:
       tags:
         - FTAAppApi
       parameters:
-        - name: version
+        - name: season
           in: path
           required: true
           schema:
-            type: number
-            format: double
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
       responses:
         '200':
           description: OK
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/ApiIndexModel'
+                $ref: '#/components/schemas/SeasonDistrictListingsModel'
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiIndexModel'
+                $ref: '#/components/schemas/SeasonDistrictListingsModel'
             text/json:
               schema:
-                $ref: '#/components/schemas/ApiIndexModel'
+                $ref: '#/components/schemas/SeasonDistrictListingsModel'
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTAAppApi/CurrentEventStatus':
-    post:
+  /api/v1.0/FTA:
+    get:
       tags:
         - FTAAppApi
-      parameters:
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiIndexModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiIndexModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiIndexModel'
+        '500':
+          description: Internal Server Error
+  /api/v1.0/FTAAppApi/CurrentEventStatus:
+    get:
+      tags:
+        - FTAAppApi
       responses:
         '200':
           description: OK
@@ -1798,7 +2115,7 @@ paths:
                 $ref: '#/components/schemas/CurrentEventStatus'
         '500':
           description: Internal Server Error
-  '/api/v{version}/FTA/{season}/get/GetTournamentLevelStatus/{levelParam}':
+  '/api/v1.0/FTA/{season}/get/GetTournamentLevelStatus/{levelParam}':
     get:
       tags:
         - FTAAppApi
@@ -1808,11 +2125,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -1831,7 +2143,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/LevelStatus'
-  '/api/v{version}/FTA/{season}/get/GetPlayoffLevelStatus/{levelParam}':
+  '/api/v1.0/FTA/{season}/get/GetPlayoffLevelStatus/{levelParam}':
     get:
       tags:
         - FTAAppApi
@@ -1841,11 +2153,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -1864,16 +2171,11 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/LevelStatus'
-  '/api/v{version}/FTA/{season}/get/GetCurrentPlayoffLevel':
+  '/api/v1.0/FTA/{season}/get/GetCurrentPlayoffLevel':
     get:
       tags:
         - FTAAppApi
       parameters:
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -1892,7 +2194,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/PlayoffLevel'
-  '/api/v{version}/FTA/{season}/get/GetNextPlayoffLevel/{playoffLevel}':
+  '/api/v1.0/FTA/{season}/get/GetNextPlayoffLevel/{playoffLevel}':
     get:
       tags:
         - FTAAppApi
@@ -1902,11 +2204,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -1925,7 +2222,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/PlayoffLevel'
-  '/api/v{version}/FTA/{season}/get/GetPreviousPlayoffLevel/{playoffLevel}':
+  '/api/v1.0/FTA/{season}/get/GetPreviousPlayoffLevel/{playoffLevel}':
     get:
       tags:
         - FTAAppApi
@@ -1935,11 +2232,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -1958,7 +2250,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/PlayoffLevel'
-  '/api/v{version}/FTA/{season}/get/GetPlayoffLevelForMatch/{matchNumber}':
+  '/api/v1.0/FTA/{season}/get/GetPlayoffLevelForMatch/{matchNumber}':
     get:
       tags:
         - FTAAppApi
@@ -1969,11 +2261,6 @@ paths:
           schema:
             type: integer
             format: int32
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -1992,7 +2279,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/PlayoffLevel'
-  '/api/v{version}/FTA/{season}/get/TournamentLevelHasPlayableSchedule/{tourneyLevel}':
+  '/api/v1.0/FTA/{season}/get/TournamentLevelHasPlayableSchedule/{tourneyLevel}':
     get:
       tags:
         - FTAAppApi
@@ -2002,11 +2289,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -2025,16 +2307,11 @@ paths:
             text/json:
               schema:
                 type: boolean
-  '/api/v{version}/FTA/{season}/get/GetPlayoffMatchGroups':
+  '/api/v1.0/FTA/{season}/get/GetPlayoffMatchGroups':
     get:
       tags:
         - FTAAppApi
       parameters:
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -2059,7 +2336,7 @@ paths:
                 type: object
                 additionalProperties:
                   $ref: '#/components/schemas/MatchGroupView'
-  '/api/v{version}/FTA/{season}/get/GetMatchRange/{playoffLevel}':
+  '/api/v1.0/FTA/{season}/get/GetMatchRange/{playoffLevel}':
     get:
       tags:
         - FTAAppApi
@@ -2069,11 +2346,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -2092,7 +2364,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/Int32Int32ValueTuple'
-  '/api/v{version}/FTA/{season}/get/GetMatchDescription/{tourneyLevel}/{matchNumber}':
+  '/api/v1.0/FTA/{season}/get/GetMatchDescription/{tourneyLevel}/{matchNumber}':
     get:
       tags:
         - FTAAppApi
@@ -2108,11 +2380,6 @@ paths:
           schema:
             type: integer
             format: int32
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -2131,7 +2398,7 @@ paths:
             text/json:
               schema:
                 type: string
-  '/api/v{version}/FTA/{season}/get/CountOfMatchesPlayed/{levelParam}':
+  '/api/v1.0/FTA/{season}/get/CountOfMatchesPlayed/{levelParam}':
     get:
       tags:
         - FTAAppApi
@@ -2141,11 +2408,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -2167,7 +2429,7 @@ paths:
               schema:
                 type: integer
                 format: int32
-  '/api/v{version}/FTA/{season}/get/CountOfRankingsRecords/{levelParam}':
+  '/api/v1.0/FTA/{season}/get/CountOfRankingsRecords/{levelParam}':
     get:
       tags:
         - FTAAppApi
@@ -2177,11 +2439,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -2203,7 +2460,7 @@ paths:
               schema:
                 type: integer
                 format: int32
-  '/api/v{version}/FTA/{season}/get/GetCurrentMatchAndPlayNumber/{fieldTypeParam}':
+  '/api/v1.0/FTA/{season}/get/GetCurrentMatchAndPlayNumber/{fieldTypeParam}':
     get:
       tags:
         - FTAAppApi
@@ -2213,11 +2470,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/FieldTypes'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -2236,7 +2488,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/TournamentLevelInt32Int32ValueTuple'
-  '/api/v{version}/FTA/{season}/get/GetOrMakeFMSScheduleParameterId/{tourneyLevel}':
+  '/api/v1.0/FTA/{season}/get/GetOrMakeFMSScheduleParameterId/{tourneyLevel}':
     get:
       tags:
         - FTAAppApi
@@ -2246,11 +2498,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -2272,7 +2519,7 @@ paths:
               schema:
                 type: string
                 format: uuid
-  '/api/v{version}/FTA/{season}/get/GetRankings/{eventIdParam}':
+  '/api/v1.0/FTA/{season}/get/GetRankings/{eventIdParam}':
     get:
       tags:
         - FTAAppApi
@@ -2283,11 +2530,6 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -2312,16 +2554,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/RankModel'
-  '/api/v{version}/FTA/{season}/get/GetAllTeamNumbers':
+  '/api/v1.0/FTA/{season}/get/GetAllTeamNumbers':
     get:
       tags:
         - FTAAppApi
       parameters:
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -2349,16 +2586,11 @@ paths:
                 items:
                   type: integer
                   format: int32
-  '/api/v{version}/FTA/{season}/get/GetAllAlliances':
+  '/api/v1.0/FTA/{season}/get/GetAllAlliances':
     get:
       tags:
         - FTAAppApi
       parameters:
-        - name: version
-          in: path
-          required: true
-          schema:
-            type: string
         - name: season
           in: path
           required: true
@@ -2383,31 +2615,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AllianceSelectionEventWizard'
-  '/api/{controller}':
-    post:
-      tags:
-        - FTAAppSync
-      parameters:
-        - name: controller
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-    get:
-      tags:
-        - FTAAppSync
-      parameters:
-        - name: controller
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
   /hubs/FieldMonitorEvents/MatchStatusInfoChanged:
     post:
       tags:
@@ -2552,12 +2759,11 @@ components:
       additionalProperties: false
     AllianceType:
       enum:
-        - 0
-        - 1
-        - 2
-      type: integer
+        - None
+        - Red
+        - Blue
+      type: string
       description: The color assigned to a particular alliance.
-      format: int32
       x-enum-varnames:
         - None
         - Red
@@ -2596,12 +2802,11 @@ components:
       description: 'FTA Notepad: API Index'
     BWUtilizationType:
       enum:
-        - 0
-        - 1
-        - 2
-        - 3
-      type: integer
-      format: int32
+        - Low
+        - Medium
+        - High
+        - VeryHigh
+      type: string
       x-enum-varnames:
         - Low
         - Medium
@@ -2609,12 +2814,11 @@ components:
         - VeryHigh
     Bracket:
       enum:
-        - 0
-        - 1
-        - 2
-      type: integer
+        - Single
+        - DoubleUpper
+        - DoubleLower
+      type: string
       description: 'Identifies which bracket a match group is part of, for head-to-head match groups.'
-      format: int32
       x-enum-varnames:
         - Single
         - DoubleUpper
@@ -2622,7 +2826,7 @@ components:
     BypassStatusInfoModel:
       type: object
       properties:
-        teamBypasses:
+        TeamBypasses:
           type: array
           items:
             $ref: '#/components/schemas/BypassStatusInfoTeamModel'
@@ -2644,7 +2848,7 @@ components:
     ConnectionStatusInfoModel:
       type: object
       properties:
-        teamStatuses:
+        TeamStatuses:
           type: array
           items:
             $ref: '#/components/schemas/ConnectionStatusInfoTeamModel'
@@ -2678,12 +2882,11 @@ components:
       additionalProperties: false
     DSStationStatus:
       enum:
-        - 0
-        - 1
-        - 2
-        - 3
-      type: integer
-      format: int32
+        - Good
+        - MoveStation
+        - Waiting
+        - Unknown
+      type: string
       x-enum-varnames:
         - Good
         - MoveStation
@@ -2725,15 +2928,40 @@ components:
       additionalProperties: false
     EventNoteChangeTypes:
       enum:
-        - 1
-        - 2
-        - 3
-      type: integer
-      format: int32
+        - Create
+        - Update
+        - Delete
+      type: string
       x-enum-varnames:
         - Create
         - Update
         - Delete
+    EventNoteIssueTypes:
+      enum:
+        - RoboRioIssue
+        - DSIssue
+        - NoRobot
+        - RadioIssue
+        - RobotPwrIssue
+        - OtherRobotIssue
+        - VenueIssue
+        - ElectricalIssue
+        - MechanicalIssue
+        - VolunteerIssue
+        - Other
+      type: string
+      x-enum-varnames:
+        - RoboRioIssue
+        - DSIssue
+        - NoRobot
+        - RadioIssue
+        - RobotPwrIssue
+        - OtherRobotIssue
+        - VenueIssue
+        - ElectricalIssue
+        - MechanicalIssue
+        - VolunteerIssue
+        - Other
     EventNoteModel:
       type: object
       properties:
@@ -2764,18 +2992,27 @@ components:
           format: int64
       additionalProperties: false
       description: 'FTA Notepad: FTA EventNote'
+    EventNoteResolutionTypes:
+      enum:
+        - Open
+        - Resolved
+        - NotApplicable
+      type: string
+      x-enum-varnames:
+        - Open
+        - Resolved
+        - NotApplicable
     EventNoteTypes:
       enum:
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 10
-        - 11
-        - 15
-      type: integer
-      format: int32
+        - FTAEvent
+        - FTAMatch
+        - FTATeamIssue
+        - FTAAppUsageData
+        - FTATeam
+        - FMSAllianceTimeout
+        - FMSMatchMaker
+        - Staff
+      type: string
       x-enum-varnames:
         - FTAEvent
         - FTAMatch
@@ -2800,7 +3037,7 @@ components:
     EventScheduleHybridModel:
       type: object
       properties:
-        schedule:
+        Schedule:
           type: array
           items:
             $ref: '#/components/schemas/ScheduleHybridModel'
@@ -2809,7 +3046,7 @@ components:
     EventScheduleModel:
       type: object
       properties:
-        schedule:
+        Schedule:
           type: array
           items:
             $ref: '#/components/schemas/ScheduledMatchModel'
@@ -3130,29 +3367,34 @@ components:
       additionalProperties: false
     FieldTypes:
       enum:
-        - 1
-        - 2
-        - 3
-      type: integer
+        - Primary
+        - Secondary
+        - Practice
+      type: string
       description: "for multi field events\r\nPrimary - Main FMS with all functionality enabled\r\nSecondary - Match Play, Match Test, Match Review, Field Test, System Configuration\r\nPractice - Match Test, Field Test, System Configuration\r\nWe start the numbering at 1 since the field \"number\" is referenced around the solution"
-      format: int32
       x-enum-varnames:
         - Primary
         - Secondary
         - Practice
     Int32Int32ValueTuple:
       type: object
+      properties:
+        item1:
+          type: integer
+          format: int32
+        item2:
+          type: integer
+          format: int32
       additionalProperties: false
     LevelStatus:
       enum:
-        - 0
-        - 1
-        - 2
-        - 3
-        - 4
-      type: integer
+        - NoCurrentlySelectedEvent
+        - NotScheduled
+        - NotStarted
+        - InProgress
+        - Completed
+      type: string
       description: The current status of a tournament level.
-      format: int32
       x-enum-varnames:
         - NoCurrentlySelectedEvent
         - NotScheduled
@@ -3187,10 +3429,9 @@ components:
       additionalProperties: false
     MatchGroupType:
       enum:
-        - 0
-        - 1
-      type: integer
-      format: int32
+        - HeadToHeadMatchup
+        - RankedPool
+      type: string
       x-enum-varnames:
         - HeadToHeadMatchup
         - RankedPool
@@ -3296,28 +3537,27 @@ components:
       additionalProperties: false
     MatchStateType:
       enum:
-        - 0
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-        - 7
-        - 8
-        - 9
-        - 10
-        - 11
-        - 12
-        - 13
-        - 14
-        - 15
-        - 16
-        - 17
-        - 18
-        - 19
-      type: integer
-      format: int32
+        - NoCurrentlyActiveEvent
+        - NoCurrentlyActiveTournamentLevel
+        - WaitingForPrestart
+        - WaitingForPrestartTO
+        - Prestarting
+        - PrestartingTO
+        - WaitingForSetAudience
+        - WaitingForSetAudienceTO
+        - WaitingForMatchReady
+        - WaitingForMatchStart
+        - GameSpecificData
+        - MatchAuto
+        - MatchTransition
+        - MatchTeleop
+        - WaitingForCommit
+        - WaitingForPostResults
+        - TournamentLevelComplete
+        - MatchCancelled
+        - WaitingForMatchPreview
+        - WaitingForMatchPreviewTO
+      type: string
       x-enum-varnames:
         - NoCurrentlyActiveEvent
         - NoCurrentlyActiveTournamentLevel
@@ -3361,15 +3601,14 @@ components:
       additionalProperties: false
     MonitorStatusType:
       enum:
-        - 0
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-      type: integer
-      format: int32
+        - Unknown
+        - EStopped
+        - AStopped
+        - DisabledAuto
+        - DisabledTeleop
+        - EnabledAuto
+        - EnabledTeleop
+      type: string
       x-enum-varnames:
         - Unknown
         - EStopped
@@ -3413,16 +3652,15 @@ components:
       additionalProperties: false
     PlayoffLevel:
       enum:
-        - 0
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-      type: integer
+        - Final
+        - Level2
+        - Level3
+        - Level4
+        - Level5
+        - Level6
+        - Level7
+      type: string
       description: "PlayoffLevel represents a phase of the FMS.Common.Base.Enums.TournamentLevel.Playoff level of the tournament.  \r\n\r\nInvariants at a level:\r\n* at least one match is played\r\n* Pairings: for single and double elimination, an alliance is paired with exactly one other \r\n  alliance in a level.  For a round robin tournament, the round robin section would\r\n  be treated as one level with alliances paired with >1 other alliance.\r\n* An alliance is not required to appear in a level."
-      format: int32
       x-enum-varnames:
         - Final
         - Level2
@@ -3433,16 +3671,15 @@ components:
         - Level7
     PlayoffSizeTypes:
       enum:
-        - 2
-        - 4
-        - 5
-        - 6
-        - 7
-        - 8
-        - 16
-      type: integer
+        - TwoAlliance
+        - FourAlliance
+        - FiveAlliance
+        - SixAlliance
+        - SevenAlliance
+        - EightAlliance
+        - SixteenAlliance
+      type: string
       description: The permitted alliance counts of playoffs
-      format: int32
       x-enum-varnames:
         - TwoAlliance
         - FourAlliance
@@ -3675,7 +3912,7 @@ components:
     SeasonEventListingsModel:
       type: object
       properties:
-        events:
+        Events:
           type: array
           items:
             $ref: '#/components/schemas/SeasonEventModel'
@@ -3799,13 +4036,12 @@ components:
       additionalProperties: false
     StationType:
       enum:
-        - 0
-        - 1
-        - 2
-        - 3
-      type: integer
+        - None
+        - Station1
+        - Station2
+        - Station3
+      type: string
       description: The names of the driver station positions
-      format: int32
       x-enum-varnames:
         - None
         - Station1
@@ -3821,8 +4057,7 @@ components:
           type: string
           format: uuid
         tournamentLevel:
-          type: string
-          nullable: true
+          $ref: '#/components/schemas/TournamentLevel'
         matchNumber:
           type: integer
           format: int32
@@ -3833,11 +4068,9 @@ components:
           type: integer
           format: int32
         issueType:
-          type: string
-          nullable: true
+          $ref: '#/components/schemas/EventNoteIssueTypes'
         resolutionStatus:
-          type: string
-          nullable: true
+          $ref: '#/components/schemas/EventNoteResolutionTypes'
         timeAdded:
           type: string
           format: date-time
@@ -3873,13 +4106,12 @@ components:
       additionalProperties: false
     TournamentLevel:
       enum:
-        - 0
-        - 1
-        - 2
-        - 3
-      type: integer
+        - None
+        - Practice
+        - Qualification
+        - Playoff
+      type: string
       description: 'The level of the tournament (practice, quals, etc)'
-      format: int32
       x-enum-varnames:
         - Match Test
         - Practice
@@ -3887,14 +4119,22 @@ components:
         - Playoff
     TournamentLevelInt32Int32ValueTuple:
       type: object
+      properties:
+        item1:
+          $ref: '#/components/schemas/TournamentLevel'
+        item2:
+          type: integer
+          format: int32
+        item3:
+          type: integer
+          format: int32
       additionalProperties: false
     WPAKeyStatusType:
       enum:
-        - 0
-        - 1
-        - 2
-      type: integer
-      format: int32
+        - NotTested
+        - UsedInConnectionTest
+        - UsedInMatch
+      type: string
       x-enum-varnames:
         - NotTested
         - UsedInConnectionTest

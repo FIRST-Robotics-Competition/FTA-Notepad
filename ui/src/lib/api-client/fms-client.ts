@@ -36,7 +36,7 @@ export async function getTeamNotes(
 				query: options,
 				path: {
 					season: season,
-					eventCode: get(settingsStore).eventCode,
+					eventCode: get(settingsStore).eventCode
 				}
 			},
 			fetch

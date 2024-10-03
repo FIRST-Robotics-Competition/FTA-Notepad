@@ -6,10 +6,10 @@
 	import Toggle from '../Toggle.svelte';
 	import { settingsStore } from '../../settings-store';
 	import TextInput from '../TextInput.svelte';
-	import { fmsClient } from '$lib/api-client/fms-client';
+	import { fmsClient, getCurrentEventCode } from '$lib/api-client/fms-client';
 	import { onMount } from 'svelte';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { CheckCircle, ExclamationTriangle, SignalSlash } from '@steeze-ui/heroicons';
+	import { CheckCircle, ExclamationTriangle, SignalSlash, ArrowPath } from '@steeze-ui/heroicons';
 
 	export let settingsOpen = false;
 
@@ -53,6 +53,15 @@
 			});
 	}
 
+	function syncCurrentEventCode() {
+		getCurrentEventCode().then((fmsEventCode) => {
+			if (fmsEventCode) {
+				settings.eventCode = fmsEventCode;
+				updateSettings();
+			}
+		});
+	}
+
 	function clearStorage() {
 		localStorage.clear();
 		window.location.reload();
@@ -72,7 +81,7 @@
 			</Toggle>
 
 			<div
-				class="flex mt-3 items-center mx-auto space-x-2 sm:mt-0 sm:text-left md:mx-0 md:col-span-2"
+				class="flex pt-4 items-center mx-auto space-x-2 sm:pt-1 sm:text-left md:mx-0 md:col-span-2"
 			>
 				<h3 class="text-base font-semibold leading-6">Credentials</h3>
 				{#if credentialsState === CredentialsState.Valid}
@@ -99,6 +108,22 @@
 			<TextInput bind:text={settings.fmsUrl} placeholder="http://localhost" onblur={updateSettings}>
 				FMS URL
 			</TextInput>
+
+			<div
+				class="flex pt-4 items-center mx-auto space-x-2 sm:pt-1 sm:text-left md:mx-0 md:col-span-2"
+			>
+				<h3 class="text-base font-semibold leading-6">Event configuration</h3>
+			</div>
+
+			<div class="flex space-x-2 md:col-span-2">
+				<TextInput bind:text={settings.eventCode} placeholder="ABCD" onblur={updateSettings}>
+					Event code
+				</TextInput>
+				<Button color="primary" on:click={syncCurrentEventCode}>
+					<Icon src={ArrowPath} theme="solid" size="24" />
+					Sync
+				</Button>
+			</div>
 
 			<div class="grid gap-2 md:col-span-2 mt-2">
 				{#if installPrompt}

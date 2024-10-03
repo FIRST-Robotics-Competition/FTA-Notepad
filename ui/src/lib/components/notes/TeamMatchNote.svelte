@@ -1,13 +1,12 @@
 <script lang="ts">
-	import type { components } from '../../../fms/fms-api';
+	import type { TeamIssue } from '$lib/api-client/fms-client';
 
-	type MatchNote = components['schemas']['MatchNoteModel'];
-
-	export let note: MatchNote;
+	export let note: TeamIssue;
 
 	const updateDate = new Date(note.timeUpdated ?? '');
 	const updateDateString = updateDate.toLocaleDateString();
 	const updateTimeString = updateDate.toLocaleTimeString();
+	const author = note.whoUpdated ?? note.whoAdded;
 </script>
 
 <li class="py-5">
@@ -23,7 +22,7 @@
 		</div>
 		<p class="text-base">{note.note}</p>
 		<p class="text-xs italic text-gray-400 justify-self-end">
-			Last updated: {updateDateString} at {updateTimeString}
+			Last updated: {updateDateString} at {updateTimeString} by {author}
 		</p>
 	</div>
 </li>

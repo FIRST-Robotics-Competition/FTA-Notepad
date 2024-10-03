@@ -50,7 +50,7 @@
 		{@render children()}
 	</a>
 {:else}
-	<button {type} {...restProps} class={buttonClass}>
+	<button {type} {...restProps} class={buttonClass} on:click>
 		{@render children()}
 	</button>
 {/if}

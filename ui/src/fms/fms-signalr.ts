@@ -1,6 +1,18 @@
 import * as signalR from '@microsoft/signalr';
 import { MessagePackHubProtocol } from '@microsoft/signalr-protocol-msgpack';
-import { AllianceType, BWUtilizationType, DSStationStatus, EventNoteChangeTypes, EventNoteTypes, MatchStateType, MonitorStatusType, StationType, TournamentLevel, WPAKeyStatusType, type components } from './fms-api';
+import {
+	AllianceType,
+	BWUtilizationType,
+	DSStationStatus,
+	EventNoteChangeTypes,
+	EventNoteTypes,
+	MatchStateType,
+	MonitorStatusType,
+	StationType,
+	TournamentLevel,
+	WPAKeyStatusType,
+	type components
+} from './fms-api';
 
 const fieldMonitorHubPostfix = 'fieldMonitorHub';
 
@@ -53,14 +65,14 @@ enum MessagePackMatchState {
 	TournamentLevelComplete = 16,
 	MatchCancelled = 17,
 	WaitingForMatchPreview = 18,
-	WaitingForMatchPreviewTO = 19,
+	WaitingForMatchPreviewTO = 19
 }
 
 enum MessagePackLevel {
 	Match_Test = 0,
 	Practice = 1,
 	Qualification = 2,
-	Playoff = 3,
+	Playoff = 3
 }
 
 type MessagePackMatchStatusInfo = {
@@ -68,9 +80,11 @@ type MessagePackMatchStatusInfo = {
 	p2: number;
 	p3: number;
 	p4: MessagePackLevel;
-}
+};
 
-function mapMessagePackMatchState(messagePackMatchState: MessagePackMatchStatusInfo): MatchStatusInfo {
+function mapMessagePackMatchState(
+	messagePackMatchState: MessagePackMatchStatusInfo
+): MatchStatusInfo {
 	let matchState: MatchStateType = MatchStateType.NoCurrentlyActiveEvent;
 	switch (messagePackMatchState.p1) {
 		case MessagePackMatchState.NoCurrentlyActiveEvent:
@@ -92,13 +106,13 @@ function mapMessagePackMatchState(messagePackMatchState: MessagePackMatchStatusI
 			matchState = MatchStateType.PrestartingTO;
 			break;
 		case MessagePackMatchState.WaitingForSetAudience:
-			matchState = MatchStateType.WaitingForSetAudience
+			matchState = MatchStateType.WaitingForSetAudience;
 			break;
 		case MessagePackMatchState.WaitingForSetAudienceTO:
-			matchState = MatchStateType.WaitingForSetAudienceTO
+			matchState = MatchStateType.WaitingForSetAudienceTO;
 			break;
 		case MessagePackMatchState.WaitingForMatchReady:
-			matchState = MatchStateType.WaitingForMatchReady
+			matchState = MatchStateType.WaitingForMatchReady;
 			break;
 		case MessagePackMatchState.WaitingForMatchStart:
 			matchState = MatchStateType.WaitingForMatchStart;
@@ -107,31 +121,31 @@ function mapMessagePackMatchState(messagePackMatchState: MessagePackMatchStatusI
 			matchState = MatchStateType.GameSpecificData;
 			break;
 		case MessagePackMatchState.MatchAuto:
-			matchState = MatchStateType.MatchAuto
+			matchState = MatchStateType.MatchAuto;
 			break;
 		case MessagePackMatchState.MatchTransition:
 			matchState = MatchStateType.MatchTransition;
 			break;
 		case MessagePackMatchState.MatchTeleop:
-			matchState = MatchStateType.MatchTeleop
+			matchState = MatchStateType.MatchTeleop;
 			break;
 		case MessagePackMatchState.WaitingForCommit:
 			matchState = MatchStateType.WaitingForCommit;
 			break;
 		case MessagePackMatchState.WaitingForPostResults:
-			matchState = MatchStateType.WaitingForPostResults
+			matchState = MatchStateType.WaitingForPostResults;
 			break;
 		case MessagePackMatchState.TournamentLevelComplete:
-			matchState = MatchStateType.TournamentLevelComplete
+			matchState = MatchStateType.TournamentLevelComplete;
 			break;
 		case MessagePackMatchState.MatchCancelled:
-			matchState = MatchStateType.MatchCancelled
+			matchState = MatchStateType.MatchCancelled;
 			break;
 		case MessagePackMatchState.WaitingForMatchPreview:
-			matchState = MatchStateType.WaitingForMatchPreview
+			matchState = MatchStateType.WaitingForMatchPreview;
 			break;
 		case MessagePackMatchState.WaitingForMatchPreviewTO:
-			matchState = MatchStateType.WaitingForMatchPreviewTO
+			matchState = MatchStateType.WaitingForMatchPreviewTO;
 			break;
 	}
 
@@ -157,7 +171,7 @@ function mapMessagePackMatchState(messagePackMatchState: MessagePackMatchStatusI
 		matchNumber: messagePackMatchState.p2,
 		playNumber: messagePackMatchState.p3,
 		level: tournamentLevel
-	}
+	};
 }
 
 export type FieldMonitorData = components['schemas']['FieldMonitorData'];
@@ -165,14 +179,14 @@ export type FieldMonitorData = components['schemas']['FieldMonitorData'];
 enum MessagePackAlliance {
 	None = 0,
 	Red = 1,
-	Blue = 2,
+	Blue = 2
 }
 
 enum MessagePackStation {
 	None = 0,
 	Station1 = 1,
 	Station2 = 2,
-	Station3 = 3,
+	Station3 = 3
 }
 
 enum MessagePackMonitorStatus {
@@ -182,27 +196,27 @@ enum MessagePackMonitorStatus {
 	DisabledAuto = 3,
 	DisabledTeleop = 4,
 	EnabledAuto = 5,
-	EnabledTeleop = 6,
+	EnabledTeleop = 6
 }
 
 enum MessagePackBWUtilization {
 	Low = 0,
 	Medium = 1,
 	High = 2,
-	VeryHigh = 3,
+	VeryHigh = 3
 }
 
 enum MessagePackWPAKeyStatus {
 	NotTested = 0,
 	UsedInConnectionTest = 1,
-	UsedInMatch = 2,
+	UsedInMatch = 2
 }
 
 enum MessagePackStationStatus {
 	Good = 0,
 	MoveStation = 1,
 	Waiting = 2,
-	Unknown = 3,
+	Unknown = 3
 }
 
 type MessagePackFieldMonitorData = {
@@ -252,9 +266,11 @@ type MessagePackFieldMonitorData = {
 	pii: boolean;
 	pjj: boolean;
 	pjk: string;
-}
+};
 
-function mapMessagePackFieldMonitorData(messagePackMatchState: MessagePackFieldMonitorData): FieldMonitorData {
+function mapMessagePackFieldMonitorData(
+	messagePackMatchState: MessagePackFieldMonitorData
+): FieldMonitorData {
 	let alliance: AllianceType = AllianceType.None;
 	switch (messagePackMatchState.p1) {
 		case MessagePackAlliance.None:
@@ -400,8 +416,8 @@ function mapMessagePackFieldMonitorData(messagePackMatchState: MessagePackFieldM
 		eStopSource: messagePackMatchState.phh,
 		isAStopPressed: messagePackMatchState.pii,
 		isAStopped: messagePackMatchState.pjj,
-		moveToStation: messagePackMatchState.pjk,
-	}
+		moveToStation: messagePackMatchState.pjk
+	};
 }
 
 const ftaAppHubPostfix = 'ftaAppHub';
@@ -442,13 +458,13 @@ enum MessagePackNoteType {
 	FTATeam = 5,
 	FMSAllianceTimeout = 10,
 	FMSMatchMaker = 11,
-	Staff = 15,
+	Staff = 15
 }
 
 enum MessagePackNoteChangeType {
 	Create = 1,
 	Update = 2,
-	Delete = 3,
+	Delete = 3
 }
 
 type MessagePackNoteChangedEvent = {
@@ -459,16 +475,18 @@ type MessagePackNoteChangedEvent = {
 	p5: string;
 	p6: string;
 	p7?: string;
-}
+};
 
-function mapMessagePackNoteChangedEvent(noteChangedEvent: MessagePackNoteChangedEvent): NoteChangedEvent {
+function mapMessagePackNoteChangedEvent(
+	noteChangedEvent: MessagePackNoteChangedEvent
+): NoteChangedEvent {
 	let noteType: EventNoteTypes = EventNoteTypes.FTATeamIssue;
 	switch (noteChangedEvent.p1) {
 		case MessagePackNoteType.FTAEvent:
 			noteType = EventNoteTypes.FTAEvent;
 			break;
 		case MessagePackNoteType.FTAMatch:
-			noteType = EventNoteTypes.FTAMatch
+			noteType = EventNoteTypes.FTAMatch;
 			break;
 		case MessagePackNoteType.FTATeamIssue:
 			noteType = EventNoteTypes.FTATeamIssue;
@@ -510,6 +528,6 @@ function mapMessagePackNoteChangedEvent(noteChangedEvent: MessagePackNoteChanged
 		type: type,
 		fmsDeviceIdentification: noteChangedEvent.p5,
 		currentTimeStamp: noteChangedEvent.p6,
-		previousTimeStamp: noteChangedEvent.p7,
-	}
+		previousTimeStamp: noteChangedEvent.p7
+	};
 }

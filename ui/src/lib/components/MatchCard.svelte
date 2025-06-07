@@ -21,6 +21,14 @@
 			? new Date(match.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 			: ''
 	);
+
+	// Split teams by alliance
+	let blueTeams = $derived(
+		match.teams?.filter(team => team.station?.toLowerCase().includes('blue')) || []
+	);
+	let redTeams = $derived(
+		match.teams?.filter(team => team.station?.toLowerCase().includes('red')) || []
+	);
 </script>
 
 <div class="border border-gray-200 rounded-lg p-4 bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -46,17 +54,56 @@
 	</div>
 
 	{#if match.teams && match.teams.length > 0}
-		<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-			{#each match.teams as team}
-				<TeamCard
-					teamNumber={team.teamNumber || 0}
-					station={team.station || ''}
-					surrogate={team.surrogate || false}
-					{teamNotes}
-					matchNumber={match.matchNumber}
-					tournamentLevel={match.level || undefined}
-				/>
-			{/each}
+		<div class="grid grid-cols-2 gap-6">
+			<!-- Blue Alliance -->
+			<div>
+				<h4 class="text-sm font-medium text-blue-600 dark:text-blue-400 mb-2 flex items-center">
+					<div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+					Blue Alliance
+				</h4>
+				<div class="space-y-2">
+					{#each blueTeams as team}
+						<TeamCard
+							teamNumber={team.teamNumber || 0}
+							station={team.station || ''}
+							surrogate={team.surrogate || false}
+							{teamNotes}
+							matchNumber={match.matchNumber}
+							tournamentLevel={match.level || undefined}
+						/>
+					{/each}
+					{#if blueTeams.length === 0}
+						<div class="text-center py-2 text-xs text-gray-400 border border-dashed border-gray-300 rounded dark:border-gray-600">
+							No teams assigned
+						</div>
+					{/if}
+				</div>
+			</div>
+
+			<!-- Red Alliance -->
+			<div>
+				<h4 class="text-sm font-medium text-red-600 dark:text-red-400 mb-2 flex items-center">
+					<div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+					Red Alliance
+				</h4>
+				<div class="space-y-2">
+					{#each redTeams as team}
+						<TeamCard
+							teamNumber={team.teamNumber || 0}
+							station={team.station || ''}
+							surrogate={team.surrogate || false}
+							{teamNotes}
+							matchNumber={match.matchNumber}
+							tournamentLevel={match.level || undefined}
+						/>
+					{/each}
+					{#if redTeams.length === 0}
+						<div class="text-center py-2 text-xs text-gray-400 border border-dashed border-gray-300 rounded dark:border-gray-600">
+							No teams assigned
+						</div>
+					{/if}
+				</div>
+			</div>
 		</div>
 	{/if}
 </div>

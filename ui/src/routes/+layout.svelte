@@ -129,11 +129,11 @@
 									</li>
 									<li>
 										<a
-											href="#"
+											href="/notes"
 											class="group flex gap-x-3 rounded-md p-2 font-semibold leading-8 hover:bg-primary-700 data-[active=true]:bg-primary-700"
 										>
 											<Icon src={ChatBubbleBottomCenterText} class="h-8 w-8 shrink-0" />
-											Tickets & Notes
+											Notes
 										</a>
 									</li>
 									<li>
@@ -208,6 +208,15 @@
 									Field Monitor
 								</a>
 							</li>
+							<li>
+								<a
+									href="/notes"
+									class="group flex gap-x-3 rounded-md p-2 font-semibold leading-6 hover:bg-primary-700 data-[active=true]:bg-primary-700"
+								>
+									<Icon src={ChatBubbleBottomCenterText} class="h-6 w-6 shrink-0" />
+									Notes
+								</a>
+							</li>
 							<!-- <li>
                                 <a
                                     href="#"
@@ -224,15 +233,6 @@
                                 >
                                     <Icon src={DocumentText} class="h-6 w-6 shrink-0" />
                                     References
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    class="group flex gap-x-3 rounded-md p-2 font-semibold leading-6 hover:bg-primary-700 data-[active=true]:bg-primary-700"
-                                >
-                                    <Icon src={ChatBubbleBottomCenterText} class="h-6 w-6 shrink-0" />
-                                    Tickets & Notes
                                 </a>
                             </li>
                             <li>

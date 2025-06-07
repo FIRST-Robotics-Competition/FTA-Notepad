@@ -15,7 +15,7 @@ The official FTA notepad tool, for collaboration on the field between FTAs, FTAA
 * Open the folder in VS Code
 * Open a Javascript Debug Console (`Ctrl-Shft-p`, search for `Javascript Debug Console`)
 * Run `cd ui`
-* Run `npm i --force`
+* Run `npm i`
 * Run `npm run dev`
     * This will start the app in debug mode. You can see the url it starts on in the log, should be `http://localhost:5173/`
 

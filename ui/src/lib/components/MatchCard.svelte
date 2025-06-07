@@ -31,7 +31,7 @@
 	);
 </script>
 
-<div class="border border-gray-200 rounded-lg p-4 bg-white dark:border-gray-700 dark:bg-gray-800">
+<div class="border border-gray-200 rounded-lg p-4 bg-gray-50 dark:border-gray-700 dark:bg-gray-900">
 	<div class="flex items-center justify-between mb-3">
 		<div class="flex items-center gap-3">
 			<h3 class="text-lg font-semibold text-gray-900 dark:text-white">

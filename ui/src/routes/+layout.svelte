@@ -194,7 +194,9 @@
 							class="flex items-center gap-x-4 px-6 py-3 font-semibold leading-6 hover:bg-indigo-700 w-full text-left"
 						>
 							<span class="sr-only">Your profile</span>
-							<span aria-hidden="true">{$settingsStore.realName || $settingsStore.username || 'User'}</span>
+							<span aria-hidden="true"
+								>{$settingsStore.realName || $settingsStore.username || 'User'}</span
+							>
 						</button>
 					</li>
 				</ul>

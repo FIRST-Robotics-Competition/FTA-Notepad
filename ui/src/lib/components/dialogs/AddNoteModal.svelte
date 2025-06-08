@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Modal from '../Modal.svelte';
 	import Button from '../Button.svelte';
-	import TextInput from '../TextInput.svelte';
 	import {
 		EventNoteIssueTypes,
 		EventNoteResolutionTypes,
@@ -12,6 +11,7 @@
 		CreateMatchNoteRequest,
 		CreateTeamNoteRequest
 	} from '$lib/api-client/fms-client';
+	import { issueTypeOptions, resolutionStatusOptions } from '$lib/enum-formatters';
 	interface AddNoteModalProps {
 		isOpen: boolean;
 		noteType: 'event' | 'match' | 'team';
@@ -112,27 +112,6 @@
 		isOpen = false;
 		onClose();
 	}
-
-	// Issue type options for display
-	const issueTypeOptions = [
-		{ value: EventNoteIssueTypes.RoboRioIssue, label: 'RoboRIO Issue' },
-		{ value: EventNoteIssueTypes.DSIssue, label: 'Driver Station Issue' },
-		{ value: EventNoteIssueTypes.NoRobot, label: 'No Robot' },
-		{ value: EventNoteIssueTypes.RadioIssue, label: 'Radio Issue' },
-		{ value: EventNoteIssueTypes.RobotPwrIssue, label: 'Robot Power Issue' },
-		{ value: EventNoteIssueTypes.OtherRobotIssue, label: 'Other Robot Issue' },
-		{ value: EventNoteIssueTypes.VenueIssue, label: 'Venue Issue' },
-		{ value: EventNoteIssueTypes.ElectricalIssue, label: 'Electrical Issue' },
-		{ value: EventNoteIssueTypes.MechanicalIssue, label: 'Mechanical Issue' },
-		{ value: EventNoteIssueTypes.VolunteerIssue, label: 'Volunteer Issue' },
-		{ value: EventNoteIssueTypes.Other, label: 'Other' }
-	];
-
-	const resolutionStatusOptions = [
-		{ value: EventNoteResolutionTypes.Open, label: 'Open' },
-		{ value: EventNoteResolutionTypes.Resolved, label: 'Resolved' },
-		{ value: EventNoteResolutionTypes.NotApplicable, label: 'Not Applicable' }
-	];
 </script>
 
 <Modal bind:open={isOpen} {title}>

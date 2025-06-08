@@ -23,6 +23,7 @@
 	import Spinner from '$lib/components/Spinner.svelte';
 	import AddNoteModal from '$lib/components/dialogs/AddNoteModal.svelte';
 	import EventNoteDisplay from '$lib/components/notes/EventNoteDisplay.svelte';
+	import { styles } from '$lib';
 
 	let { data }: { data: PageData } = $props();
 
@@ -189,7 +190,7 @@
 			<Spinner size="lg" />
 		</div>
 	{:else if error}
-		<div class="rounded-md bg-red-50 p-4 dark:bg-red-900/20">
+		<div class={styles.error.container}>
 			<div class="flex">
 				<div class="ml-3">
 					<h3 class="text-sm font-medium text-red-800 dark:text-red-200">Error loading data</h3>
@@ -199,7 +200,7 @@
 					<div class="mt-4">
 						<button
 							type="button"
-							class="rounded-md bg-red-50 px-2 py-1.5 text-sm font-medium text-red-800 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 focus:ring-offset-red-50 dark:bg-red-900/20 dark:text-red-200 dark:hover:bg-red-900/40"
+							class={styles.error.button}
 							onclick={loadData}
 						>
 							Try again
@@ -213,7 +214,7 @@
 		<div>
 			<button
 				type="button"
-				class="flex items-center justify-between w-full mb-4 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-left"
+				class={styles.sectionHeader.button}
 				onclick={() => (eventNotesExpanded = !eventNotesExpanded)}
 				aria-label={eventNotesExpanded ? 'Collapse event notes' : 'Expand event notes'}
 			>
@@ -257,7 +258,7 @@
 			</button>
 			{#if eventNotesExpanded}
 				{#if eventNotes.filter((note) => !note.isDeleted).length === 0}
-					<div class="text-center py-6 bg-gray-50 rounded-lg dark:bg-gray-800">
+					<div class={styles.emptyState.container}>
 						<p class="text-sm text-gray-500 dark:text-gray-400">No event notes yet</p>
 					</div>
 				{:else}
@@ -306,7 +307,7 @@
 				</button>
 				{#if practiceExpanded}
 					{#if practiceSchedule.length === 0}
-						<div class="text-center py-6 bg-gray-50 rounded-lg dark:bg-gray-800">
+						<div class={styles.emptyState.container}>
 							<p class="text-sm text-gray-500 dark:text-gray-400">No practice matches scheduled</p>
 						</div>
 					{:else}
@@ -353,7 +354,7 @@
 				</button>
 				{#if qualificationExpanded}
 					{#if qualificationSchedule.length === 0}
-						<div class="text-center py-6 bg-gray-50 rounded-lg dark:bg-gray-800">
+						<div class={styles.emptyState.container}>
 							<p class="text-sm text-gray-500 dark:text-gray-400">
 								No qualification matches scheduled
 							</p>
@@ -402,7 +403,7 @@
 				</button>
 				{#if playoffExpanded}
 					{#if playoffSchedule.length === 0}
-						<div class="text-center py-6 bg-gray-50 rounded-lg dark:bg-gray-800">
+						<div class={styles.emptyState.container}>
 							<p class="text-sm text-gray-500 dark:text-gray-400">No playoff matches scheduled</p>
 						</div>
 					{:else}

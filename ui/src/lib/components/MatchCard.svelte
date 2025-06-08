@@ -3,6 +3,7 @@
 	import { countMatchNotes } from '$lib/api-client/fms-client';
 	import NoteCount from './NoteCount.svelte';
 	import TeamCard from './TeamCard.svelte';
+	import { styles } from '$lib';
 
 	interface MatchCardProps {
 		match: ScheduledMatch;
@@ -47,7 +48,7 @@
 			</h3>
 			{#if match.field}
 				<span
-					class="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+					class="{styles.badge.base} {styles.badge.blue}"
 				>
 					{match.field}
 				</span>

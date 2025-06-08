@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Modal from '../Modal.svelte';
 	import Button from '../Button.svelte';
+	import { styles } from '$lib';
 	import {
 		EventNoteIssueTypes,
 		EventNoteResolutionTypes,
@@ -118,7 +119,7 @@
 	<div class="space-y-4">
 		<!-- Error message -->
 		{#if submitError}
-			<div class="p-3 bg-red-100 border border-red-400 text-red-700 rounded-md">
+			<div class={styles.error.message}>
 				<p class="text-sm">{submitError}</p>
 			</div>
 		{/if}
@@ -132,7 +133,7 @@
 				id="note"
 				bind:value={note}
 				rows="4"
-				class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+				class={styles.input.base}
 				placeholder="Enter your note..."
 				required
 			></textarea>
@@ -153,7 +154,7 @@
 						type="number"
 						bind:value={playNumber}
 						min="1"
-						class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+						class={styles.input.base}
 					/>
 				</div>
 				{#if noteType === 'match'}
@@ -169,7 +170,7 @@
 							type="number"
 							bind:value={teamNumber}
 							min="1"
-							class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+							class={styles.input.base}
 							placeholder="Leave blank for match-wide note"
 						/>
 					</div>
@@ -190,7 +191,7 @@
 					<select
 						id="issueType"
 						bind:value={issueType}
-						class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+						class={styles.input.base}
 					>
 						{#each issueTypeOptions as option}
 							<option value={option.value}>{option.label}</option>
@@ -207,7 +208,7 @@
 					<select
 						id="resolutionStatus"
 						bind:value={resolutionStatus}
-						class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+						class={styles.input.base}
 					>
 						{#each resolutionStatusOptions as option}
 							<option value={option.value}>{option.label}</option>

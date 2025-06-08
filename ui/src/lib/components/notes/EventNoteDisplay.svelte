@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { EventNote } from '$lib/api-client/fms-client';
-	import { formatTimestamp } from '$lib';
+	import { formatTimestamp, styles } from '$lib';
 
 	interface EventNoteDisplayProps {
 		note: EventNote;
@@ -15,7 +15,7 @@
 	<div class="flex items-start justify-between mb-2">
 		<div class="flex flex-wrap gap-2">
 			<span
-				class="inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 dark:bg-orange-900/20 dark:text-orange-300"
+				class="{styles.badge.base} {styles.badge.orange}"
 			>
 				Event Note
 			</span>

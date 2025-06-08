@@ -33,9 +33,7 @@
 	async function checkCredentials() {
 		credentialsState = CredentialsState.Unknown;
 		credentialsState = await fmsClient
-			.GET('/api/v{version}/FTA', {
-				params: { path: { version: '1.0' } }
-			})
+			.GET('/api/v1.0/FTA')
 			.then(({ response }): CredentialsState => {
 				switch (response.status) {
 					case 200:
@@ -123,7 +121,7 @@
 				<TextInput bind:text={settings.eventCode} placeholder="ABCD" onblur={updateSettings}>
 					Event code
 				</TextInput>
-				<Button color="primary" on:click={syncCurrentEventCode}>
+				<Button color="primary" onclick={syncCurrentEventCode}>
 					<Icon src={ArrowPath} theme="solid" size="24" />
 					Sync
 				</Button>
@@ -133,13 +131,13 @@
 				{#if installPrompt}
 					<Button
 						color="primary"
-						on:click={() => {
+						onclick={() => {
 							// @ts-ignore
 							if (installPrompt) installPrompt.prompt();
 						}}>Install</Button
 					>
 				{/if}
-				<Button on:click={clearStorage} color="red">Clear All Data</Button>
+				<Button onclick={clearStorage} color="red">Clear All Data</Button>
 			</div>
 		</div>
 	</form>

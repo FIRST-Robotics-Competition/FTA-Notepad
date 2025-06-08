@@ -67,10 +67,13 @@ export function getStatusColor(status: string | undefined): string {
 }
 
 // Issue type options for form dropdowns
-export const issueTypeOptions = Object.values(EventNoteIssueTypes).map(val => ({ value: val, label: formatIssueType(val) }));
+export const issueTypeOptions = Object.values(EventNoteIssueTypes).map((val) => ({
+	value: val,
+	label: formatIssueType(val)
+}));
 
 // Resolution status options for form dropdowns
-export const resolutionStatusOptions = Object.values(EventNoteResolutionTypes).map(val => ({
+export const resolutionStatusOptions = Object.values(EventNoteResolutionTypes).map((val) => ({
 	value: val,
 	label: formatResolutionStatus(val)
 }));

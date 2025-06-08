@@ -20,9 +20,9 @@
 	} from '$lib/api-client/fms-client';
 	import { TournamentLevel } from '../../fms/fms-api';
 	import MatchCard from '$lib/components/MatchCard.svelte';
-	import NoteCount from '$lib/components/NoteCount.svelte';
 	import Spinner from '$lib/components/Spinner.svelte';
 	import AddNoteModal from '$lib/components/dialogs/AddNoteModal.svelte';
+	import EventNoteDisplay from '$lib/components/notes/EventNoteDisplay.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -144,11 +144,8 @@
 		}
 	}
 
-	let totalEventNotes = $derived(eventNotes.filter((note) => !note.isDeleted).length);
-	let totalMatchNotes = $derived(matchNotes.filter((note) => !note.isDeleted).length);
-	let totalTeamNotes = $derived(teamNotes.filter((note) => !note.isDeleted).length);
-
 	// Collapsible section states
+	let eventNotesExpanded = $state(true);
 	let practiceExpanded = $state(true);
 	let qualificationExpanded = $state(true);
 	let playoffExpanded = $state(true);
@@ -212,122 +209,71 @@
 			</div>
 		</div>
 	{:else}
-		<!-- Summary Cards -->
-		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-			<div class="bg-white overflow-hidden shadow rounded-lg dark:bg-gray-800">
-				<div class="p-5">
-					<div class="flex items-center">
-						<div class="flex-shrink-0">
-							<div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
-								<svg
-									class="w-5 h-5 text-white"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-									></path>
-								</svg>
-							</div>
-						</div>
-						<div class="ml-5 w-0 flex-1">
-							<dl>
-								<dt class="text-sm font-medium text-gray-500 truncate dark:text-gray-400">
-									Event Notes
-								</dt>
-								<dd class="flex items-center justify-between">
-									<span class="text-lg font-medium text-gray-900 dark:text-white"
-										>{totalEventNotes}</span
-									>
-									<button
-										onclick={handleAddEventNote}
-										class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-colors"
-										title="Add Event Note"
-										aria-label="Add Event Note"
-									>
-										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												stroke-width="2"
-												d="M12 4v16m8-8H4"
-											/>
-										</svg>
-									</button>
-								</dd>
-							</dl>
-						</div>
+		<!-- Event Notes Section -->
+		<div>
+			<button
+				type="button"
+				class="flex items-center justify-between w-full mb-4 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-left"
+				onclick={() => (eventNotesExpanded = !eventNotesExpanded)}
+				aria-label={eventNotesExpanded ? 'Collapse event notes' : 'Expand event notes'}
+			>
+				<h2 class="text-lg font-medium text-gray-900 dark:text-white">
+					Event Notes
+					<span class="ml-2 text-sm text-gray-500 dark:text-gray-400">
+						({eventNotes.filter((note) => !note.isDeleted).length}
+						{eventNotes.filter((note) => !note.isDeleted).length === 1 ? 'note' : 'notes'})
+					</span>
+				</h2>
+				<div class="flex items-center gap-2">
+					<div
+						role="button"
+						tabindex="0"
+						class="inline-flex items-center justify-center rounded-md bg-orange-600 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 cursor-pointer"
+						onclick={(e) => { e.stopPropagation(); handleAddEventNote(); }}
+						onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); handleAddEventNote(); } }}
+						aria-label="Add event note"
+					>
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M12 4v16m8-8H4"
+							/>
+						</svg>
 					</div>
+					<svg
+						class="w-5 h-5 text-gray-500 transition-transform duration-200 {eventNotesExpanded
+							? 'rotate-90'
+							: ''}"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"
+						></path>
+					</svg>
 				</div>
-			</div>
-
-			<div class="bg-white overflow-hidden shadow rounded-lg dark:bg-gray-800">
-				<div class="p-5">
-					<div class="flex items-center">
-						<div class="flex-shrink-0">
-							<div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
-								<svg
-									class="w-5 h-5 text-white"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-									></path>
-								</svg>
-							</div>
-						</div>
-						<div class="ml-5 w-0 flex-1">
-							<dl>
-								<dt class="text-sm font-medium text-gray-500 truncate dark:text-gray-400">
-									Match Notes
-								</dt>
-								<dd class="text-lg font-medium text-gray-900 dark:text-white">{totalMatchNotes}</dd>
-							</dl>
-						</div>
+			</button>
+			{#if eventNotesExpanded}
+				{#if eventNotes.filter((note) => !note.isDeleted).length === 0}
+					<div class="text-center py-6 bg-gray-50 rounded-lg dark:bg-gray-800">
+						<p class="text-sm text-gray-500 dark:text-gray-400">No event notes yet</p>
 					</div>
-				</div>
-			</div>
-
-			<div class="bg-white overflow-hidden shadow rounded-lg dark:bg-gray-800">
-				<div class="p-5">
-					<div class="flex items-center">
-						<div class="flex-shrink-0">
-							<div class="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
-								<svg
-									class="w-5 h-5 text-white"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-									></path>
-								</svg>
-							</div>
-						</div>
-						<div class="ml-5 w-0 flex-1">
-							<dl>
-								<dt class="text-sm font-medium text-gray-500 truncate dark:text-gray-400">
-									Team Notes
-								</dt>
-								<dd class="text-lg font-medium text-gray-900 dark:text-white">{totalTeamNotes}</dd>
-							</dl>
-						</div>
+				{:else}
+					<div class="space-y-2 max-h-96 overflow-y-auto">
+						{#each eventNotes
+							.filter((note) => !note.isDeleted)
+							.sort((a, b) => {
+								const timeA = a.timeAdded ? new Date(a.timeAdded).getTime() : 0;
+								const timeB = b.timeAdded ? new Date(b.timeAdded).getTime() : 0;
+								return timeB - timeA;
+							}) as note (note.noteId)}
+							<EventNoteDisplay {note} />
+						{/each}
 					</div>
-				</div>
-			</div>
+				{/if}
+			{/if}
 		</div>
 
 		<!-- Schedule -->

@@ -8,9 +8,11 @@
 		match: ScheduledMatch;
 		matchNotes: MatchNote[];
 		teamNotes: TeamIssue[];
+		onAddMatchNote?: (matchNumber: number, tournamentLevel: string) => void;
+		onAddTeamNote?: (teamNumber: number, matchNumber?: number, tournamentLevel?: string) => void;
 	}
 
-	let { match, matchNotes, teamNotes }: MatchCardProps = $props();
+	let { match, matchNotes, teamNotes, onAddMatchNote, onAddTeamNote }: MatchCardProps = $props();
 
 	let matchNoteCount = $derived(
 		countMatchNotes(matchNotes, match.matchNumber || 0, match.level || '')
@@ -24,11 +26,17 @@
 
 	// Split teams by alliance
 	let blueTeams = $derived(
-		match.teams?.filter(team => team.station?.toLowerCase().includes('blue')) || []
+		match.teams?.filter((team) => team.station?.toLowerCase().includes('blue')) || []
 	);
 	let redTeams = $derived(
-		match.teams?.filter(team => team.station?.toLowerCase().includes('red')) || []
+		match.teams?.filter((team) => team.station?.toLowerCase().includes('red')) || []
 	);
+
+	function handleAddMatchNote() {
+		if (onAddMatchNote && match.matchNumber && match.level) {
+			onAddMatchNote(match.matchNumber, match.level);
+		}
+	}
 </script>
 
 <div class="border border-gray-200 rounded-lg p-4 bg-gray-50 dark:border-gray-700 dark:bg-gray-900">
@@ -49,7 +57,12 @@
 			{#if startTime}
 				<span>{startTime}</span>
 			{/if}
-			<NoteCount count={matchNoteCount} label="Match Notes" variant="match" />
+			<NoteCount
+				count={matchNoteCount}
+				label="Match Notes"
+				variant="match"
+				onAddNote={handleAddMatchNote}
+			/>
 		</div>
 	</div>
 
@@ -70,10 +83,13 @@
 							{teamNotes}
 							matchNumber={match.matchNumber}
 							tournamentLevel={match.level || undefined}
+							onAddNote={onAddTeamNote}
 						/>
 					{/each}
 					{#if blueTeams.length === 0}
-						<div class="text-center py-2 text-xs text-gray-400 border border-dashed border-gray-300 rounded dark:border-gray-600">
+						<div
+							class="text-center py-2 text-xs text-gray-400 border border-dashed border-gray-300 rounded dark:border-gray-600"
+						>
 							No teams assigned
 						</div>
 					{/if}
@@ -95,10 +111,13 @@
 							{teamNotes}
 							matchNumber={match.matchNumber}
 							tournamentLevel={match.level || undefined}
+							onAddNote={onAddTeamNote}
 						/>
 					{/each}
 					{#if redTeams.length === 0}
-						<div class="text-center py-2 text-xs text-gray-400 border border-dashed border-gray-300 rounded dark:border-gray-600">
+						<div
+							class="text-center py-2 text-xs text-gray-400 border border-dashed border-gray-300 rounded dark:border-gray-600"
+						>
 							No teams assigned
 						</div>
 					{/if}

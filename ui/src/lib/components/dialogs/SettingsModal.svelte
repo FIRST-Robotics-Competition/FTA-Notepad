@@ -54,7 +54,7 @@
 	}
 
 	function syncCurrentEventCode() {
-		getCurrentEventCode().then((fmsEventCode) => {
+		getCurrentEventCode(fetch).then((fmsEventCode) => {
 			if (fmsEventCode) {
 				settings.eventCode = fmsEventCode;
 				updateSettings();
@@ -95,6 +95,10 @@
 
 			<TextInput bind:text={settings.username} placeholder="JSmith" onblur={updateSettings}>
 				Username
+			</TextInput>
+
+			<TextInput bind:text={settings.realName} placeholder="John Smith" onblur={updateSettings}>
+				Real Name
 			</TextInput>
 
 			<TextInput

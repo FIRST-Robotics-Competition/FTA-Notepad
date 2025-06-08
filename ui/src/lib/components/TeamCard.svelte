@@ -10,6 +10,7 @@
 		teamNotes: TeamIssue[];
 		matchNumber?: number;
 		tournamentLevel?: string;
+		onAddNote?: (teamNumber: number, matchNumber?: number, tournamentLevel?: string) => void;
 	}
 
 	let {
@@ -18,7 +19,8 @@
 		surrogate = false,
 		teamNotes,
 		matchNumber,
-		tournamentLevel
+		tournamentLevel,
+		onAddNote
 	}: TeamCardProps = $props();
 
 	let matchSpecificNotes = $derived(
@@ -31,39 +33,47 @@
 
 	let totalNotes = $derived(matchSpecificNotes + generalNotes);
 
-	// Determine station color based on alliance
-	let stationColor = $derived((() => {
-		const stationLower = station.toLowerCase();
-		if (stationLower.includes('red')) {
-			return {
-				bg: 'bg-red-500',
-				text: 'text-white',
-				border: 'border-red-500',
-				lightBg: 'bg-red-50',
-				darkBorder: 'dark:border-red-400',
-				darkLightBg: 'dark:bg-red-900/20'
-			};
-		} else if (stationLower.includes('blue')) {
-			return {
-				bg: 'bg-blue-500',
-				text: 'text-white',
-				border: 'border-blue-500',
-				lightBg: 'bg-blue-50',
-				darkBorder: 'dark:border-blue-400',
-				darkLightBg: 'dark:bg-blue-900/20'
-			};
-		} else {
-			// Fallback for unknown stations
-			return {
-				bg: 'bg-gray-500',
-				text: 'text-white',
-				border: 'border-gray-500',
-				lightBg: 'bg-gray-50',
-				darkBorder: 'dark:border-gray-400',
-				darkLightBg: 'dark:bg-gray-900/20'
-			};
+	function handleAddNote() {
+		if (onAddNote) {
+			onAddNote(teamNumber, matchNumber, tournamentLevel);
 		}
-	})());
+	}
+
+	// Determine station color based on alliance
+	let stationColor = $derived(
+		(() => {
+			const stationLower = station.toLowerCase();
+			if (stationLower.includes('red')) {
+				return {
+					bg: 'bg-red-500',
+					text: 'text-white',
+					border: 'border-red-500',
+					lightBg: 'bg-red-50',
+					darkBorder: 'dark:border-red-400',
+					darkLightBg: 'dark:bg-red-900/20'
+				};
+			} else if (stationLower.includes('blue')) {
+				return {
+					bg: 'bg-blue-500',
+					text: 'text-white',
+					border: 'border-blue-500',
+					lightBg: 'bg-blue-50',
+					darkBorder: 'dark:border-blue-400',
+					darkLightBg: 'dark:bg-blue-900/20'
+				};
+			} else {
+				// Fallback for unknown stations
+				return {
+					bg: 'bg-gray-500',
+					text: 'text-white',
+					border: 'border-gray-500',
+					lightBg: 'bg-gray-50',
+					darkBorder: 'dark:border-gray-400',
+					darkLightBg: 'dark:bg-gray-900/20'
+				};
+			}
+		})()
+	);
 </script>
 
 <div
@@ -73,7 +83,9 @@
 >
 	<div class="flex items-center justify-between">
 		<div class="flex items-center gap-2">
-			<span class="inline-flex items-center justify-center w-6 h-6 rounded text-xs font-bold {stationColor.bg} {stationColor.text}">
+			<span
+				class="inline-flex items-center justify-center w-6 h-6 rounded text-xs font-bold {stationColor.bg} {stationColor.text}"
+			>
 				{station[station.length - 1]}
 			</span>
 			<span class="text-lg font-bold text-gray-900 dark:text-white">#{teamNumber}</span>
@@ -85,6 +97,6 @@
 				</span>
 			{/if}
 		</div>
-		<NoteCount count={totalNotes} label="Notes" variant="team" />
+		<NoteCount count={totalNotes} label="Notes" variant="team" onAddNote={handleAddNote} />
 	</div>
 </div>

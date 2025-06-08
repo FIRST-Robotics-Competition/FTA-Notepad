@@ -1,12 +1,28 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import { getEventSchedule, getNoteCounts, getCurrentEvent } from '$lib/api-client/fms-client';
-	import type { ScheduledMatch, EventNote, MatchNote, TeamIssue } from '$lib/api-client/fms-client';
+	import {
+		getEventSchedule,
+		getNoteCounts,
+		getCurrentEvent,
+		createEventNote,
+		createMatchNote,
+		createTeamNote
+	} from '$lib/api-client/fms-client';
+	import type {
+		ScheduledMatch,
+		EventNote,
+		MatchNote,
+		TeamIssue,
+		CreateEventNoteRequest,
+		CreateMatchNoteRequest,
+		CreateTeamNoteRequest
+	} from '$lib/api-client/fms-client';
 	import { TournamentLevel } from '../../fms/fms-api';
 	import MatchCard from '$lib/components/MatchCard.svelte';
 	import NoteCount from '$lib/components/NoteCount.svelte';
 	import Spinner from '$lib/components/Spinner.svelte';
+	import AddNoteModal from '$lib/components/dialogs/AddNoteModal.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -18,6 +34,13 @@
 	let eventNotes: EventNote[] = $state([]);
 	let matchNotes: MatchNote[] = $state([]);
 	let teamNotes: TeamIssue[] = $state([]);
+
+	// Modal state
+	let isModalOpen = $state(false);
+	let modalNoteType = $state<'event' | 'match' | 'team'>('event');
+	let modalMatchNumber = $state<number | undefined>(undefined);
+	let modalTournamentLevel = $state<string | undefined>(undefined);
+	let modalTeamNumber = $state<number | undefined>(undefined);
 
 	const currentEvent = getCurrentEvent();
 
@@ -64,6 +87,62 @@
 	onMount(() => {
 		loadData();
 	});
+
+	// Note creation handlers
+	function handleAddEventNote() {
+		modalNoteType = 'event';
+		modalMatchNumber = undefined;
+		modalTournamentLevel = undefined;
+		modalTeamNumber = undefined;
+		isModalOpen = true;
+	}
+
+	function handleAddMatchNote(matchNumber: number, tournamentLevel: string) {
+		modalNoteType = 'match';
+		modalMatchNumber = matchNumber;
+		modalTournamentLevel = tournamentLevel;
+		modalTeamNumber = undefined;
+		isModalOpen = true;
+	}
+
+	function handleAddTeamNote(teamNumber: number, matchNumber?: number, tournamentLevel?: string) {
+		modalNoteType = 'team';
+		modalMatchNumber = matchNumber;
+		modalTournamentLevel = tournamentLevel;
+		modalTeamNumber = teamNumber;
+		isModalOpen = true;
+	}
+
+	function handleCloseModal() {
+		isModalOpen = false;
+	}
+
+	async function handleSubmitNote(
+		noteData: CreateEventNoteRequest | CreateMatchNoteRequest | CreateTeamNoteRequest
+	) {
+		let result;
+
+		switch (modalNoteType) {
+			case 'event':
+				result = await createEventNote(fetch, noteData as CreateEventNoteRequest);
+				break;
+			case 'match':
+				result = await createMatchNote(fetch, noteData as CreateMatchNoteRequest);
+				break;
+			case 'team':
+				result = await createTeamNote(fetch, noteData as CreateTeamNoteRequest);
+				break;
+		}
+
+		if (result.error) {
+			console.error('Failed to create note:', result.error);
+			throw new Error(`Failed to create note: ${result.error}`);
+		} else {
+			console.log('Note created successfully');
+			// Reload data to show the new note
+			await loadData();
+		}
+	}
 
 	let totalEventNotes = $derived(eventNotes.filter((note) => !note.isDeleted).length);
 	let totalMatchNotes = $derived(matchNotes.filter((note) => !note.isDeleted).length);
@@ -160,7 +239,26 @@
 								<dt class="text-sm font-medium text-gray-500 truncate dark:text-gray-400">
 									Event Notes
 								</dt>
-								<dd class="text-lg font-medium text-gray-900 dark:text-white">{totalEventNotes}</dd>
+								<dd class="flex items-center justify-between">
+									<span class="text-lg font-medium text-gray-900 dark:text-white"
+										>{totalEventNotes}</span
+									>
+									<button
+										onclick={handleAddEventNote}
+										class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-colors"
+										title="Add Event Note"
+										aria-label="Add Event Note"
+									>
+										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M12 4v16m8-8H4"
+											/>
+										</svg>
+									</button>
+								</dd>
 							</dl>
 						</div>
 					</div>
@@ -268,7 +366,13 @@
 					{:else}
 						<div class="space-y-4">
 							{#each practiceSchedule as match (match.matchNumber)}
-								<MatchCard {match} {matchNotes} {teamNotes} />
+								<MatchCard
+									{match}
+									{matchNotes}
+									{teamNotes}
+									onAddMatchNote={handleAddMatchNote}
+									onAddTeamNote={handleAddTeamNote}
+								/>
 							{/each}
 						</div>
 					{/if}
@@ -311,7 +415,13 @@
 					{:else}
 						<div class="space-y-4">
 							{#each qualificationSchedule as match (match.matchNumber)}
-								<MatchCard {match} {matchNotes} {teamNotes} />
+								<MatchCard
+									{match}
+									{matchNotes}
+									{teamNotes}
+									onAddMatchNote={handleAddMatchNote}
+									onAddTeamNote={handleAddTeamNote}
+								/>
 							{/each}
 						</div>
 					{/if}
@@ -352,7 +462,13 @@
 					{:else}
 						<div class="space-y-4">
 							{#each playoffSchedule as match (match.matchNumber)}
-								<MatchCard {match} {matchNotes} {teamNotes} />
+								<MatchCard
+									{match}
+									{matchNotes}
+									{teamNotes}
+									onAddMatchNote={handleAddMatchNote}
+									onAddTeamNote={handleAddTeamNote}
+								/>
 							{/each}
 						</div>
 					{/if}
@@ -385,4 +501,15 @@
 			{/if}
 		</div>
 	{/if}
+
+	<!-- Add Note Modal -->
+	<AddNoteModal
+		bind:isOpen={isModalOpen}
+		noteType={modalNoteType}
+		matchNumber={modalMatchNumber}
+		tournamentLevel={modalTournamentLevel}
+		teamNumber={modalTeamNumber}
+		onClose={handleCloseModal}
+		onSubmit={handleSubmitNote}
+	/>
 </div>

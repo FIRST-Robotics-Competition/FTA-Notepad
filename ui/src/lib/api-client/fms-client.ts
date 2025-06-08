@@ -1,6 +1,6 @@
 import createClient, { type Middleware } from 'openapi-fetch';
 import type { paths, components } from '../../fms/fms-api';
-import { TournamentLevel } from '../../fms/fms-api';
+import { TournamentLevel, EventNoteIssueTypes, EventNoteResolutionTypes } from '../../fms/fms-api';
 import { settingsStore } from '$lib/settings-store';
 import { get } from 'svelte/store';
 
@@ -26,6 +26,37 @@ export type EventNote = components['schemas']['EventNoteModel'];
 export type MatchNote = components['schemas']['MatchNoteModel'];
 export type ScheduledMatch = components['schemas']['ScheduledMatchModel'];
 export type EventSchedule = components['schemas']['EventScheduleModel'];
+
+// Create/Modify model types
+export type EventNoteCreateRequest = components['schemas']['EventNoteCreateModifyModel'];
+export type MatchNoteCreateRequest = components['schemas']['MatchNoteCreateModifyModel'];
+export type TeamIssueCreateRequest = components['schemas']['TeamIssueCreateModifyModel'];
+
+// Additional type exports for note creation (legacy - keeping for backward compatibility)
+export type CreateEventNoteRequest = {
+	note: string;
+};
+
+export type CreateMatchNoteRequest = {
+	note: string;
+	tournamentLevel: string;
+	matchNumber: number;
+	playNumber?: number;
+	teamNumber?: number;
+};
+
+export type CreateTeamNoteRequest = {
+	noteText: string;
+	teamNumber: number;
+	tournamentLevel?: components['schemas']['TournamentLevel'];
+	matchNumber?: number;
+	playNumber?: number;
+	issueType: components['schemas']['EventNoteIssueTypes'];
+	resolutionStatus: components['schemas']['EventNoteResolutionTypes'];
+};
+
+// Export enums for use in components
+export { EventNoteIssueTypes, EventNoteResolutionTypes, TournamentLevel };
 
 // Team Issues/Notes API
 export async function getTeamNotes(
@@ -224,4 +255,177 @@ export function countTeamGeneralNotes(teamNotes: TeamIssue[], teamNumber: number
 			!note.matchNumber && // General team notes don't have a match number
 			!note.isDeleted
 	).length;
+}
+
+export async function createEventNote(
+	fetch: typeof globalThis.fetch,
+	noteData: CreateEventNoteRequest
+) {
+	const settings = get(settingsStore);
+
+	// Log the note data for debugging
+	console.log('Creating event note:', {
+		note: noteData.note,
+		eventCode: settings.eventCode,
+		username: settings.username,
+		realName: settings.realName
+	});
+
+	const { data, error, response } = await fmsClient.POST(
+		'/api/v1.0/FTA/{season}/{eventCode}/eventNotes',
+		{
+			params: {
+				path: {
+					season: season,
+					eventCode: settings.eventCode
+				},
+				header: {
+					'FMS-UsersRealName': settings.realName || settings.username,
+					'FMS-DeviceIdentification': getDeviceName()
+				}
+			},
+			body: { noteText: noteData.note },
+			fetch
+		}
+	);
+
+	return { data, error, response };
+}
+
+export async function createMatchNote(
+	fetch: typeof globalThis.fetch,
+	noteData: CreateMatchNoteRequest
+) {
+	const settings = get(settingsStore);
+
+	// Log the note data for debugging
+	console.log('Creating match note:', {
+		note: noteData.note,
+		tournamentLevel: noteData.tournamentLevel,
+		matchNumber: noteData.matchNumber,
+		playNumber: noteData.playNumber,
+		teamNumber: noteData.teamNumber,
+		eventCode: settings.eventCode,
+		username: settings.username,
+		realName: settings.realName
+	});
+
+	const { data, error, response } = await fmsClient.POST(
+		'/api/v1.0/FTA/{season}/{eventCode}/matchNotes',
+		{
+			params: {
+				path: {
+					season: season,
+					eventCode: settings.eventCode
+				},
+				header: {
+					'FMS-UsersRealName': settings.realName || settings.username,
+					'FMS-DeviceIdentification': getDeviceName()
+				}
+			},
+			body: {
+				noteText: noteData.note,
+				tournamentLevel: noteData.tournamentLevel,
+				matchNumber: noteData.matchNumber,
+				playNumber: noteData.playNumber,
+				teamNumber: noteData.teamNumber
+			},
+			fetch
+		}
+	);
+
+	return { data, error, response };
+}
+
+export async function createTeamNote(
+	fetch: typeof globalThis.fetch,
+	noteData: CreateTeamNoteRequest
+) {
+	const settings = get(settingsStore);
+
+	// Log the note data for debugging
+	console.log('Creating team note:', {
+		note: noteData.noteText,
+		teamNumber: noteData.teamNumber,
+		tournamentLevel: noteData.tournamentLevel,
+		matchNumber: noteData.matchNumber,
+		playNumber: noteData.playNumber,
+		issueType: noteData.issueType,
+		resolutionStatus: noteData.resolutionStatus,
+		eventCode: settings.eventCode,
+		username: settings.username,
+		realName: settings.realName
+	});
+
+	const { data, error, response } = await fmsClient.POST(
+		'/api/v1.0/FTA/{season}/{eventCode}/teamIssues',
+		{
+			params: {
+				path: {
+					season: season,
+					eventCode: settings.eventCode
+				},
+				header: {
+					'FMS-UsersRealName': settings.realName || settings.username,
+					'FMS-DeviceIdentification': getDeviceName()
+				}
+			},
+			body: {
+				noteText: noteData.noteText,
+				teamNumber: noteData.teamNumber,
+				tournamentLevel: noteData.tournamentLevel,
+				matchNumber: noteData.matchNumber,
+				playNumber: noteData.playNumber,
+				issueType: noteData.issueType,
+				resolutionStatus: noteData.resolutionStatus
+			},
+			fetch
+		}
+	);
+
+	return { data, error, response };
+}
+
+// Helper to get current username
+export function getCurrentUsername(): string {
+	return get(settingsStore).username || 'Unknown User';
+}
+
+// Function to generate a device name using browser APIs
+export function getDeviceName(): string {
+	const userAgent = navigator.userAgent;
+	let browserName = 'Unknown Browser';
+	let osName = 'Unknown OS';
+
+	// Detect browser
+	if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) {
+		browserName = 'Chrome';
+	} else if (userAgent.includes('Firefox')) {
+		browserName = 'Firefox';
+	} else if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) {
+		browserName = 'Safari';
+	} else if (userAgent.includes('Edg')) {
+		browserName = 'Edge';
+	} else if (userAgent.includes('Opera') || userAgent.includes('OPR')) {
+		browserName = 'Opera';
+	}
+
+	// Detect OS
+	if (userAgent.includes('Windows NT')) {
+		osName = 'Windows';
+	} else if (userAgent.includes('Mac OS X')) {
+		osName = 'macOS';
+	} else if (userAgent.includes('Linux')) {
+		osName = 'Linux';
+	} else if (userAgent.includes('Android')) {
+		osName = 'Android';
+	} else if (userAgent.includes('iOS')) {
+		osName = 'iOS';
+	}
+
+	// Try to get hostname if available
+	const hostname = window.location.hostname;
+	const deviceId = hostname !== 'localhost' && hostname !== '127.0.0.1' ? hostname : 'local-device';
+
+	return `${browserName} on ${osName} (${deviceId})`;
 }

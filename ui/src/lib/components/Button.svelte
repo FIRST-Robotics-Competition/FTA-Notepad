@@ -9,6 +9,7 @@
 		disabled?: boolean;
 		class?: string;
 		defaultClass?: string;
+		onclick?: (event: MouseEvent) => void;
 		children: any;
 	}
 
@@ -18,6 +19,7 @@
 		color = 'primary',
 		inline = true,
 		disabled = false,
+		onclick,
 		defaultClass = 'items-center justify-center gap-x-2 rounded-lg px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-gray-100 p-2 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
 		children,
 		...restProps
@@ -35,13 +37,15 @@
 		white: 'bg-white hover:bg-gray-100 text-black focus-visible:bg-white'
 	};
 
-	let buttonClass = '';
-	buttonClass = twMerge(
-		defaultClass,
-		inline ? 'inline-flex' : '',
-		colorClass[color],
-		disabled && 'cursor-not-allowed opacity-50',
-		restProps.class
+	let disabledClass = 'cursor-not-allowed opacity-50 bg-gray-400 hover:bg-gray-400 text-gray-200';
+
+	let buttonClass = $derived(
+		twMerge(
+			defaultClass,
+			inline ? 'inline-flex' : '',
+			disabled ? disabledClass : colorClass[color],
+			restProps.class
+		)
 	);
 </script>
 
@@ -50,7 +54,7 @@
 		{@render children()}
 	</a>
 {:else}
-	<button {type} {...restProps} class={buttonClass} on:click>
+	<button {type} {onclick} class={buttonClass} {...restProps}>
 		{@render children()}
 	</button>
 {/if}

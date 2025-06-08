@@ -2,6 +2,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { XMark, type IconSource } from '@steeze-ui/heroicons';
 	import { twMerge } from 'tailwind-merge';
+	import { styles } from '$lib';
 
 	interface ModalProps {
 		open: boolean;
@@ -40,16 +41,16 @@
 
 	const iconBGColors = {
 		primary: 'bg-primary-100',
-		red: 'bg-red-100',
+		red: styles.alliance.red.secondary,
 		green: 'bg-green-100',
-		blue: 'bg-blue-100'
+		blue: styles.alliance.blue.secondary
 	};
 
 	const iconFGColors = {
 		primary: 'text-primary-600',
-		red: 'text-red-600',
+		red: styles.alliance.red.text,
 		green: 'text-green-600',
-		blue: 'text-blue-600'
+		blue: styles.alliance.blue.text
 	};
 
 	const sizeClass = {

@@ -47,9 +47,7 @@
 				{match.description || `Match ${match.matchNumber}`}
 			</h3>
 			{#if match.field}
-				<span
-					class="{styles.badge.base} {styles.badge.blue}"
-				>
+				<span class="{styles.badge.base} {styles.badge.blue}">
 					{match.field}
 				</span>
 			{/if}
@@ -71,8 +69,8 @@
 		<div class="grid grid-cols-2 gap-6">
 			<!-- Blue Alliance -->
 			<div>
-				<h4 class="text-sm font-medium text-blue-600 dark:text-blue-400 mb-2 flex items-center">
-					<div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+				<h4 class="text-sm font-medium {styles.alliance.blue.text} mb-2 flex items-center">
+					<div class="w-3 h-3 {styles.alliance.blue.indicator} rounded-full mr-2"></div>
 					Blue Alliance
 				</h4>
 				<div class="space-y-2">
@@ -99,8 +97,8 @@
 
 			<!-- Red Alliance -->
 			<div>
-				<h4 class="text-sm font-medium text-red-600 dark:text-red-400 mb-2 flex items-center">
-					<div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+				<h4 class="text-sm font-medium {styles.alliance.red.text} mb-2 flex items-center">
+					<div class="w-3 h-3 {styles.alliance.red.indicator} rounded-full mr-2"></div>
 					Red Alliance
 				</h4>
 				<div class="space-y-2">

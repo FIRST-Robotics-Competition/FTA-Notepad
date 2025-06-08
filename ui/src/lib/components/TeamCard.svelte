@@ -4,6 +4,7 @@
 	import TeamNoteDisplay from './notes/TeamNoteDisplay.svelte';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { ChevronDown, ChevronRight } from '@steeze-ui/heroicons';
+	import { styles } from '$lib';
 
 	interface TeamCardProps {
 		teamNumber: number;
@@ -63,31 +64,25 @@
 			const stationLower = station.toLowerCase();
 			if (stationLower.includes('red')) {
 				return {
-					bg: 'bg-red-500',
-					text: 'text-white',
-					border: 'border-red-500',
-					lightBg: 'bg-red-50',
-					darkBorder: 'dark:border-red-400',
-					darkLightBg: 'dark:bg-red-900/20'
+					bg: styles.alliance.red.primary,
+					border: styles.alliance.red.border,
+					lightBg: styles.alliance.red.secondary,
+					darkBorder: styles.alliance.red.darkBorder
 				};
 			} else if (stationLower.includes('blue')) {
 				return {
-					bg: 'bg-blue-500',
-					text: 'text-white',
-					border: 'border-blue-500',
-					lightBg: 'bg-blue-50',
-					darkBorder: 'dark:border-blue-400',
-					darkLightBg: 'dark:bg-blue-900/20'
+					bg: styles.alliance.blue.primary,
+					border: styles.alliance.blue.border,
+					lightBg: styles.alliance.blue.secondary,
+					darkBorder: styles.alliance.blue.darkBorder
 				};
 			} else {
 				// Fallback for unknown stations
 				return {
-					bg: 'bg-gray-500',
-					text: 'text-white',
+					bg: 'bg-gray-500 text-white',
 					border: 'border-gray-500',
 					lightBg: 'bg-gray-50',
-					darkBorder: 'dark:border-gray-400',
-					darkLightBg: 'dark:bg-gray-900/20'
+					darkBorder: 'dark:border-gray-400'
 				};
 			}
 		})()
@@ -97,13 +92,13 @@
 <div
 	class="flex flex-col border-2 rounded-lg {surrogate
 		? 'border-orange-300 bg-orange-50 dark:border-orange-700 dark:bg-orange-900/20'
-		: `${stationColor.border} ${stationColor.lightBg} ${stationColor.darkBorder} ${stationColor.darkLightBg}`}"
+		: `${stationColor.border} ${stationColor.lightBg} ${stationColor.darkBorder}`}"
 >
 	<!-- Team Header (always visible) -->
 	<div class="flex items-center justify-between p-3">
 		<div class="flex items-center gap-2">
 			<span
-				class="inline-flex items-center justify-center w-6 h-6 rounded text-xs font-bold {stationColor.bg} {stationColor.text}"
+				class="inline-flex items-center justify-center w-6 h-6 rounded text-xs font-bold {stationColor.bg}"
 			>
 				{station[station.length - 1]}
 			</span>

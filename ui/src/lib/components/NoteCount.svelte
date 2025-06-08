@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { styles } from '$lib';
+
 	interface NoteCountProps {
 		count: number;
 		label: string;
@@ -11,7 +13,7 @@
 	const getVariantClasses = (variant: string) => {
 		switch (variant) {
 			case 'match':
-				return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
+				return `${styles.alliance.blue.secondary} ${styles.alliance.blue.secondaryText}`;
 			case 'team':
 				return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
 			default:
@@ -34,7 +36,9 @@
 	{#if onAddNote}
 		<button
 			onclick={onAddNote}
-			class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-colors"
+			class="inline-flex items-center justify-center w-6 h-6 rounded-full {styles.alliance.blue
+				.primary} {styles.alliance.blue
+				.primaryHover} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-colors"
 			title="Add Note"
 			aria-label="Add Note"
 		>

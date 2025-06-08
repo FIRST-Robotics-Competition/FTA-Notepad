@@ -7,7 +7,7 @@ Everything you need to build a Svelte project, powered by [`create-svelte`](http
 This project uses a focused approach to shared styles in `src/lib/styles.ts`. Only genuinely reusable patterns that appear across multiple components are centralized:
 
 - **Form inputs** - Standard input styling for consistent form appearance
-- **Badges** - Color-coded badges used in notes, match cards, and team cards  
+- **Badges** - Color-coded badges used in notes, match cards, and team cards
 - **Section headers** - Interactive headers for collapsible sections
 - **Empty states** - Consistent styling for "no data" states
 - **Error states** - Error messaging and retry button styling

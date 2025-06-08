@@ -1,6 +1,12 @@
 <script lang="ts">
 	import type { TeamIssue } from '$lib/api-client/fms-client';
-	import { formatIssueType, formatResolutionStatus, getStatusColor, formatTimestamp, styles } from '$lib';
+	import {
+		formatIssueType,
+		formatResolutionStatus,
+		getStatusColor,
+		formatTimestamp,
+		styles
+	} from '$lib';
 	interface TeamNoteDisplayProps {
 		note: TeamIssue;
 	}
@@ -16,9 +22,7 @@
 >
 	<div class="flex items-start justify-between mb-2">
 		<div class="flex flex-wrap gap-2">
-			<span
-				class="{styles.badge.base} {styles.badge.blue}"
-			>
+			<span class="{styles.badge.base} {styles.badge.blue}">
 				{formatIssueType(note.issueType)}
 			</span>
 			<span
@@ -29,9 +33,7 @@
 				{formatResolutionStatus(note.resolutionStatus)}
 			</span>
 			{#if isMatchSpecific}
-				<span
-					class="{styles.badge.base} {styles.badge.purple}"
-				>
+				<span class="{styles.badge.base} {styles.badge.purple}">
 					Match {note.matchNumber}{note.playNumber ? `.${note.playNumber}` : ''}
 				</span>
 			{/if}

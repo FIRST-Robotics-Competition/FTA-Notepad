@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { twMerge } from 'tailwind-merge';
+	import { styles } from '$lib';
 
 	interface ButtonProps {
 		href?: string;
@@ -28,8 +29,8 @@
 	let colorClass = {
 		none: '',
 		primary: 'bg-primary-500 hover:bg-primary-600 text-white focus-visible:bg-primary-500',
-		blue: 'bg-blue-500 hover:bg-blue-600 text-white focus-visible:bg-blue-500',
-		red: 'bg-red-500 hover:bg-red-600 text-white focus-visible:bg-red-500',
+		blue: `${styles.alliance.blue.primary} ${styles.alliance.blue.primaryHover} ${styles.alliance.blue.primaryFocus}`,
+		red: `${styles.alliance.red.primary} ${styles.alliance.red.primaryHover} ${styles.alliance.red.primaryFocus}`,
 		green: 'bg-green-500 hover:bg-green-600 text-white focus-visible:bg-green-500',
 		yellow: 'bg-yellow-500 hover:bg-yellow-600 text-white focus-visible:bg-yellow-500',
 		gray: 'bg-gray-500 hover:bg-gray-600 text-white focus-visible:bg-gray-500',

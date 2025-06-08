@@ -14,11 +14,7 @@
 >
 	<div class="flex items-start justify-between mb-2">
 		<div class="flex flex-wrap gap-2">
-			<span
-				class="{styles.badge.base} {styles.badge.orange}"
-			>
-				Event Note
-			</span>
+			<span class="{styles.badge.base} {styles.badge.orange}"> Event Note </span>
 		</div>
 		<span class="text-xs text-gray-500 dark:text-gray-400 ml-2 flex-shrink-0">
 			{formatTimestamp(note.timeAdded)}

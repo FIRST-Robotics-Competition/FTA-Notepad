@@ -198,11 +198,7 @@
 						<p>{error}</p>
 					</div>
 					<div class="mt-4">
-						<button
-							type="button"
-							class={styles.error.button}
-							onclick={loadData}
-						>
+						<button type="button" class={styles.error.button} onclick={loadData}>
 							Try again
 						</button>
 					</div>
@@ -230,8 +226,17 @@
 						role="button"
 						tabindex="0"
 						class="inline-flex items-center justify-center rounded-md bg-orange-600 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 cursor-pointer"
-						onclick={(e) => { e.stopPropagation(); handleAddEventNote(); }}
-						onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); handleAddEventNote(); } }}
+						onclick={(e) => {
+							e.stopPropagation();
+							handleAddEventNote();
+						}}
+						onkeydown={(e) => {
+							if (e.key === 'Enter' || e.key === ' ') {
+								e.preventDefault();
+								e.stopPropagation();
+								handleAddEventNote();
+							}
+						}}
 						aria-label="Add event note"
 					>
 						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

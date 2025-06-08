@@ -188,11 +188,7 @@
 					>
 						Issue Type
 					</label>
-					<select
-						id="issueType"
-						bind:value={issueType}
-						class={styles.input.base}
-					>
+					<select id="issueType" bind:value={issueType} class={styles.input.base}>
 						{#each issueTypeOptions as option}
 							<option value={option.value}>{option.label}</option>
 						{/each}
@@ -205,11 +201,7 @@
 					>
 						Resolution Status
 					</label>
-					<select
-						id="resolutionStatus"
-						bind:value={resolutionStatus}
-						class={styles.input.base}
-					>
+					<select id="resolutionStatus" bind:value={resolutionStatus} class={styles.input.base}>
 						{#each resolutionStatusOptions as option}
 							<option value={option.value}>{option.label}</option>
 						{/each}

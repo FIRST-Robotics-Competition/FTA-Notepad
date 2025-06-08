@@ -146,7 +146,7 @@
 	}
 
 	// Collapsible section states
-	let eventNotesExpanded = $state(true);
+	let eventNotesExpanded = $state(false);
 	let practiceExpanded = $state(true);
 	let qualificationExpanded = $state(true);
 	let playoffExpanded = $state(true);

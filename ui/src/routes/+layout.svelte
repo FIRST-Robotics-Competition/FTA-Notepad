@@ -102,29 +102,11 @@
 								<ul role="list" class="-mx-2 space-y-1">
 									<li>
 										<a
-											href="#"
+											href="/fieldMonitor"
 											class="group flex gap-x-3 rounded-md p-2 font-semibold leading-8 hover:bg-primary-700 bg-primary-700"
 										>
 											<Icon src={Tv} class="h-8 w-8 shrink-0" />
 											Field Monitor
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											class="group flex gap-x-3 rounded-md p-2 font-semibold leading-8 hover:bg-primary-700 data-[active=true]:bg-primary-700"
-										>
-											<Icon src={AcademicCap} class="h-8 w-8 shrink-0" />
-											Flashcards
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											class="group flex gap-x-3 rounded-md p-2 font-semibold leading-8 hover:bg-primary-700 data-[active=true]:bg-primary-700"
-										>
-											<Icon src={DocumentText} class="h-8 w-8 shrink-0" />
-											References
 										</a>
 									</li>
 									<li>
@@ -134,24 +116,6 @@
 										>
 											<Icon src={ChatBubbleBottomCenterText} class="h-8 w-8 shrink-0" />
 											Notes
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											class="group flex gap-x-3 rounded-md p-2 font-semibold leading-8 hover:bg-primary-700 data-[active=true]:bg-primary-700"
-										>
-											<Icon src={ArchiveBox} class="h-8 w-8 shrink-0" />
-											Match Logs
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											class="group flex gap-x-3 rounded-md p-2 font-semibold leading-8 hover:bg-primary-700 data-[active=true]:bg-primary-700"
-										>
-											<Icon src={Clipboard} class="h-8 w-8 shrink-0" />
-											Checklist
 										</a>
 									</li>
 								</ul>
@@ -169,15 +133,6 @@
 										>
 											<Icon src={Cog6Tooth} class="h-8 w-8 shrink-0" />
 											Settings
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											class="group flex gap-x-3 rounded-md p-2 font-semibold leading-8 hover:bg-primary-700 data-[active=true]:bg-primary-700"
-										>
-											<Icon src={InformationCircle} class="h-8 w-8 shrink-0" />
-											Help
 										</a>
 									</li>
 								</ul>
@@ -200,7 +155,7 @@
 						<ul role="list" class="-mx-2 space-y-1">
 							<li>
 								<a
-									href="#"
+									href="/fieldMonitor"
 									class="group flex gap-x-3 rounded-md p-2 font-semibold leading-6 hover:bg-primary-700 data-[active=true]:bg-primary-700"
 									data-active="true"
 								>
@@ -217,42 +172,6 @@
 									Notes
 								</a>
 							</li>
-							<!-- <li>
-                                <a
-                                    href="#"
-                                    class="group flex gap-x-3 rounded-md p-2 font-semibold leading-6 hover:bg-primary-700 data-[active=true]:bg-primary-700"
-                                >
-                                    <Icon src={AcademicCap} class="h-6 w-6 shrink-0" />
-                                    Flashcards
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    class="group flex gap-x-3 rounded-md p-2 font-semibold leading-6 hover:bg-primary-700 data-[active=true]:bg-primary-700"
-                                >
-                                    <Icon src={DocumentText} class="h-6 w-6 shrink-0" />
-                                    References
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    class="group flex gap-x-3 rounded-md p-2 font-semibold leading-6 hover:bg-primary-700 data-[active=true]:bg-primary-700"
-                                >
-                                    <Icon src={ArchiveBox} class="h-6 w-6 shrink-0" />
-                                    Match Logs
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    class="group flex gap-x-3 rounded-md p-2 font-semibold leading-6 hover:bg-primary-700 data-[active=true]:bg-primary-700"
-                                >
-                                    <Icon src={Clipboard} class="h-6 w-6 shrink-0" />
-                                    Checklist
-                                </a>
-                            </li> -->
 						</ul>
 					</li>
 					<li class="border-t border-white">
@@ -267,15 +186,6 @@
 									Settings
 								</a>
 							</li>
-							<!-- <li>
-                                <a
-                                    href="#"
-                                    class="group flex gap-x-3 rounded-md p-2 font-semibold leading-6 hover:bg-primary-700 data-[active=true]:bg-primary-700"
-                                >
-                                    <Icon src={InformationCircle} class="h-6 w-6 shrink-0" />
-                                    Help
-                                </a>
-                            </li> -->
 						</ul>
 					</li>
 					<li class="-mx-6 mt-auto">
@@ -283,13 +193,8 @@
 							href="#"
 							class="flex items-center gap-x-4 px-6 py-3 font-semibold leading-6 hover:bg-indigo-700"
 						>
-							<img
-								class="h-6 w-6 rounded-full bg-indigo-700"
-								src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-								alt=""
-							/>
 							<span class="sr-only">Your profile</span>
-							<span aria-hidden="true">Tom Cook</span>
+							<span aria-hidden="true">{$settingsStore.realName || $settingsStore.username || 'User'}</span>
 						</a>
 					</li>
 				</ul>
@@ -317,7 +222,7 @@
 			<img
 				class="h-8 w-8 rounded-full bg-primary-700"
 				src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-				alt=""
+				alt="{$settingsStore.realName || $settingsStore.username || 'User'} profile"
 			/>
 		</a>
 	</div>

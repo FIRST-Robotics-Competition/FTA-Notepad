@@ -123,9 +123,9 @@
 							<li class="border-t border-white">
 								<ul role="list" class="-mx-2 mt-2 space-y-1">
 									<li>
-										<a
-											href="#"
-											class="group flex gap-x-3 rounded-md p-2 font-semibold leading-8 hover:bg-primary-700 data-[active=true]:bg-primary-700"
+										<button
+											type="button"
+											class="group flex gap-x-3 rounded-md p-2 font-semibold leading-8 hover:bg-primary-700 w-full text-left"
 											onclick={() => {
 												settingsOpen = true;
 												sidebarOpen = false;
@@ -133,7 +133,7 @@
 										>
 											<Icon src={Cog6Tooth} class="h-8 w-8 shrink-0" />
 											Settings
-										</a>
+										</button>
 									</li>
 								</ul>
 							</li>
@@ -177,25 +177,25 @@
 					<li class="border-t border-white">
 						<ul role="list" class="-mx-2 mt-2 space-y-1">
 							<li>
-								<a
-									href="#"
-									class="group flex gap-x-3 rounded-md p-2 font-semibold leading-6 hover:bg-primary-700 data-[active=true]:bg-primary-700"
+								<button
+									type="button"
+									class="group flex gap-x-3 rounded-md p-2 font-semibold leading-6 hover:bg-primary-700 w-full text-left"
 									onclick={() => (settingsOpen = true)}
 								>
 									<Icon src={Cog6Tooth} class="h-6 w-6 shrink-0" />
 									Settings
-								</a>
+								</button>
 							</li>
 						</ul>
 					</li>
 					<li class="-mx-6 mt-auto">
-						<a
-							href="#"
-							class="flex items-center gap-x-4 px-6 py-3 font-semibold leading-6 hover:bg-indigo-700"
+						<button
+							type="button"
+							class="flex items-center gap-x-4 px-6 py-3 font-semibold leading-6 hover:bg-indigo-700 w-full text-left"
 						>
 							<span class="sr-only">Your profile</span>
 							<span aria-hidden="true">{$settingsStore.realName || $settingsStore.username || 'User'}</span>
-						</a>
+						</button>
 					</li>
 				</ul>
 			</nav>
@@ -217,14 +217,14 @@
 		</button>
 		<div class="flex-1 font-semibold leading-8">Field Monitor</div>
 		<!-- TODO: dynamic title on mobile -->
-		<a href="#">
+		<button type="button" class="rounded-full">
 			<span class="sr-only">Your profile</span>
 			<img
 				class="h-8 w-8 rounded-full bg-primary-700"
 				src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
 				alt="{$settingsStore.realName || $settingsStore.username || 'User'} profile"
 			/>
-		</a>
+		</button>
 	</div>
 
 	<main class="py-2 lg:py-10 lg:pl-72">

@@ -105,7 +105,7 @@
 			<span class="text-lg font-bold text-gray-900 dark:text-white">#{teamNumber}</span>
 			{#if surrogate}
 				<span
-					class="inline-flex items-center rounded-full bg-orange-100 px-2 py-1 text-xs font-medium text-orange-800 dark:bg-orange-900 dark:text-orange-300"
+					class="hidden sm:inline-flex items-center rounded-full bg-orange-100 px-2 py-1 text-xs font-medium text-orange-800 dark:bg-orange-900 dark:text-orange-300"
 				>
 					Surrogate
 				</span>

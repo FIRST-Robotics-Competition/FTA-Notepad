@@ -70,7 +70,7 @@
 
 <Spinner show={loading} />
 
-<Modal bind:open={settingsOpen} size="lg" dismissable outsideclose title="Settings">
+<Modal bind:open={settingsOpen} size="responsive" dismissable outsideclose title="Settings">
 	<form class="justify-start text-left">
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
 			<Toggle bind:checked={settings.darkMode} onchange={updateSettings}>Dark Mode</Toggle>

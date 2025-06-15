@@ -115,7 +115,7 @@
 	}
 </script>
 
-<Modal bind:open={isOpen} {title}>
+<Modal bind:open={isOpen} {title} size="responsive">
 	<div class="space-y-4">
 		<!-- Error message -->
 		{#if submitError}
@@ -141,7 +141,7 @@
 
 		<!-- Match-specific fields -->
 		{#if noteType === 'match' || (noteType === 'team' && matchNumber)}
-			<div class="grid grid-cols-2 gap-4">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				<div>
 					<label
 						for="playNumber"
@@ -180,7 +180,7 @@
 
 		<!-- Team-specific fields -->
 		{#if noteType === 'team'}
-			<div class="grid grid-cols-2 gap-4">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				<div>
 					<label
 						for="issueType"
@@ -210,7 +210,7 @@
 			</div>
 		{/if}
 		<!-- Action buttons -->
-		<div class="flex justify-end space-x-3 pt-4">
+		<div class="flex flex-col sm:flex-row sm:justify-end gap-3 pt-4">
 			<Button color="gray" onclick={handleCancel} disabled={isSubmitting}>Cancel</Button>
 			<Button color="primary" onclick={handleSubmit} disabled={isButtonDisabled}>
 				{isSubmitting ? 'Adding...' : 'Add Note'}

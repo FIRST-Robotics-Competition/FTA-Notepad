@@ -24,7 +24,7 @@
 
 <div class="inline-flex items-center gap-2">
 	<div class="inline-flex items-center gap-1">
-		<span class="text-sm text-gray-600 dark:text-gray-400">{label}:</span>
+		<span class="hidden sm:inline text-sm text-gray-600 dark:text-gray-400">{label}:</span>
 		<span
 			class="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium {getVariantClasses(
 				variant

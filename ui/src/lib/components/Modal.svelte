@@ -7,7 +7,7 @@
 	interface ModalProps {
 		open: boolean;
 		title?: string;
-		size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'fit';
+		size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'fit' | 'responsive';
 		dismissable?: boolean;
 		outsideclose?: boolean;
 		icon?: IconSource;
@@ -29,7 +29,7 @@
 		icon,
 		iconColor = 'primary',
 		fixed = false,
-		modalClass = 'relative transform overflow-hidden rounded-lg bg-white dark:bg-neutral-700 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:p-6 w-full',
+		modalClass = 'relative transform overflow-hidden rounded-lg bg-white dark:bg-neutral-700 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:p-6 min-w-0 mx-4 my-6',
 		modalOpenClass = {
 			open: 'opacity-100 translate-y-0 sm:scale-100 ease-out duration-300',
 			close: 'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 ease-in duration-200'
@@ -60,7 +60,8 @@
 		lg: 'max-w-2xl',
 		xl: 'max-w-4xl',
 		'2xl': 'max-w-6xl',
-		fit: 'w-fit'
+		fit: 'w-fit',
+		responsive: 'max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-4xl 2xl:max-w-5xl'
 	};
 
 	function backdropClick(e: Event) {
@@ -99,7 +100,7 @@
 	<div class="fixed z-20 inset-0 overflow-y-auto">
 		<div
 			id="{id}-wrapper"
-			class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
+			class="flex min-h-full items-center justify-center"
 			onclick={backdropClick}
 			role="presentation"
 		>

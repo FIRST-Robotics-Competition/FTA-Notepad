@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { AllianceType, StationType, MatchStateType } from '../fms/fms-api';
-	import { connectFieldMonitor, type FieldMonitorData } from '../fms/fms-signalr';
-	import MonitorRow from '../lib/components/field-monitor/MonitorRow.svelte';
+	import { AllianceType, StationType, MatchStateType } from '../../fms/fms-api';
+	import { connectFieldMonitor, type FieldMonitorData } from '../../fms/fms-signalr';
+	import MonitorRow from '../../lib/components/field-monitor/MonitorRow.svelte';
 	import {
 		Blue1Default,
 		Blue2Default,
@@ -9,7 +9,7 @@
 		Red1Default,
 		Red2Default,
 		Red3Default
-	} from './defaults';
+	} from '../defaults';
 	import { settingsStore } from '$lib/settings-store';
 
 	let blue1: FieldMonitorData = Blue1Default;

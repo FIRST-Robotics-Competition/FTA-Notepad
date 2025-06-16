@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import type { PageData } from './$types';
 	import TeamMatchNote from '$lib/components/notes/TeamMatchNote.svelte';
 
-	const params = $page.params;
+	const params = page.params;
 
 	export let data: PageData;
 </script>

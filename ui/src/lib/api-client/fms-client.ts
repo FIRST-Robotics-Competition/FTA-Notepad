@@ -1,5 +1,6 @@
 import createClient, { type Middleware } from 'openapi-fetch';
 import type { paths, components } from '../../fms/fms-api';
+import { TournamentLevel, EventNoteIssueTypes, EventNoteResolutionTypes } from '../../fms/fms-api';
 import { settingsStore } from '$lib/settings-store';
 import { get } from 'svelte/store';
 
@@ -11,17 +12,55 @@ const season = 2025;
 
 const authMiddleware: Middleware = {
 	async onRequest({ request }) {
-		let settings = get(settingsStore);
-		let auth = btoa(`${settings.username}:${settings.key}`);
+		const settings = get(settingsStore);
+		const auth = btoa(`${settings.username}:${settings.key}`);
 		request.headers.set('Authorization', `Basic ${auth}`);
 		return request;
 	}
 };
 fmsClient.use(authMiddleware);
 
+// Type exports
 export type TeamIssue = components['schemas']['TeamIssueModel'];
+export type EventNote = components['schemas']['EventNoteModel'];
+export type MatchNote = components['schemas']['MatchNoteModel'];
+export type ScheduledMatch = components['schemas']['ScheduledMatchModel'];
+export type EventSchedule = components['schemas']['EventScheduleModel'];
+
+// Create/Modify model types
+export type EventNoteCreateRequest = components['schemas']['EventNoteCreateModifyModel'];
+export type MatchNoteCreateRequest = components['schemas']['MatchNoteCreateModifyModel'];
+export type TeamIssueCreateRequest = components['schemas']['TeamIssueCreateModifyModel'];
+
+// Additional type exports for note creation (legacy - keeping for backward compatibility)
+export type CreateEventNoteRequest = {
+	note: string;
+};
+
+export type CreateMatchNoteRequest = {
+	note: string;
+	tournamentLevel: string;
+	matchNumber: number;
+	playNumber?: number;
+	teamNumber?: number;
+};
+
+export type CreateTeamNoteRequest = {
+	noteText: string;
+	teamNumber: number;
+	tournamentLevel?: components['schemas']['TournamentLevel'];
+	matchNumber?: number;
+	playNumber?: number;
+	issueType: components['schemas']['EventNoteIssueTypes'];
+	resolutionStatus: components['schemas']['EventNoteResolutionTypes'];
+};
+
+// Export enums for use in components
+export { EventNoteIssueTypes, EventNoteResolutionTypes, TournamentLevel };
+
+// Team Issues/Notes API
 export async function getTeamNotes(
-	fetch: any,
+	fetch: typeof globalThis.fetch,
 	options: {
 		noteId?: string;
 		teamNumber?: number;
@@ -50,7 +89,343 @@ export async function getTeamNotes(
 	};
 }
 
-export async function getCurrentEventCode(): Promise<string | null | undefined> {
+export async function getCurrentEventCode(
+	fetch: typeof globalThis.fetch
+): Promise<string | null | undefined> {
 	const { data } = await fmsClient.GET('/api/v1.0/FTAAppApi/CurrentEventStatus', { fetch });
 	return data?.eventCode;
+}
+
+// Event Notes API
+export async function getEventNotes(fetch: typeof globalThis.fetch) {
+	const { data, error, response } = await fmsClient.GET(
+		'/api/v1.0/FTA/{season}/{eventCode}/eventNotes',
+		{
+			params: {
+				path: {
+					season: season,
+					eventCode: get(settingsStore).eventCode
+				}
+			},
+			fetch
+		}
+	);
+
+	return {
+		notes: data?.eventNotes,
+		error: error,
+		response
+	};
+}
+
+// Match Notes API
+export async function getMatchNotes(
+	fetch: typeof globalThis.fetch,
+	options?: {
+		noteId?: string;
+		tournamentLevel?: components['schemas']['TournamentLevel'];
+		matchNumber?: number;
+		playNumber?: number;
+		teamNumber?: number;
+	}
+) {
+	const { data, error, response } = await fmsClient.GET(
+		'/api/v1.0/FTA/{season}/{eventCode}/matchNotes',
+		{
+			params: {
+				query: options,
+				path: {
+					season: season,
+					eventCode: get(settingsStore).eventCode
+				}
+			},
+			fetch
+		}
+	);
+
+	return {
+		notes: data?.matchNotes,
+		error: error,
+		response
+	};
+}
+
+// Schedule API
+export async function getEventSchedule(
+	fetch: typeof globalThis.fetch,
+	tournamentLevel: components['schemas']['TournamentLevel'] = TournamentLevel.Qualification
+) {
+	const { data, error, response } = await fmsClient.GET(
+		'/api/v1.0/FTA/{season}/{eventCode}/schedule/{tournamentLevel}',
+		{
+			params: {
+				path: {
+					season: season,
+					eventCode: get(settingsStore).eventCode,
+					tournamentLevel: tournamentLevel
+				}
+			},
+			fetch
+		}
+	);
+
+	return {
+		schedule: data?.Schedule,
+		error: error,
+		response
+	};
+}
+
+// Get current event info
+export function getCurrentEvent() {
+	const settings = get(settingsStore);
+	return {
+		eventCode: settings.eventCode,
+		season: season
+	};
+}
+
+// Helper functions for counting notes
+export async function getNoteCounts(fetch: typeof globalThis.fetch) {
+	const [eventNotesResult, matchNotesResult, teamNotesResult] = await Promise.all([
+		getEventNotes(fetch),
+		getMatchNotes(fetch),
+		getTeamNotes(fetch, {})
+	]);
+
+	return {
+		eventNotes: eventNotesResult.notes || [],
+		matchNotes: matchNotesResult.notes || [],
+		teamNotes: teamNotesResult.notes || [],
+		errors: [eventNotesResult.error, matchNotesResult.error, teamNotesResult.error].filter(Boolean)
+	};
+}
+
+export function countMatchNotes(
+	matchNotes: MatchNote[],
+	matchNumber: number,
+	tournamentLevel: string
+) {
+	return matchNotes.filter(
+		(note) =>
+			note.matchNumber === matchNumber &&
+			note.tournamentLevel === tournamentLevel &&
+			!note.isDeleted
+	).length;
+}
+
+export function countTeamNotes(
+	teamNotes: TeamIssue[],
+	teamNumber: number,
+	matchNumber?: number,
+	tournamentLevel?: string
+) {
+	return teamNotes.filter((note) => {
+		if (note.teamNumber !== teamNumber || note.isDeleted) return false;
+
+		// If match-specific, filter by match and tournament level
+		if (matchNumber !== undefined && tournamentLevel !== undefined) {
+			return note.matchNumber === matchNumber && note.tournamentLevel === tournamentLevel;
+		}
+
+		// Otherwise, count all notes for this team
+		return true;
+	}).length;
+}
+
+export function countTeamMatchSpecificNotes(
+	teamNotes: TeamIssue[],
+	teamNumber: number,
+	matchNumber: number,
+	tournamentLevel: string
+) {
+	return teamNotes.filter(
+		(note) =>
+			note.teamNumber === teamNumber &&
+			note.matchNumber === matchNumber &&
+			note.tournamentLevel === tournamentLevel &&
+			!note.isDeleted
+	).length;
+}
+
+export function countTeamGeneralNotes(teamNotes: TeamIssue[], teamNumber: number) {
+	return teamNotes.filter(
+		(note) =>
+			note.teamNumber === teamNumber &&
+			!note.matchNumber && // General team notes don't have a match number
+			!note.isDeleted
+	).length;
+}
+
+export async function createEventNote(
+	fetch: typeof globalThis.fetch,
+	noteData: CreateEventNoteRequest
+) {
+	const settings = get(settingsStore);
+
+	// Log the note data for debugging
+	console.log('Creating event note:', {
+		note: noteData.note,
+		eventCode: settings.eventCode,
+		username: settings.username,
+		realName: settings.realName
+	});
+
+	const { data, error, response } = await fmsClient.POST(
+		'/api/v1.0/FTA/{season}/{eventCode}/eventNotes',
+		{
+			params: {
+				path: {
+					season: season,
+					eventCode: settings.eventCode
+				},
+				header: {
+					'FMS-UsersRealName': settings.realName || settings.username,
+					'FMS-DeviceIdentification': getDeviceName()
+				}
+			},
+			body: { noteText: noteData.note },
+			fetch
+		}
+	);
+
+	return { data, error, response };
+}
+
+export async function createMatchNote(
+	fetch: typeof globalThis.fetch,
+	noteData: CreateMatchNoteRequest
+) {
+	const settings = get(settingsStore);
+
+	// Log the note data for debugging
+	console.log('Creating match note:', {
+		note: noteData.note,
+		tournamentLevel: noteData.tournamentLevel,
+		matchNumber: noteData.matchNumber,
+		playNumber: noteData.playNumber,
+		teamNumber: noteData.teamNumber,
+		eventCode: settings.eventCode,
+		username: settings.username,
+		realName: settings.realName
+	});
+
+	const { data, error, response } = await fmsClient.POST(
+		'/api/v1.0/FTA/{season}/{eventCode}/matchNotes',
+		{
+			params: {
+				path: {
+					season: season,
+					eventCode: settings.eventCode
+				},
+				header: {
+					'FMS-UsersRealName': settings.realName || settings.username,
+					'FMS-DeviceIdentification': getDeviceName()
+				}
+			},
+			body: {
+				noteText: noteData.note,
+				tournamentLevel: noteData.tournamentLevel,
+				matchNumber: noteData.matchNumber,
+				playNumber: noteData.playNumber,
+				teamNumber: noteData.teamNumber
+			},
+			fetch
+		}
+	);
+
+	return { data, error, response };
+}
+
+export async function createTeamNote(
+	fetch: typeof globalThis.fetch,
+	noteData: CreateTeamNoteRequest
+) {
+	const settings = get(settingsStore);
+
+	// Log the note data for debugging
+	console.log('Creating team note:', {
+		note: noteData.noteText,
+		teamNumber: noteData.teamNumber,
+		tournamentLevel: noteData.tournamentLevel,
+		matchNumber: noteData.matchNumber,
+		playNumber: noteData.playNumber,
+		issueType: noteData.issueType,
+		resolutionStatus: noteData.resolutionStatus,
+		eventCode: settings.eventCode,
+		username: settings.username,
+		realName: settings.realName
+	});
+
+	const { data, error, response } = await fmsClient.POST(
+		'/api/v1.0/FTA/{season}/{eventCode}/teamIssues',
+		{
+			params: {
+				path: {
+					season: season,
+					eventCode: settings.eventCode
+				},
+				header: {
+					'FMS-UsersRealName': settings.realName || settings.username,
+					'FMS-DeviceIdentification': getDeviceName()
+				}
+			},
+			body: {
+				noteText: noteData.noteText,
+				teamNumber: noteData.teamNumber,
+				tournamentLevel: noteData.tournamentLevel,
+				matchNumber: noteData.matchNumber,
+				playNumber: noteData.playNumber,
+				issueType: noteData.issueType,
+				resolutionStatus: noteData.resolutionStatus
+			},
+			fetch
+		}
+	);
+
+	return { data, error, response };
+}
+
+// Helper to get current username
+export function getCurrentUsername(): string {
+	return get(settingsStore).username || 'Unknown User';
+}
+
+// Function to generate a device name using browser APIs
+export function getDeviceName(): string {
+	const userAgent = navigator.userAgent;
+	let browserName = 'Unknown Browser';
+	let osName = 'Unknown OS';
+
+	// Detect browser
+	if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) {
+		browserName = 'Chrome';
+	} else if (userAgent.includes('Firefox')) {
+		browserName = 'Firefox';
+	} else if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) {
+		browserName = 'Safari';
+	} else if (userAgent.includes('Edg')) {
+		browserName = 'Edge';
+	} else if (userAgent.includes('Opera') || userAgent.includes('OPR')) {
+		browserName = 'Opera';
+	}
+
+	// Detect OS
+	if (userAgent.includes('Windows NT')) {
+		osName = 'Windows';
+	} else if (userAgent.includes('Mac OS X')) {
+		osName = 'macOS';
+	} else if (userAgent.includes('Linux')) {
+		osName = 'Linux';
+	} else if (userAgent.includes('Android')) {
+		osName = 'Android';
+	} else if (userAgent.includes('iOS')) {
+		osName = 'iOS';
+	}
+
+	// Try to get hostname if available
+	const hostname = window.location.hostname;
+	const deviceId = hostname !== 'localhost' && hostname !== '127.0.0.1' ? hostname : 'local-device';
+
+	return `${browserName} on ${osName} (${deviceId})`;
 }

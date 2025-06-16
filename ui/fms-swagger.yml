@@ -41,10 +41,12 @@ paths:
             format: uuid
         - name: alliance
           in: query
+          description: The color assigned to a particular alliance.
           schema:
             $ref: '#/components/schemas/AllianceType'
         - name: station
           in: query
+          description: The names of the driver station positions
           schema:
             $ref: '#/components/schemas/StationType'
       responses:
@@ -127,6 +129,7 @@ paths:
       parameters:
         - name: levelParam
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -162,11 +165,13 @@ paths:
             format: uuid
         - name: allianceParam
           in: path
+          description: The color assigned to a particular alliance.
           required: true
           schema:
             $ref: '#/components/schemas/AllianceType'
         - name: stationParam
           in: path
+          description: The names of the driver station positions
           required: true
           schema:
             $ref: '#/components/schemas/StationType'
@@ -196,11 +201,13 @@ paths:
       parameters:
         - name: playoffSizeParam
           in: path
+          description: The permitted alliance counts of playoffs
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffSizeTypes'
         - name: sublevelParam
           in: path
+          description: "PlayoffLevel represents a phase of the FMS.Common.Base.Enums.TournamentLevel.Playoff level of the tournament.  \r\n\r\nInvariants at a level:\r\n* at least one match is played\r\n* Pairings: for single and double elimination, an alliance is paired with exactly one other \r\n  alliance in a level.  For a round robin tournament, the round robin section would\r\n  be treated as one level with alliances paired with >1 other alliance.\r\n* An alliance is not required to appear in a level."
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
@@ -223,6 +230,23 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PitPlayoffMatchup'
+  /api/v1.0/fieldmonitor/get/GetLastPlayedMatch:
+    get:
+      tags:
+        - FieldMonitorApi
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidNullableTournamentLevelNullableValueTuple'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidNullableTournamentLevelNullableValueTuple'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidNullableTournamentLevelNullableValueTuple'
   '/api/v1.0/fieldmonitor/get/GetTournamentLevelStatus/{levelParam}':
     get:
       tags:
@@ -230,6 +254,7 @@ paths:
       parameters:
         - name: levelParam
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -253,6 +278,7 @@ paths:
       parameters:
         - name: levelParam
           in: path
+          description: "PlayoffLevel represents a phase of the FMS.Common.Base.Enums.TournamentLevel.Playoff level of the tournament.  \r\n\r\nInvariants at a level:\r\n* at least one match is played\r\n* Pairings: for single and double elimination, an alliance is paired with exactly one other \r\n  alliance in a level.  For a round robin tournament, the round robin section would\r\n  be treated as one level with alliances paired with >1 other alliance.\r\n* An alliance is not required to appear in a level."
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
@@ -293,6 +319,7 @@ paths:
       parameters:
         - name: playoffLevel
           in: path
+          description: "PlayoffLevel represents a phase of the FMS.Common.Base.Enums.TournamentLevel.Playoff level of the tournament.  \r\n\r\nInvariants at a level:\r\n* at least one match is played\r\n* Pairings: for single and double elimination, an alliance is paired with exactly one other \r\n  alliance in a level.  For a round robin tournament, the round robin section would\r\n  be treated as one level with alliances paired with >1 other alliance.\r\n* An alliance is not required to appear in a level."
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
@@ -316,6 +343,7 @@ paths:
       parameters:
         - name: playoffLevel
           in: path
+          description: "PlayoffLevel represents a phase of the FMS.Common.Base.Enums.TournamentLevel.Playoff level of the tournament.  \r\n\r\nInvariants at a level:\r\n* at least one match is played\r\n* Pairings: for single and double elimination, an alliance is paired with exactly one other \r\n  alliance in a level.  For a round robin tournament, the round robin section would\r\n  be treated as one level with alliances paired with >1 other alliance.\r\n* An alliance is not required to appear in a level."
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
@@ -363,6 +391,7 @@ paths:
       parameters:
         - name: tourneyLevel
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -409,6 +438,7 @@ paths:
       parameters:
         - name: playoffLevel
           in: path
+          description: "PlayoffLevel represents a phase of the FMS.Common.Base.Enums.TournamentLevel.Playoff level of the tournament.  \r\n\r\nInvariants at a level:\r\n* at least one match is played\r\n* Pairings: for single and double elimination, an alliance is paired with exactly one other \r\n  alliance in a level.  For a round robin tournament, the round robin section would\r\n  be treated as one level with alliances paired with >1 other alliance.\r\n* An alliance is not required to appear in a level."
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
@@ -432,6 +462,7 @@ paths:
       parameters:
         - name: tourneyLevel
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -461,6 +492,7 @@ paths:
       parameters:
         - name: levelParam
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -487,6 +519,7 @@ paths:
       parameters:
         - name: levelParam
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -513,6 +546,7 @@ paths:
       parameters:
         - name: fieldTypeParam
           in: path
+          description: "for multi field events\r\nPrimary - Main FMS with all functionality enabled\r\nSecondary - Match Play, Match Test, Match Review, Field Test, System Configuration\r\nPractice - Match Test, Field Test, System Configuration\r\nWe start the numbering at 1 since the field \"number\" is referenced around the solution"
           required: true
           schema:
             $ref: '#/components/schemas/FieldTypes'
@@ -536,6 +570,7 @@ paths:
       parameters:
         - name: tourneyLevel
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -667,6 +702,30 @@ paths:
           schema:
             minLength: 3
             type: string
+        - name: FMS-UsersRealName
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              type: string
+          application/json:
+            schema:
+              type: string
+          text/json:
+            schema:
+              type: string
+          application/*+json:
+            schema:
+              type: string
       responses:
         '200':
           description: OK
@@ -731,11 +790,35 @@ paths:
           schema:
             minLength: 3
             type: string
-        - name: noteId
-          in: query
+        - name: FMS-UsersRealName
+          in: header
+          required: true
           schema:
             type: string
-            format: uuid
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: noteId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/EventNoteCreateModifyModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventNoteCreateModifyModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EventNoteCreateModifyModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EventNoteCreateModifyModel'
       responses:
         '200':
           description: OK
@@ -776,6 +859,36 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: FMS-RecordVersion
+          in: header
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: FMS-UsersRealName
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/EventNoteCreateModifyModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventNoteCreateModifyModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EventNoteCreateModifyModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EventNoteCreateModifyModel'
       responses:
         '200':
           description: OK
@@ -816,6 +929,22 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: FMS-RecordVersion
+          in: header
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: FMS-UsersRealName
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
         '204':
           description: No Content
@@ -880,11 +1009,30 @@ paths:
           schema:
             minLength: 3
             type: string
-        - name: noteId
-          in: query
+        - name: FMS-UsersRealName
+          in: header
+          required: true
           schema:
             type: string
-            format: uuid
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/EventNoteCreateModifyModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventNoteCreateModifyModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EventNoteCreateModifyModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EventNoteCreateModifyModel'
       responses:
         '200':
           description: OK
@@ -927,6 +1075,7 @@ paths:
             format: uuid
         - name: tournamentLevel
           in: query
+          description: 'The level of the tournament (practice, quals, etc)'
           schema:
             $ref: '#/components/schemas/TournamentLevel'
         - name: matchNumber
@@ -992,6 +1141,7 @@ paths:
             format: uuid
         - name: tournamentLevel
           in: query
+          description: 'The level of the tournament (practice, quals, etc)'
           schema:
             $ref: '#/components/schemas/TournamentLevel'
         - name: matchNumber
@@ -1024,6 +1174,64 @@ paths:
                 $ref: '#/components/schemas/MatchNotesModel'
         '500':
           description: Internal Server Error
+    post:
+      tags:
+        - FTAAppApi
+      parameters:
+        - name: season
+          in: path
+          required: true
+          schema:
+            minimum: 2015
+            maxLength: 4
+            minLength: 4
+            type: integer
+            format: int32
+        - name: eventCode
+          in: path
+          required: true
+          schema:
+            minLength: 3
+            type: string
+        - name: FMS-UsersRealName
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MatchNoteCreateModifyModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatchNoteCreateModifyModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MatchNoteCreateModifyModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MatchNoteCreateModifyModel'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/NoteCreatedUpdatedModel'
+        '500':
+          description: Internal Server Error
   '/api/v1.0/FTA/{season}/{eventCode}/matchNotes/{noteId}':
     post:
       tags:
@@ -1044,11 +1252,35 @@ paths:
           schema:
             minLength: 3
             type: string
-        - name: noteId
-          in: query
+        - name: FMS-UsersRealName
+          in: header
+          required: true
           schema:
             type: string
-            format: uuid
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: noteId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MatchNoteCreateModifyModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatchNoteCreateModifyModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MatchNoteCreateModifyModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MatchNoteCreateModifyModel'
       responses:
         '200':
           description: OK
@@ -1089,6 +1321,36 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: FMS-RecordVersion
+          in: header
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: FMS-UsersRealName
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MatchNoteCreateModifyModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatchNoteCreateModifyModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MatchNoteCreateModifyModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MatchNoteCreateModifyModel'
       responses:
         '200':
           description: OK
@@ -1129,6 +1391,22 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: FMS-RecordVersion
+          in: header
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: FMS-UsersRealName
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
         '204':
           description: No Content
@@ -1261,11 +1539,30 @@ paths:
           schema:
             minLength: 3
             type: string
-        - name: noteId
-          in: query
+        - name: FMS-UsersRealName
+          in: header
+          required: true
           schema:
             type: string
-            format: uuid
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/TeamIssueCreateModifyModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamIssueCreateModifyModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TeamIssueCreateModifyModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TeamIssueCreateModifyModel'
       responses:
         '200':
           description: OK
@@ -1301,11 +1598,35 @@ paths:
           schema:
             minLength: 3
             type: string
-        - name: noteId
-          in: query
+        - name: FMS-UsersRealName
+          in: header
+          required: true
           schema:
             type: string
-            format: uuid
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: noteId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/TeamIssueCreateModifyModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamIssueCreateModifyModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TeamIssueCreateModifyModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TeamIssueCreateModifyModel'
       responses:
         '200':
           description: OK
@@ -1346,6 +1667,36 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: FMS-RecordVersion
+          in: header
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: FMS-UsersRealName
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/TeamIssueCreateModifyModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamIssueCreateModifyModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TeamIssueCreateModifyModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TeamIssueCreateModifyModel'
       responses:
         '200':
           description: OK
@@ -1386,6 +1737,22 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: FMS-RecordVersion
+          in: header
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: FMS-UsersRealName
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: FMS-DeviceIdentification
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
         '204':
           description: No Content
@@ -1413,6 +1780,7 @@ paths:
             type: string
         - name: tournamentLevel
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -1475,6 +1843,7 @@ paths:
             type: string
         - name: tournamentLevel
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -1533,6 +1902,7 @@ paths:
             type: string
         - name: tournamentLevel
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -1595,6 +1965,7 @@ paths:
             type: string
         - name: tournamentLevel
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -1753,6 +2124,7 @@ paths:
             default: 0
         - name: tournamentLevel
           in: query
+          description: 'The level of the tournament (practice, quals, etc)'
           schema:
             $ref: '#/components/schemas/TournamentLevel'
         - name: matchNumber
@@ -1806,6 +2178,7 @@ paths:
             default: 0
         - name: tournamentLevel
           in: query
+          description: 'The level of the tournament (practice, quals, etc)'
           schema:
             $ref: '#/components/schemas/TournamentLevel'
         - name: matchNumber
@@ -2122,6 +2495,7 @@ paths:
       parameters:
         - name: levelParam
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -2150,6 +2524,7 @@ paths:
       parameters:
         - name: levelParam
           in: path
+          description: "PlayoffLevel represents a phase of the FMS.Common.Base.Enums.TournamentLevel.Playoff level of the tournament.  \r\n\r\nInvariants at a level:\r\n* at least one match is played\r\n* Pairings: for single and double elimination, an alliance is paired with exactly one other \r\n  alliance in a level.  For a round robin tournament, the round robin section would\r\n  be treated as one level with alliances paired with >1 other alliance.\r\n* An alliance is not required to appear in a level."
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
@@ -2201,6 +2576,7 @@ paths:
       parameters:
         - name: playoffLevel
           in: path
+          description: "PlayoffLevel represents a phase of the FMS.Common.Base.Enums.TournamentLevel.Playoff level of the tournament.  \r\n\r\nInvariants at a level:\r\n* at least one match is played\r\n* Pairings: for single and double elimination, an alliance is paired with exactly one other \r\n  alliance in a level.  For a round robin tournament, the round robin section would\r\n  be treated as one level with alliances paired with >1 other alliance.\r\n* An alliance is not required to appear in a level."
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
@@ -2229,6 +2605,7 @@ paths:
       parameters:
         - name: playoffLevel
           in: path
+          description: "PlayoffLevel represents a phase of the FMS.Common.Base.Enums.TournamentLevel.Playoff level of the tournament.  \r\n\r\nInvariants at a level:\r\n* at least one match is played\r\n* Pairings: for single and double elimination, an alliance is paired with exactly one other \r\n  alliance in a level.  For a round robin tournament, the round robin section would\r\n  be treated as one level with alliances paired with >1 other alliance.\r\n* An alliance is not required to appear in a level."
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
@@ -2286,6 +2663,7 @@ paths:
       parameters:
         - name: tourneyLevel
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -2343,6 +2721,7 @@ paths:
       parameters:
         - name: playoffLevel
           in: path
+          description: "PlayoffLevel represents a phase of the FMS.Common.Base.Enums.TournamentLevel.Playoff level of the tournament.  \r\n\r\nInvariants at a level:\r\n* at least one match is played\r\n* Pairings: for single and double elimination, an alliance is paired with exactly one other \r\n  alliance in a level.  For a round robin tournament, the round robin section would\r\n  be treated as one level with alliances paired with >1 other alliance.\r\n* An alliance is not required to appear in a level."
           required: true
           schema:
             $ref: '#/components/schemas/PlayoffLevel'
@@ -2371,6 +2750,7 @@ paths:
       parameters:
         - name: tourneyLevel
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -2405,6 +2785,7 @@ paths:
       parameters:
         - name: levelParam
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -2436,6 +2817,7 @@ paths:
       parameters:
         - name: levelParam
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -2467,6 +2849,7 @@ paths:
       parameters:
         - name: fieldTypeParam
           in: path
+          description: "for multi field events\r\nPrimary - Main FMS with all functionality enabled\r\nSecondary - Match Play, Match Test, Match Review, Field Test, System Configuration\r\nPractice - Match Test, Field Test, System Configuration\r\nWe start the numbering at 1 since the field \"number\" is referenced around the solution"
           required: true
           schema:
             $ref: '#/components/schemas/FieldTypes'
@@ -2495,6 +2878,7 @@ paths:
       parameters:
         - name: tourneyLevel
           in: path
+          description: 'The level of the tournament (practice, quals, etc)'
           required: true
           schema:
             $ref: '#/components/schemas/TournamentLevel'
@@ -2646,6 +3030,16 @@ paths:
           in: query
           schema:
             type: string
+      responses: {}
+  /hubs/FieldMonitorEvents/FieldMonitorPreviousMacAddressesChanged:
+    post:
+      tags:
+        - FieldMonitorEvents
+      parameters:
+        - name: data
+          in: query
+          schema:
+            $ref: '#/components/schemas/PreviousMacAddressesData'
       responses: {}
   /hubs/FTAAppEvents/NoteChanged:
     post:
@@ -2936,6 +3330,14 @@ components:
         - Create
         - Update
         - Delete
+    EventNoteCreateModifyModel:
+      type: object
+      properties:
+        noteText:
+          type: string
+          nullable: true
+      additionalProperties: false
+      description: 'FTA Notepad: Create event note request'
     EventNoteIssueTypes:
       enum:
         - RoboRioIssue
@@ -3091,7 +3493,7 @@ components:
         isBypassed:
           type: boolean
           description: 'MessagePack Key: pb'
-        isEStopPressed:
+        isEStopLatched:
           type: boolean
           description: 'MessagePack Key: pc'
         isEStopped:
@@ -3219,7 +3621,7 @@ components:
           type: string
           description: 'MessagePack Key: phh'
           nullable: true
-        isAStopPressed:
+        isAStopLatched:
           type: boolean
           description: 'MessagePack Key: pii'
         isAStopped:
@@ -3229,6 +3631,19 @@ components:
           type: string
           description: 'MessagePack Key: pjk'
           nullable: true
+        radioConnectionQuality:
+          allOf:
+            - $ref: '#/components/schemas/RadioConnectionQuality'
+            - description: 'MessagePack Key: pll'
+        radioConnectedToAp:
+          type: boolean
+          description: 'MessagePack Key: pmm'
+        isEStopPressed:
+          type: boolean
+          description: 'MessagePack Key: pnn'
+        isAStopPressed:
+          type: boolean
+          description: 'MessagePack Key: poo'
         sNR:
           description: 'MessagePack Key: pk'
         mACAddress:
@@ -3376,6 +3791,16 @@ components:
         - Primary
         - Secondary
         - Practice
+    GuidNullableTournamentLevelNullableValueTuple:
+      type: object
+      properties:
+        item1:
+          type: string
+          format: uuid
+          nullable: true
+        item2:
+          $ref: '#/components/schemas/TournamentLevel'
+      additionalProperties: false
     Int32Int32ValueTuple:
       type: object
       properties:
@@ -3425,6 +3850,14 @@ components:
         noise:
           type: integer
           format: int32
+          nullable: true
+        txRate:
+          type: number
+          format: double
+          nullable: true
+        rxRate:
+          type: number
+          format: double
           nullable: true
       additionalProperties: false
     MatchGroupType:
@@ -3480,6 +3913,28 @@ components:
             $ref: '#/components/schemas/RankedAlliance'
           nullable: true
       additionalProperties: false
+    MatchNoteCreateModifyModel:
+      type: object
+      properties:
+        noteText:
+          type: string
+          nullable: true
+        tournamentLevel:
+          type: string
+          nullable: true
+        matchNumber:
+          type: integer
+          format: int32
+        playNumber:
+          type: integer
+          format: int32
+          nullable: true
+        teamNumber:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+      description: 'FTA Notepad: Create match note request'
     MatchNoteModel:
       type: object
       properties:
@@ -3688,6 +4143,46 @@ components:
         - SevenAlliance
         - EightAlliance
         - SixteenAlliance
+    PreviousMacAddressesData:
+      type: object
+      properties:
+        red1MacAddress:
+          type: string
+          description: 'MessagePack Key: p1'
+          nullable: true
+        red2MacAddress:
+          type: string
+          description: 'MessagePack Key: p2'
+          nullable: true
+        red3MacAddress:
+          type: string
+          description: 'MessagePack Key: p3'
+          nullable: true
+        blue1MacAddress:
+          type: string
+          description: 'MessagePack Key: p4'
+          nullable: true
+        blue2MacAddress:
+          type: string
+          description: 'MessagePack Key: p5'
+          nullable: true
+        blue3MacAddress:
+          type: string
+          description: 'MessagePack Key: p6'
+          nullable: true
+      additionalProperties: false
+    RadioConnectionQuality:
+      enum:
+        - Warning
+        - Caution
+        - Good
+        - Excellent
+      type: string
+      x-enum-varnames:
+        - Warning
+        - Caution
+        - Good
+        - Excellent
     RankModel:
       type: object
       properties:
@@ -4047,6 +4542,34 @@ components:
         - Station1
         - Station2
         - Station3
+    TeamIssueCreateModifyModel:
+      type: object
+      properties:
+        noteText:
+          type: string
+          nullable: true
+        tournamentLevel:
+          type: string
+          nullable: true
+        matchNumber:
+          type: integer
+          format: int32
+        playNumber:
+          type: integer
+          format: int32
+          nullable: true
+        teamNumber:
+          type: integer
+          format: int32
+          nullable: true
+        issueType:
+          type: string
+          nullable: true
+        resolutionStatus:
+          type: string
+          nullable: true
+      additionalProperties: false
+      description: 'FTA Notepad: Team issue create or edit options'
     TeamIssueModel:
       type: object
       properties:

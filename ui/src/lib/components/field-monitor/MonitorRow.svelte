@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { AllianceType, DSStationStatus } from '../../../fms/fms-api';
 	import type { FieldMonitorData } from '../../../fms/fms-signalr';
+	import { styles } from '$lib';
 
 	interface MonitorRowProps {
 		monitorFrame: FieldMonitorData;
@@ -62,8 +63,8 @@
 	href={'/notes/' + monitorFrame.teamNumber}
 	class="fieldmonitor-square-height md:aspect-square flex items-center justify-center text-lg sm:text-2xl lg:text-4xl font-mono {monitorFrame.alliance ===
 	AllianceType.Blue
-		? 'bg-blue-500'
-		: 'bg-red-500'}"
+		? styles.alliance.blue.primary
+		: styles.alliance.red.primary}"
 >
 	<p>{monitorFrame.teamNumber}</p>
 </a>
@@ -88,6 +89,7 @@
 	{/if}
 </button>
 <button
+	aria-label="Radio Link Status"
 	class="fieldmonitor-square-height md:aspect-square flex {STATUS_COLORS[
 		monitorFrame.radioLink ? 'good' : 'bad'
 	]}"

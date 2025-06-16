@@ -6,6 +6,7 @@ export interface Settings {
 	developerMode: boolean;
 	darkMode: boolean;
 	username: string;
+	realName: string;
 	key: string;
 	fmsUrl: string;
 	eventCode: string;
@@ -18,6 +19,7 @@ const defaultSettings: Settings = {
 	developerMode: false,
 	darkMode: true,
 	username: '',
+	realName: '',
 	key: '',
 	fmsUrl: 'http://10.0.100.5',
 	eventCode: ''

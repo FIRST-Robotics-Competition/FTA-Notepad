@@ -19,7 +19,6 @@
 </script>
 
 <div class="flex items-center">
-	
 	<button
 		{...restProps}
 		type="button"

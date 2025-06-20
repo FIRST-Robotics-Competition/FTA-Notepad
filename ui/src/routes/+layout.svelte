@@ -94,7 +94,9 @@
 				</div>
 
 				<!-- Sidebar component -->
-				<div class="flex grow flex-col gap-y-5 overflow-y-auto bg-primary-600 text-gray-900 dark:text-white px-6 pb-2">
+				<div
+					class="flex grow flex-col gap-y-5 overflow-y-auto bg-primary-600 text-gray-900 dark:text-white px-6 pb-2"
+				>
 					<div class="flex h-16 shrink-0 items-center font-semibold text-xl">FTA Notepad</div>
 					<nav class="flex flex-1 flex-col">
 						<ul role="list" class="flex flex-1 flex-col gap-y-2">
@@ -147,7 +149,9 @@
 	<!-- Static sidebar for desktop -->
 	<div class="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col">
 		<!-- Sidebar component -->
-		<div class="flex grow flex-col gap-y-5 overflow-y-auto bg-primary-600 text-gray-900 dark:text-white px-6">
+		<div
+			class="flex grow flex-col gap-y-5 overflow-y-auto bg-primary-600 text-gray-900 dark:text-white px-6"
+		>
 			<div class="flex h-16 shrink-0 items-center font-semibold text-xl">FTA Notepad</div>
 			<nav class="flex flex-1 flex-col">
 				<ul role="list" class="flex flex-1 flex-col gap-y-2">

@@ -23,7 +23,7 @@
 		{...restProps}
 		type="button"
 		class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 {checked
-			? 'bg-primary-600'
+			? 'bg-blue-600'
 			: 'bg-gray-200 dark:bg-neutral-600'}"
 		role="switch"
 		aria-checked={checked}

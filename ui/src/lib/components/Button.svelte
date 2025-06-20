@@ -28,7 +28,8 @@
 
 	let colorClass = {
 		none: '',
-		primary: 'bg-primary-500 hover:bg-primary-600 text-white focus-visible:bg-primary-500',
+		primary:
+			'bg-primary-500 hover:bg-primary-600 text-gray-800 dark:text-white focus-visible:bg-primary-500',
 		blue: `${styles.alliance.blue.primary} ${styles.alliance.blue.primaryHover} ${styles.alliance.blue.primaryFocus}`,
 		red: `${styles.alliance.red.primary} ${styles.alliance.red.primaryHover} ${styles.alliance.red.primaryFocus}`,
 		green: 'bg-green-500 hover:bg-green-600 text-white focus-visible:bg-green-500',

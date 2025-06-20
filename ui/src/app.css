@@ -14,6 +14,9 @@
 	--color-neutral-950: #0a0a0a;
 }
 
+/* Allow setting dark mode manually instead of just relying on prefers-color-scheme */
+@custom-variant dark (&:where(.dark, .dark *));
+
 html {
 	font-feature-settings: normal;
 	font-variation-settings: normal;

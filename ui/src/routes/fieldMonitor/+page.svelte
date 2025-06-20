@@ -102,9 +102,9 @@
 		class="grid grid-cols-fieldmonitor lg:grid-cols-fieldmonitor-large gap-0.5 md:gap-1 mx-auto justify-center"
 	>
 		<div class="col-span-6 lg:col-span-8 flex text-lg md:text-2xl font-semibold">
-			<div class="bg-neutral-700 px-2">M: {matchNumber}</div>
+			<div class="bg-neutral-300 dark:bg-neutral-700 px-2">M: {matchNumber}</div>
 			<div class="flex-1 bg-green-600 px-2 text-center">{matchStatusToString(matchStatus)}</div>
-			<div class="bg-neutral-700 px-2">On Time</div>
+			<div class="bg-neutral-300 dark:bg-neutral-700 px-2">On Time</div>
 		</div>
 		<MonitorRow monitorFrame={blue1} {detailView} />
 		<MonitorRow monitorFrame={blue2} {detailView} />

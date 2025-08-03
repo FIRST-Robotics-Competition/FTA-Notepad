@@ -26,6 +26,8 @@ You'll want an FMS build that allows CORS requests from `http://localhost:5173` 
 
 You'll also need to manually create an entry in the FMS database for an API key to use - the off-season FMS builds will not have any API keys configured out of the box.
 
+If you have a Apple Silicon mac, see the instructions in the `docs/` folder.
+
 To create a key:
  1. Install [Microsoft SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
  2. Open SSMS and connect to the FRCSQLEXPRESS database server

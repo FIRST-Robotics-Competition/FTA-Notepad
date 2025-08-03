@@ -4,8 +4,8 @@ Because Apple Silicon Processors (M1, M2, etc..) are arm64 based instead of x86,
 with getting a efficient FMS running for development. These steps should walk you through the requirements
 and steps to getting an environment ready for setup.
 
-For this, you absolutely want to latest version of Windows 11. Windows 11 Update 24H2 instroducted a much
-more efficient x86->arm64 translation layer which can make your windows VM quite speedy, even when the FMS
+For this, you absolutely want to use the  latest version of Windows 11. Windows 11 Update 24H2 introducted a
+much more efficient x86->arm64 translation layer which can make your windows VM quite speedy, even when the FMS
 and SQL server are all running as x86 apps being translated live. You can attempt to install a x86 VM instead,
 however in my experience this is so horrifically slow that Windows just times out on most common tasks before you
 can even attempt to start the FMS.
@@ -63,6 +63,8 @@ First, we need to create the VM in UTM:
 9. Name your VM on this step something memorable, like "FMS".
 10. Hit "save" and your VM is created!
 
+![UTM Windows Options](img/utm_windows_options.png)
+
 #### Install Windows itself
 
 Click the big "play" button UTM has put on the VM you just created. When the UTM bootloader shows up with text
@@ -79,8 +81,8 @@ account (I like to just call it "FMS" with "password") and call it a day.
 
 #### Install UTM tools (optional)
 
-Assuming you selected "Install UTM guest tools", likely windows will autostart the UTM tools installer once
-you get into Windows. If not, check your E: drive and click the installer application within. The UTM guest
+Assuming you selected "Install UTM guest tools", likely Windows will autostart the UTM tools installer once
+you get into the OS. If not, check your E: drive and click the installer application within. The UTM guest
 tools make things like copy and pasting and altering your screen resolution much easier.
 
 # 2. Install SQL Server
@@ -91,7 +93,7 @@ to interact with it, but that installer is broken on ARM64 installs. Instead, we
 for ARM64 computers.
 
 Copy and paste the following link into Edge to download a special installer:
-`https://github.com/jimm98y/MSSQLEXPRESS-M1-Install/releases/download/v0.0.2/Sql2022ExpressARM64.exe`
+[`https://github.com/jimm98y/MSSQLEXPRESS-M1-Install/releases/download/v0.0.2/Sql2022ExpressARM64.exe`](https://github.com/jimm98y/MSSQLEXPRESS-M1-Install/releases/download/v0.0.2/Sql2022ExpressARM64.exe)
 
 Most browsers will throw a warning up saying that EXEs are dangerous. On edge, click the three dots, click "keep",
 then "show more", then "keep anyway".
@@ -109,12 +111,17 @@ It'll end up launching the SQL server installer twice, with the first time inten
 
 # 3. Install FMS
 
+> [!TIP]
+> Since we're running FMS inside of a VM with a custom networking setup, you don't need to use a special
+> FMS offseason build for this development.
+
 Once you download your FMS installer EXE, unfortunately there's no obvious way to get it into your VM.
 As mentioned earlier, the shared folder functionality (using the default SPICE share) doesn't work on packages
 that big, and using the libvirt sharing always results in a blue screen for me.
 
 The easiest solution I've found is spinning up a quick Python HTTP server to transfer files. Create a folder
-to share on your HTTP server (i'm using a folder in my Downloads folder called `UTM Share`)
+to share with your HTTP server (i'm using a folder in my Downloads folder called `UTM Share`) on your macOS
+host. Then open a macOS terminal and use the following commands to start the file server:
 
 ```
 cd ~/Downloads/UTM\ Share
@@ -123,7 +130,8 @@ python3 -m http.server 8080
 
 Next, get your mac's private IP address through the system settings app or `ifconfig`. For example, mine
 is `192.168.0.197`. Once you've started the python file server above, open Edge inside your VM and point
-it to `http://192.168.0.197:8080`, which should present the files in that folder.
+it to to your mac's IP and port 8080, like `http://192.168.0.197:8080`, which should present the files
+in that folder.
 
 ![Python HTTP server download](img/python_download.png)
 
@@ -141,13 +149,13 @@ After that, double click on the FMS icon on your desktop to start your test FMS 
 
 In general it seems like the web serivce for the FMS doesn't start up the first time properly and FMS will
 throw an error saying it can't be started. Just go to the "Services" app (just searching Services in the
-start menu will get you there quickly), and find `FMS.FielServer.Web`. Right click and hit "Start".
+start menu will get you there quickly), and find `FMS.FieldServer.Web`. Right click and hit "Start".
 
 ![Starting the FMS web service](img/start_service.png)
 
 ### Starting SQL Server after a Restart
 
-After you restart the VM, the SQL Server will not start back up on it's own. To start up the SQL Server
+After you restart the VM, the SQL Server will not start back up on its own. To start up the SQL Server
 instance manually, open up the "SQL Server Configuration Manager", select "SQL Server Services" in the menubar
 on the left. Then find "SQL Server (FRCSQLEXPRESS)", right click it and hit "Start".
 
@@ -170,8 +178,8 @@ edit dialog, and then set the settings to something like this:
 ![UTM networking settings](img/utm_networking.png)
 
 The DHCP range os 10.0.100.4-10.0.100.100 is intentional - the first address in the DHCP pool is used as the
-gateway device, so your windows host will pick up the .5 address. The MAC address can be whatever - it does not
-to match the one in the screenshot.
+gateway device, so your windows host will end up with the .5 address. The MAC address can be whatever - it
+does not need to match the one in the screenshot.
 
 You will also need to alter the Windows Firewall settings from their defaults to be able to access the web
 server from the Mac host:
@@ -198,59 +206,4 @@ created an installer that works on Arm64.
 
 ## Create a FTA Token
 
-After restarting, launch the SQL Server Management Studio. When opened, click "Skip and add accounts later" to
-avoid signing in. The following instructions are done with the new connection dialog, so click Yes if prompted
-to use the new connection dialog.
-
-Click "Browse" at the top of the connect dialog, then expand on the "Local" category. Select the one ending in
-`FRCSQLEXPRESS` which should populate the options below, and then hit "Connect", making sure to select "Trust
-Server Certificate".
-
-![Connection dialog in SSMS](img/ssms_connect.png)
-
-Next, click "New Query" in the toolbar and paste in the following SQL query to create a token, making sure
-to replace "Your Username" with something for yourself.
-
-```sql
-USE [FRC_Prod_2025_V1_System]
-GO
-
-INSERT INTO [dbo].[FieldApiAuth]
-           ([AuthorizationKey]
-           ,[UserName]
-           ,[AppType]
-           ,[IsActive]
-           ,[Organization]
-           ,[ContactName]
-           ,[ContactEmail]
-           ,[CreatedOn]
-           ,[CreatedBy]
-           ,[ModifiedOn]
-           ,[ModifiedBy])
-     VALUES
-           (NEWID()
-           ,'Your Username'
-           ,'FTA'
-           ,1
-           ,'FTA Notepad'
-           ,'Field Technical Advisor'
-           ,'fta@example.com'
-           ,GETDATE()
-           ,'System'
-           ,GETDATE()
-           ,'System')
-GO
-```
-
-Then, hit "execute" in the toolbar to create your API User:
-
-![Creating a user via query in SSMS](img/ssms_query.png)
-
-Next, we'll need to get the contents of the table that we just added to. Find the "FieldApiAuth" table in the
-sidebar, right click and click on "Select".
-
-![Getting to the SSMS query](img/ssms_select.png)
-
-That will then result your Authorization Key and User Name to use within the application:
-
-![Getting to the SSMS query](img/ssms_select_result.png)
+Follow the instructions in [Creating a FTA Token](./Creating_FTA_Token.md).

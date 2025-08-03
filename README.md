@@ -26,11 +26,9 @@ You'll want an FMS build that allows CORS requests from `http://localhost:5173` 
 
 You'll also need to manually create an entry in the FMS database for an API key to use - the off-season FMS builds will not have any API keys configured out of the box.
 
-To create a key:
- 1. Install [Microsoft SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
- 2. Open SSMS and connect to the FRCSQLEXPRESS database server
- 3. Under the `FRC_Prod_{YEAR}_V1_System` database, right click the `dbo.FieldApiAuth` table and select "edit top 200 rows"
- 4. Add an entry for yourself. You can use whatever username you'd like, and the authorization key can be any valid GUID string (format is `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`). Make sure to mark is as active!
+If you have a Apple Silicon mac, see [these instructions](docs/Apple_Silicon_Dev_Setup.md).
+
+To create a token for development, see [the instructions to use SSMS to create a token](docs/Creating_FTA_Token.md)
 
 ## Contributing
 

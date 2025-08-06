@@ -9,7 +9,7 @@
 		Red1Default,
 		Red2Default,
 		Red3Default
-	} from '../defaults';
+	} from '$lib/defaults';
 	import { settingsStore } from '$lib/settings-store';
 
 	let blue1: FieldMonitorData = Blue1Default;

@@ -1,1 +1,1 @@
-export type BatteryWidgetSettings = {showGraph: boolean};
+export type BatteryWidgetSettings = { showGraph: boolean };

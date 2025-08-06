@@ -57,7 +57,7 @@
 
 <SettingsModal bind:settingsOpen bind:installPrompt />
 
-<div>
+<div class="h-full">
 	<!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
 	<div class="relative z-10 lg:hidden" role="dialog" aria-modal="true">
 		<!-- Off-canvas menu backdrop, show/hide based on off-canvas menu state. -->
@@ -233,8 +233,8 @@
 		</button>
 	</div>
 
-	<main class="py-2 lg:py-10 lg:pl-72">
-		<div class="px-2 sm:px-6 lg:px-8">
+	<main class="py-2 lg:py-10 lg:pl-72 h-full">
+		<div class="px-2 sm:px-6 lg:px-8 h-full">
 			{@render children()}
 		</div>
 	</main>

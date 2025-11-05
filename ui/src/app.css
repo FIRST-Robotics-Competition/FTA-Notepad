@@ -47,6 +47,12 @@ html.dark {
 	}
 }
 
+.grid-rows-fieldmonitor {
+	grid-template-rows: max-content 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+@source inline("col-span-{2..10}");
+
 .fieldmonitor-square-height {
 	height: calc((100vh - 8rem) / 6);
 }
